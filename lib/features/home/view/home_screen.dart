@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+<<<<<<< Updated upstream
 import 'widget/stats_row.dart';
 import 'widget/task_header.dart';
 import '../../../core/helper/responsive_extensions.dart';
@@ -9,6 +10,18 @@ import 'widget/news_section.dart';
 import 'widget/sos_button.dart';
 import '../../../core/constants/app_images.dart';
 import 'widget/scheduled_task_card.dart';
+=======
+import 'package:sanad/core/constants/app_images.dart';
+import 'package:sanad/core/helper/responsive_extensions.dart';
+import 'package:sanad/core/helper/spacing.dart';
+import 'package:sanad/features/home/view/widget/header_section.dart';
+import 'package:sanad/features/home/view/widget/news_section.dart';
+import 'package:sanad/features/home/view/widget/scheduled_task_card.dart';
+import 'package:sanad/features/home/view/widget/sos_button.dart';
+import 'package:sanad/features/home/view/widget/stats_row.dart';
+import 'package:sanad/features/home/view/widget/task_header.dart';
+// الشاشة الرئيسية اللي هتحوي كل البوتوم ناف والشاشات
+>>>>>>> Stashed changes
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

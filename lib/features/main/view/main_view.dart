@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/text_styles.dart';
-import '../../home/view/home_screen.dart';
-import '../../../core/constants/app_images.dart';
-import '../../../core/helper/responsive_extensions.dart';
 
+<<<<<<< Updated upstream
+=======
+import 'package:sanad/core/theme/app_colors.dart';
+import 'package:sanad/core/theme/text_styles.dart';
+import 'package:sanad/core/constants/app_images.dart';
+import 'package:sanad/core/helper/responsive_extensions.dart';
+
+import 'package:sanad/features/home/view/home_screen.dart';
+import 'package:sanad/features/map/view/map_home_screen.dart';
+
+>>>>>>> Stashed changes
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -19,7 +25,11 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> screens = [
     const HomeScreen(),
+<<<<<<< Updated upstream
     const MapScreen(),
+=======
+    const MapHomeScreen(),
+>>>>>>> Stashed changes
     const ChatScreen(),
     const AccountScreen(),
   ];
@@ -41,6 +51,10 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: IndexedStack(index: currentIndex, children: screens),
       bottomNavigationBar: Container(
+<<<<<<< Updated upstream
+=======
+        height: 80,
+>>>>>>> Stashed changes
         decoration: const BoxDecoration(
           color: AppColors.white,
           boxShadow: [
@@ -76,7 +90,11 @@ class _MainScreenState extends State<MainScreen> {
                 vertical: 10.h(context),
               ),
               selectedIndex: currentIndex,
-              onTabChange: (index) => setState(() => currentIndex = index),
+              onTabChange: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
               tabs: [
                 GButton(
                   icon: Icons.home_outlined,
@@ -92,7 +110,11 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 GButton(
                   icon: Icons.chat_bubble_outline,
-                  leading: _svgIcon(context, Assets.messageCircle, currentIndex == 2),
+                  leading: _svgIcon(
+                    context,
+                    Assets.messageCircle,
+                    currentIndex == 2,
+                  ),
                   text: 'محادثاتي',
                   textStyle: TextStyles.cairoBold10Primary(context),
                 ),
@@ -134,6 +156,7 @@ class ChatScreen extends StatelessWidget {
     );
   }
 }
+<<<<<<< Updated upstream
 
 class MapScreen extends StatelessWidget {
   const MapScreen({super.key});
@@ -146,3 +169,5 @@ class MapScreen extends StatelessWidget {
     );
   }
 }
+=======
+>>>>>>> Stashed changes

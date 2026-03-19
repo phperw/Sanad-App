@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+<<<<<<< Updated upstream
 import '../../../core/constants/app_images.dart';
 import '../../../core/helper/responsive_extensions.dart';
 import '../../../core/helper/spacing.dart';
@@ -7,6 +8,16 @@ import '../../../core/routing/router.dart';
 import '../../../core/widgets/app_button.dart';
 import 'Widgets/dots_indicator.dart';
 import 'Widgets/onboarding_page.dart';
+=======
+import 'package:sanad/core/constants/app_images.dart';
+import 'package:sanad/core/helper/responsive_extensions.dart';
+import 'package:sanad/core/helper/spacing.dart';
+import 'package:sanad/core/routing/router.dart';
+import 'package:sanad/core/widgets/app_button.dart';
+import 'package:sanad/features/onboarding/ui/Widgets/dots_indicator.dart';
+import 'package:sanad/features/onboarding/ui/Widgets/onboarding_page.dart';
+
+>>>>>>> Stashed changes
 import '../models/onboarding_model.dart';
 
 class OnBoardingScreen extends StatefulWidget {
