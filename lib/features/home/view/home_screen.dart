@@ -1,14 +1,10 @@
-
 import 'package:flutter/material.dart';
-import 'widget/stats_row.dart';
-import 'widget/task_header.dart';
-import '../../../core/helper/responsive_extensions.dart';
-import '../../../core/helper/spacing.dart';
-import 'widget/header_section.dart';
-import 'widget/news_section.dart';
-import 'widget/sos_button.dart';
-import '../../../core/constants/app_images.dart';
-import 'widget/scheduled_task_card.dart';
+import 'package:sanad/features/home/view/widget/header_section.dart';
+import 'package:sanad/features/home/view/widget/news_section.dart';
+import 'package:sanad/features/home/view/widget/sos_button.dart';
+import 'package:sanad/features/home/view/widget/status_card.dart';
+import 'package:sanad/features/home/view/widget/task_section.dart';
+// الشاشة الرئيسية اللي هتحوي كل البوتوم ناف والشاشات
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

@@ -7,6 +7,10 @@ import '../../home/view/home_screen.dart';
 import '../../../core/constants/app_images.dart';
 import '../../../core/helper/responsive_extensions.dart';
 
+import 'package:sanad/core/theme/app_colors.dart';
+import 'package:sanad/features/home/view/home_screen.dart';
+import 'package:sanad/features/map/view/map_home_screen.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
@@ -17,9 +21,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
 
+  // 2. Replaced the placeholder MapScreen with our real MapView
   final List<Widget> screens = [
     const HomeScreen(),
     const MapScreen(),
+    const ChatScreen(),
+    const HomeScreen(),
+    const MapHomeScreen(), // <--- Our new Map Screen!
     const ChatScreen(),
     const AccountScreen(),
   ];
@@ -35,12 +43,24 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+  ];
+
+  final List<IconData> icons = [
+    Icons.home_outlined,
+    Icons.map_outlined,
+    Icons.chat_bubble_outline,
+    Icons.person_outline, // Changed to outline to match the design
+  ];
+
+  final List<String> labels = ["الرئيسية", "الخريطة", "محادثاتي", "حسابي"];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(index: currentIndex, children: screens),
+      body: IndexedStack(index: currentIndex, children: screens),
       bottomNavigationBar: Container(
+        height: 80, // Made slightly taller for better breathing room
         decoration: const BoxDecoration(
           color: AppColors.white,
           boxShadow: [
@@ -48,6 +68,8 @@ class _MainScreenState extends State<MainScreen> {
               blurRadius: 16,
               color: Colors.black12,
               offset: Offset(0, -2),
+            ),
+              offset: Offset(0, -2), // Shadow points up slightly
             ),
           ],
         ),
@@ -103,6 +125,64 @@ class _MainScreenState extends State<MainScreen> {
                   textStyle: TextStyles.cairoBold10Primary(context),
                 ),
               ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(
+            icons.length,
+            (index) => GestureDetector(
+              behavior:
+                  HitTestBehavior.opaque, // Makes the whole area clickable
+              onTap: () {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              child: SizedBox(
+                width: 70,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // 3. Moved the green indicator to the TOP to match your design image
+                    Container(
+                      height: 3,
+                      width: 35,
+                      decoration: BoxDecoration(
+                        color: currentIndex == index
+                            ? AppColors.primaryColor
+                            : Colors.transparent,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+
+                    Icon(
+                      icons[index],
+                      color: currentIndex == index
+                          ? AppColors.primaryColor
+                          : AppColors.gray,
+                    ),
+                    const SizedBox(height: 4),
+
+                    Text(
+                      labels[index],
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Cairo', // Applied your font
+                        fontWeight: currentIndex == index
+                            ? FontWeight.w700
+                            : FontWeight.w400,
+                        color: currentIndex == index
+                            ? AppColors.primaryColor
+                            : AppColors.gray,
+                      ),
+                    ),
+                    const SizedBox(height: 10), // Bottom padding
+                  ],
+                ),
+              ),
             ),
           ),
         ),
@@ -146,3 +226,4 @@ class MapScreen extends StatelessWidget {
     );
   }
 }
+// Notice: I completely removed the dummy MapScreen class from here so it doesn't conflict!

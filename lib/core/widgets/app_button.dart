@@ -5,7 +5,8 @@ import 'package:sanad/core/theme/text_styles.dart';
 
 class AppButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  // 1. Made this nullable (?) so we can pass 'null' to disable the button natively!
+  final VoidCallback? onPressed;
   final double? width;
   final double? height;
   final TextStyle? textStyle;
@@ -37,7 +38,8 @@ class AppButton extends StatelessWidget {
             boxShadow ??
             const [
               BoxShadow(
-                color: AppColors.buttonShadow,
+                color:
+                    AppColors.buttonShadow, // Assumes this is in your AppColors
                 blurRadius: 20,
                 offset: Offset(0, 4),
               ),
@@ -46,9 +48,15 @@ class AppButton extends StatelessWidget {
           borderRadius?.r(context) ?? 16.r(context),
         ),
       ),
-      child: TextButton(
-        style: TextButton.styleFrom(
+      // 2. Upgraded to ElevatedButton so it fills the container and handles taps perfectly
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor ?? AppColors.primaryColor,
+          disabledBackgroundColor: const Color(
+            0xFFE5E7EB,
+          ), // Turns grey automatically when onPressed is null
+          shadowColor:
+              Colors.transparent, // Lets the container handle the shadow
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
@@ -56,7 +64,7 @@ class AppButton extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: onPressed,
+        onPressed: onPressed, // If this is null, the button disables itself!
         child: Text(
           text,
           textAlign: TextAlign.center,

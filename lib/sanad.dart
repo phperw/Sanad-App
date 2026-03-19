@@ -19,7 +19,7 @@ class Sanad extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           routerConfig: AppRouter.router,
 
-          locale: const Locale('ar'),
+          locale: const Locale('ar', 'SA'),
 
           supportedLocales: const [Locale('ar')],
 
