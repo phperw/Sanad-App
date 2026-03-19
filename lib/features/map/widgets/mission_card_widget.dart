@@ -1,0 +1,100 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart'; // Don't forget this import!
+import 'package:sanad/core/helper/responsive_extensions.dart';
+import 'package:sanad/core/helper/spacing.dart';
+import 'package:sanad/core/theme/app_colors.dart';
+import 'package:sanad/core/theme/text_styles.dart';
+
+class MissionCardWidget extends StatelessWidget {
+  final String title;
+  final String distance;
+  final bool isActive;
+
+  const MissionCardWidget({
+    super.key,
+    required this.title,
+    required this.distance,
+    required this.isActive,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: context.responsivePadding(bottom: 12),
+      padding: context.responsivePadding(all: 16),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16.r(context)),
+        border: Border.all(color: Colors.grey.shade100, width: 2),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          // 1. Texts (Because it's RTL, this first item goes to the RIGHT)
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyles.cairoBold32Dark(
+                    context,
+                  ).copyWith(fontSize: 14.sp(context)),
+                ),
+                verticalSpace(context, height: 4),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 14.r(context),
+                      color: AppColors.gray,
+                    ),
+                    horizontalSpace(context, width: 4),
+                    Text(
+                      distance,
+                      style: TextStyles.cairoRegular14Muted(
+                        context,
+                      ).copyWith(fontSize: 12.sp(context)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // 2. Action Button (This last item goes to the LEFT)
+          SizedBox(
+            height: 38.h(context),
+            child: ElevatedButton(
+              onPressed: isActive
+                  ? () {
+                      // FIXED: Routing to the Campaign Details screen
+                      context.push('/campaignDetails');
+                    }
+                  : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isActive
+                    ? AppColors.primaryColor
+                    : Colors.grey.shade200,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.r(context)),
+                ),
+                padding: context.responsivePadding(horizontal: 16),
+              ),
+              child: Text(
+                'تسجيل الحضور',
+                style: TextStyle(
+                  color: isActive ? AppColors.white : AppColors.gray,
+                  fontSize: 12.sp(context),
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Cairo',
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
