@@ -1,5 +1,9 @@
-
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sanad/core/routing/router.dart';
+import 'package:sanad/features/home/model/mission_model.dart';
+import 'package:sanad/features/map/widgets/mission_card_widget.dart';
+
 import 'widget/stats_row.dart';
 import 'widget/task_header.dart';
 import '../../../core/helper/responsive_extensions.dart';
@@ -8,7 +12,6 @@ import 'widget/header_section.dart';
 import 'widget/news_section.dart';
 import 'widget/sos_button.dart';
 import '../../../core/constants/app_images.dart';
-import 'widget/scheduled_task_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -27,29 +30,34 @@ class HomeScreen extends StatelessWidget {
           child: ListView(
             padding: EdgeInsets.symmetric(horizontal: 16.w(context)),
             children: [
-              HeaderSection(),
+              const HeaderSection(),
               verticalSpace(context, height: 20),
-              SOSButton(),
+              const SOSButton(),
               verticalSpace(context, height: 20),
-              StatsRow(),
+              const StatsRow(),
               verticalSpace(context, height: 20),
-              NewsSection(),
+              const NewsSection(),
               verticalSpace(context, height: 20),
-              TasksHeader(tasksCount: 2),
+
+              // Dynamic header matching our list length
+              TasksHeader(tasksCount: dummyMissions.length),
               verticalSpace(context, height: 16),
-              ScheduledTaskCard(
-                time: 'AM 10:00',
-                remainingTime: 'متبقي 2س',
-                locationName: 'منطقة أكتوبر السكنية',
-                taskType: 'مهمة ميدانية سريعة',
-              ),
-              verticalSpace(context, height: 12),
-              ScheduledTaskCard(
-                time: 'PM 2:30',
-                remainingTime: 'متبقي 5س',
-                locationName: 'حي المعادي - شارع 9',
-                taskType: 'دعم لوجستي و توزيع',
-              ),
+
+              // Inside your Home Screen ListView:
+              ...dummyMissions.map<Widget>((mission) {
+                return Padding(
+                  padding: EdgeInsets.only(bottom: 12.h(context)),
+                  child: MapMissionCard(
+                    title: mission.title,
+                    distance: mission.distance,
+                    isActive: mission.isActive,
+                    onTap: () {
+                      context.push(AppRouter.kcampaignDetails);
+                    },
+                  ),
+                );
+              }).toList(),
+
               verticalSpace(context, height: 20),
             ],
           ),
