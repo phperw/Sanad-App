@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:sanad/features/map/view/map_home_screen.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/text_styles.dart';
 import '../../home/view/home_screen.dart';
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> screens = [
     const HomeScreen(),
-    const MapScreen(),
+    const MapHomeScreen(),
     const ChatScreen(),
     const AccountScreen(),
   ];
@@ -92,7 +93,11 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 GButton(
                   icon: Icons.chat_bubble_outline,
-                  leading: _svgIcon(context, Assets.messageCircle, currentIndex == 2),
+                  leading: _svgIcon(
+                    context,
+                    Assets.messageCircle,
+                    currentIndex == 2,
+                  ),
                   text: 'محادثاتي',
                   textStyle: TextStyles.cairoBold10Primary(context),
                 ),
@@ -131,18 +136,6 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: const Text("محادثاتي")),
       body: const Center(child: Text("هذه شاشة المحادثات")),
-    );
-  }
-}
-
-class MapScreen extends StatelessWidget {
-  const MapScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("الخريطة")),
-      body: const Center(child: Text("هذه شاشة الخريطة")),
     );
   }
 }
