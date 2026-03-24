@@ -17,6 +17,7 @@ class Assets {
   static const String megaphone = '${_pngPath}megaphone.png';
   static const String add = '${_pngPath}add.png';
   static const String campaignPhoto = '${_pngPath}Image (Campaign photo).png';
+  static const String mapTest = '${_pngPath}Map_test.png';
 
   static const String onboarding1 = '${_svgPath}onboarding_1.svg';
   static const String onboarding2 = '${_svgPath}onboarding_2.svg';

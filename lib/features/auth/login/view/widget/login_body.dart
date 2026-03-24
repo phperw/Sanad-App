@@ -93,7 +93,7 @@ class _LoginBodyState extends State<LoginBody> {
                       showLoadingDialog(context, message: 'جاري تسجيل الدخول');
                       await Future.delayed(const Duration(seconds: 1));
                       if (context.mounted) Navigator.of(context).pop();
-                      if (context.mounted) context.go(AppRouter.kmain);
+                      if (context.mounted) context.go(AppRouter.khome);
                     },
                   ),
                   verticalSpace(context, height: 105),

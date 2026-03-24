@@ -135,7 +135,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                       showLoadingDialog(context, message: 'جاري إنشاء الحساب');
                       await Future.delayed(const Duration(seconds: 1));
                       if (context.mounted) Navigator.of(context).pop();
-                      if (context.mounted) context.go(AppRouter.kmain);
+                      if (context.mounted) context.go(AppRouter.khome);
                     },
                   ),
                   verticalSpace(context, height: 10),
