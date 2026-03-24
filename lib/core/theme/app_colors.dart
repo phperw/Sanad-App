@@ -27,4 +27,5 @@ class AppColors {
   static const Color darkGreen = Color(0xFF063610);
   static const Color darkBlue = Color(0xFF1A1A2E);
   static const Color textGray = Color(0xFF888888);
+  static const Color dividerColor = Color(0xFFE8E8E8);
 }

@@ -1,27 +1,33 @@
 class Assets {
-  static const String backgroundSplashScreen =
-      'assets/images/background_splash_screen.png';
-  static const String logoSplash = 'assets/images/logo_splash.png';
-  static const String logoGoogle = 'assets/images/googlee.png';
-  static const String imageFace = 'assets/images/image_face.png';
-  static const String imageNews = 'assets/images/image_news.png';
-  static const String imageSanad = 'assets/images/sanad.png';
-  static const String imageNotifications = 'assets/images/notifications.png';
-  static const String imageMapPin = 'assets/images/map-pin.png';
-  static const String imageChatBot = 'assets/images/chat_bot.png';
-  static const String imageSend = 'assets/images/Icon_send.png';
-  static const String imageMicrophone = 'assets/images/Icon_microphone.png';
-  static const String megaphone = 'assets/images/megaphone.png';
-  static const String add = 'assets/images/add.png';
+  static const String _pngPath = 'assets/images/';
+  static const String _svgPath = 'assets/SVG/';
 
-  //onboarding =>Svg//
-  static const String onboarding1 = 'assets/SVG/onboarding_1.svg';
-  static const String onboarding2 = 'assets/SVG/onboarding_2.svg';
-  static const String onboarding3 = 'assets/SVG/onboarding_3.svg';
-  static const String home = 'assets/SVG/home.svg';
-  static const String map = 'assets/SVG/map.svg';
-  static const String messageCircle = 'assets/SVG/message-circle.svg';
-  static const String account = 'assets/SVG/account.svg';
-  static const String community = 'assets/SVG/community.svg';
-  static const String aiChat = 'assets/SVG/AI_chat.svg';
+  static const String backgroundSplashScreen =
+      '${_pngPath}background_splash_screen.png';
+  static const String logoSplash = '${_pngPath}logo_splash.png';
+  static const String logoGoogle = '${_pngPath}googlee.png';
+  static const String imageFace = '${_pngPath}image_face.png';
+  static const String imageNews = '${_pngPath}image_news.png';
+  static const String imageSanad = '${_pngPath}sanad.png';
+  static const String imageNotifications = '${_pngPath}notifications.png';
+  static const String imageMapPin = '${_pngPath}map-pin.png';
+  static const String imageChatBot = '${_pngPath}chat_bot.png';
+  static const String imageSend = '${_pngPath}Icon_send.png';
+  static const String imageMicrophone = '${_pngPath}Icon_microphone.png';
+  static const String megaphone = '${_pngPath}megaphone.png';
+  static const String add = '${_pngPath}add.png';
+  static const String campaignPhoto = '${_pngPath}Image (Campaign photo).png';
+
+  static const String onboarding1 = '${_svgPath}onboarding_1.svg';
+  static const String onboarding2 = '${_svgPath}onboarding_2.svg';
+  static const String onboarding3 = '${_svgPath}onboarding_3.svg';
+  static const String home = '${_svgPath}home.svg';
+  static const String map = '${_svgPath}map.svg';
+  static const String messageCircle = '${_svgPath}message-circle.svg';
+  static const String account = '${_svgPath}account.svg';
+  static const String community = '${_svgPath}community.svg';
+  static const String aiChat = '${_svgPath}AI_chat.svg';
+  static const String like = '${_svgPath}Like.svg';
+  static const String comment = '${_svgPath}Comment.svg';
+  static const String share = '${_svgPath}Share.svg';
 }

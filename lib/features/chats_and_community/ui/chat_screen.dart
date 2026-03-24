@@ -7,18 +7,47 @@ import '../../../core/helper/responsive_extensions.dart';
 import '../../../core/helper/spacing.dart';
 import '../logic/chat_screen_cubit.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
 
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
   static const List<String> quickActions = ['مهامي اليومية 📋', 'أقرب حملة 📍'];
+
+  final ScrollController _scrollController = ScrollController();
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChatScreenCubit, ChatScreenState>(
+    return BlocConsumer<ChatScreenCubit, ChatScreenState>(
+      listener: (context, state) {
+        _scrollToBottom();
+      },
       builder: (context, state) {
         final cubit = context.read<ChatScreenCubit>();
 
         return ListView(
+          controller: _scrollController,
           padding: EdgeInsets.symmetric(vertical: 16.h(context)),
           children: [
             BotMessageBubble(

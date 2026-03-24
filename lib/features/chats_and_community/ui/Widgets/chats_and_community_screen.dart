@@ -19,6 +19,7 @@ class ChatsAndCommunityScreen extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ChatCubit()),
+
         BlocProvider(create: (_) => ChatScreenCubit()),
       ],
       child: const _ChatsAndCommunityView(),

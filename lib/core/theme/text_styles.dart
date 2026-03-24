@@ -265,4 +265,20 @@ class TextStyles {
     fontWeight: FontWeight.w500,
     height: 2.17,
   );
+
+  static TextStyle cairoBold16DarkBlue(BuildContext context) => TextStyle(
+    color: AppColors.darkBlue,
+    fontSize: 16.sp(context),
+    fontFamily: 'Cairo',
+    fontWeight: FontWeight.w700,
+    height: 1.50,
+  );
+
+  static TextStyle cairoRegular12DarkBlue(BuildContext context) => TextStyle(
+    color: AppColors.darkBlue,
+    fontSize: 12.sp(context),
+    fontFamily: 'Cairo',
+    fontWeight: FontWeight.w400,
+    height: 2.17,
+  );
 }
