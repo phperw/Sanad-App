@@ -1,49 +1,178 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:google_nav_bar/google_nav_bar.dart';
+// import '../../../core/theme/app_colors.dart';
+// import '../../../core/theme/text_styles.dart';
+// import '../../chats_and_community/ui/Widgets/chats_and_community_screen.dart';
+// import '../../home/view/home_screen.dart';
+// import '../../../core/constants/app_images.dart';
+// import '../../../core/helper/responsive_extensions.dart';
+// import '../../map/view/map_home_screen.dart';
+
+// class MainScreen extends StatefulWidget {
+//   const MainScreen({super.key});
+
+//   @override
+//   State<MainScreen> createState() => _MainScreenState();
+// }
+
+// class _MainScreenState extends State<MainScreen> {
+//   int currentIndex = 0;
+
+//   final List<Widget> screens = [
+//     Container(
+//       width: double.infinity,
+//       height: double.infinity,
+//       decoration: BoxDecoration(
+//         image: DecorationImage(
+//           image: AssetImage(Assets.backgroundSplashScreen),
+//           fit: BoxFit.cover,
+//         ),
+//       ),
+//       child: const HomeScreen(),
+//     ),
+//     const MapScreen(),
+//     Container(
+//       width: double.infinity,
+//       height: double.infinity,
+//       decoration: BoxDecoration(
+//         image: DecorationImage(
+//           image: AssetImage(Assets.backgroundSplashScreen),
+//           fit: BoxFit.cover,
+//         ),
+//       ),
+//       child: const ChatsAndCommunityScreen(),
+//     ),
+//     const AccountScreen(),
+//   ];
+
+//   Widget _svgIcon(BuildContext context, String path, bool isActive) {
+//     return SvgPicture.asset(
+//       path,
+//       width: 22.w(context),
+//       height: 22.h(context),
+//       colorFilter: ColorFilter.mode(
+//         isActive ? AppColors.primaryColor : AppColors.gray,
+//         BlendMode.srcIn,
+//       ),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: IndexedStack(index: currentIndex, children: screens),
+//       bottomNavigationBar: Container(
+//         decoration: const BoxDecoration(
+//           color: AppColors.white,
+//           boxShadow: [
+//             BoxShadow(
+//               blurRadius: 16,
+//               color: Colors.black12,
+//               offset: Offset(0, -2),
+//             ),
+//           ],
+//         ),
+//         child: SafeArea(
+//           child: Padding(
+//             padding: EdgeInsets.symmetric(
+//               horizontal: 12.w(context),
+//               vertical: 12.h(context),
+//             ),
+//             child: GNav(
+//               haptic: true,
+//               curve: Curves.easeOutExpo,
+//               duration: const Duration(milliseconds: 400),
+//               gap: 6.w(context),
+//               color: AppColors.gray,
+//               activeColor: AppColors.primaryColor,
+//               iconSize: 22.sp(context),
+//               tabBackgroundColor: AppColors.primaryColor.withOpacity(0.08),
+//               tabBorderRadius: 50.r(context),
+//               tabActiveBorder: Border.all(
+//                 color: AppColors.primaryColor.withOpacity(0.3),
+//                 width: 1,
+//               ),
+//               padding: EdgeInsets.symmetric(
+//                 horizontal: 16.w(context),
+//                 vertical: 10.h(context),
+//               ),
+//               selectedIndex: currentIndex,
+//               onTabChange: (index) => setState(() => currentIndex = index),
+//               tabs: [
+//                 GButton(
+//                   icon: Icons.home_outlined,
+//                   leading: _svgIcon(context, Assets.home, currentIndex == 0),
+//                   text: 'الرئيسية',
+//                   textStyle: TextStyles.cairoBold10Primary(context),
+//                 ),
+//                 GButton(
+//                   icon: Icons.map_outlined,
+//                   leading: _svgIcon(context, Assets.map, currentIndex == 1),
+//                   text: 'الخريطة',
+//                   textStyle: TextStyles.cairoBold10Primary(context),
+//                 ),
+//                 GButton(
+//                   icon: Icons.chat_bubble_outline,
+//                   leading: _svgIcon(
+//                     context,
+//                     Assets.messageCircle,
+//                     currentIndex == 2,
+//                   ),
+//                   text: 'محادثاتي',
+//                   textStyle: TextStyles.cairoBold10Primary(context),
+//                 ),
+//                 GButton(
+//                   icon: Icons.person_outline,
+//                   leading: _svgIcon(context, Assets.account, currentIndex == 3),
+//                   text: 'حسابي',
+//                   textStyle: TextStyles.cairoBold10Primary(context),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class AccountScreen extends StatelessWidget {
+//   const AccountScreen({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text("حسابي")),
+//       body: const Center(child: Text("هذه شاشة حسابي")),
+//     );
+//   }
+// }
+
+// // class MapScreen extends StatelessWidget {
+// //   const MapScreen({super.key});
+
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return Scaffold(
+// //       appBar: AppBar(title: const Text("الخريطة")),
+// //       body: const Center(child: Text("هذه شاشة الخريطة")),
+// //     );
+// //   }
+// // }
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/text_styles.dart';
-import '../../chats_and_community/ui/Widgets/chats_and_community_screen.dart';
-import '../../home/view/home_screen.dart';
 import '../../../core/constants/app_images.dart';
 import '../../../core/helper/responsive_extensions.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class MainScreen extends StatelessWidget {
+  final StatefulNavigationShell navigationShell;
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  int currentIndex = 0;
-
-  final List<Widget> screens = [
-    Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(Assets.backgroundSplashScreen),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: const HomeScreen(),
-    ),
-    const MapScreen(),
-    Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(Assets.backgroundSplashScreen),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: const ChatsAndCommunityScreen(),
-    ),
-    const AccountScreen(),
-  ];
+  const MainScreen({super.key, required this.navigationShell});
 
   Widget _svgIcon(BuildContext context, String path, bool isActive) {
     return SvgPicture.asset(
@@ -60,7 +189,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: currentIndex, children: screens),
+      body: navigationShell,
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: AppColors.white,
@@ -96,18 +225,31 @@ class _MainScreenState extends State<MainScreen> {
                 horizontal: 16.w(context),
                 vertical: 10.h(context),
               ),
-              selectedIndex: currentIndex,
-              onTabChange: (index) => setState(() => currentIndex = index),
+              selectedIndex: navigationShell.currentIndex,
+              onTabChange: (index) {
+                navigationShell.goBranch(
+                  index,
+                  initialLocation: index == navigationShell.currentIndex,
+                );
+              },
               tabs: [
                 GButton(
                   icon: Icons.home_outlined,
-                  leading: _svgIcon(context, Assets.home, currentIndex == 0),
+                  leading: _svgIcon(
+                    context,
+                    Assets.home,
+                    navigationShell.currentIndex == 0,
+                  ),
                   text: 'الرئيسية',
                   textStyle: TextStyles.cairoBold10Primary(context),
                 ),
                 GButton(
                   icon: Icons.map_outlined,
-                  leading: _svgIcon(context, Assets.map, currentIndex == 1),
+                  leading: _svgIcon(
+                    context,
+                    Assets.map,
+                    navigationShell.currentIndex == 1,
+                  ),
                   text: 'الخريطة',
                   textStyle: TextStyles.cairoBold10Primary(context),
                 ),
@@ -116,14 +258,18 @@ class _MainScreenState extends State<MainScreen> {
                   leading: _svgIcon(
                     context,
                     Assets.messageCircle,
-                    currentIndex == 2,
+                    navigationShell.currentIndex == 2,
                   ),
                   text: 'محادثاتي',
                   textStyle: TextStyles.cairoBold10Primary(context),
                 ),
                 GButton(
                   icon: Icons.person_outline,
-                  leading: _svgIcon(context, Assets.account, currentIndex == 3),
+                  leading: _svgIcon(
+                    context,
+                    Assets.account,
+                    navigationShell.currentIndex == 3,
+                  ),
                   text: 'حسابي',
                   textStyle: TextStyles.cairoBold10Primary(context),
                 ),
@@ -132,30 +278,6 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("حسابي")),
-      body: const Center(child: Text("هذه شاشة حسابي")),
-    );
-  }
-}
-
-class MapScreen extends StatelessWidget {
-  const MapScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("الخريطة")),
-      body: const Center(child: Text("هذه شاشة الخريطة")),
     );
   }
 }
