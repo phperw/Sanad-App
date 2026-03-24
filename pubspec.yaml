@@ -10,6 +10,7 @@ environment:
 dependencies:
   animated_snack_bar: ^0.4.0
   cupertino_icons: ^1.0.8
+  firebase_core: ^4.6.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1

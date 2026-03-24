@@ -43,3 +43,18 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# --- Firebase & Fastlane Secrets (Added for Security) ---
+# Ignore all Google Cloud and Firebase service account JSON keys
+android/fastlane/*.json
+android/fastlane/firebase-service-account.json
+sand-app-*.json
+*.json.enc
+
+# Ignore specific service account files seen in your project
+android/fastlane/sand-app-2127b-9cba76db6420.json
+sand-app-2127b-62f1cc26f0e6.json
+
+# Ignore Ruby / Fastlane environment files
+.env
+.env.*

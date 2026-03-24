@@ -1,13 +1,11 @@
 default_platform(:android)
 
 platform :android do
-
-  desc "Build APK and upload to Firebase App Distribution"
   lane :beta do
     gradle(
       task: "assemble",
       build_type: "Release",
-      project_dir: "../"
+      gradlew_path: "./gradlew" 
     )
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
@@ -16,5 +14,4 @@ platform :android do
       release_notes: "Build #{ENV['GITHUB_SHA']&.slice(0, 7) || 'local'}"
     )
   end
-
 end
