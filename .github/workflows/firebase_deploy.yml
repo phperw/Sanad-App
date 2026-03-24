@@ -5,6 +5,8 @@ on:
     branches:
       - development
       - update-UI
+      - ci/cd
+  workflow_dispatch: # ✅ تشغيل يدوي من GitHub UI
 
 jobs:
   build-and-deploy:
