@@ -5,7 +5,7 @@ platform :android do
     gradle(
       task: "assemble",
       build_type: "Release",
-      gradlew_path: "./gradlew" 
+      project_dir: "../"
     )
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
