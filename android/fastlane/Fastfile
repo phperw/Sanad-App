@@ -1,14 +1,16 @@
+opt_out_usage
 default_platform(:android)
 
 platform :android do
   lane :beta do
-    gradle(
-      task: "assemble",
-      build_type: "Release",
-      project_dir: "../"
-    )
+    # البناء بيتعمل في الـ workflow قبل fastlane
+    # fastlane بس بتعمل upload للـ Firebase
+    apk_path = "../build/app/outputs/flutter-apk/app-release.apk"
+
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
+      android_artifact_type: "APK",
+      android_artifact_path: apk_path,
       service_credentials_file: "fastlane/firebase-service-account.json",
       groups: "testers",
       release_notes: "Build #{ENV['GITHUB_SHA']&.slice(0, 7) || 'local'}"

@@ -6,7 +6,7 @@ on:
       - development
       - update-UI
       - ci/cd
-  workflow_dispatch: 
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -45,6 +45,10 @@ jobs:
           storeFile=keystore.jks
           EOF
 
+      # ✅ Flutter يبني الـ APK مباشرة — مش محتاجين gradle في fastlane
+      - name: Build APK
+        run: flutter build apk --release
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -52,15 +56,13 @@ jobs:
           bundler-cache: true
           working-directory: android
 
-      - name: Make gradlew executable
-        run: chmod +x android/gradlew
-
       - name: Create Firebase service account
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > android/fastlane/firebase-service-account.json
 
-      - name: Run Fastlane beta
+      # ✅ Fastlane بس تعمل upload — مش بتبني
+      - name: Upload to Firebase via Fastlane
         working-directory: android
         env:
-          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+          FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
         run: bundle exec fastlane beta
