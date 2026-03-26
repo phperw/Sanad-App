@@ -35,9 +35,9 @@ class CampaignHeaderImageWidget extends StatelessWidget {
                 SizedBox(width: 40.w(context)),
                 Text(
                   'التفاصيل',
-                  style: TextStyles.cairoBold32Dark(context).copyWith(
-                    fontSize: 18.sp(context),
-                  ),
+                  style: TextStyles.cairoBold32Dark(
+                    context,
+                  ).copyWith(fontSize: 18.sp(context)),
                 ),
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
@@ -79,9 +79,9 @@ class CampaignHeaderImageWidget extends StatelessWidget {
                 horizontalSpace(context, width: 4),
                 Text(
                   'مهمة ميدانية',
-                  style: TextStyles.cairoBold12Black(context).copyWith(
-                    color: AppColors.white,
-                  ),
+                  style: TextStyles.cairoBold12Black(
+                    context,
+                  ).copyWith(color: AppColors.white),
                 ),
               ],
             ),

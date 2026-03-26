@@ -16,15 +16,15 @@ class CampaignInfoWidget extends StatelessWidget {
         children: [
           Text(
             'اسم الحملة',
-            style: TextStyles.cairoRegular14Muted(context).copyWith(
-              fontSize: 12.sp(context),
-            ),
+            style: TextStyles.cairoRegular14Muted(
+              context,
+            ).copyWith(fontSize: 12.sp(context)),
           ),
           Text(
             'حملة التوعية السكنية - أكتوبر',
-            style: TextStyles.cairoBold32Dark(context).copyWith(
-              fontSize: 20.sp(context),
-            ),
+            style: TextStyles.cairoBold32Dark(
+              context,
+            ).copyWith(fontSize: 20.sp(context)),
           ),
           verticalSpace(context, height: 20),
           _buildInfoRow(

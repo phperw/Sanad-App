@@ -25,7 +25,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.38.7'
+          flutter-version: '3.27.0'
           channel: 'stable'
           cache: true
 
@@ -45,7 +45,6 @@ jobs:
           storeFile=keystore.jks
           EOF
 
-      # ✅ Flutter يبني الـ APK مباشرة — مش محتاجين gradle في fastlane
       - name: Build APK
         run: flutter build apk --release
 
@@ -60,7 +59,6 @@ jobs:
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode > android/fastlane/firebase-service-account.json
 
-      # ✅ Fastlane بس تعمل upload — مش بتبني
       - name: Upload to Firebase via Fastlane
         working-directory: android
         env:

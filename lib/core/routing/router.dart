@@ -3,11 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:sanad/features/auth/forget/forget_view.dart';
 import 'package:sanad/features/auth/login/view/login_screen.dart';
 import 'package:sanad/features/auth/register/view/register_screen.dart';
-import 'package:sanad/features/home/view/home_screen.dart';
 import 'package:sanad/features/onboarding/ui/on_boarding_screen.dart';
 import 'package:sanad/features/splash/ui/splash_screen.dart';
-import 'package:sanad/features/map/view/map_home_screen.dart';
-import 'package:sanad/features/chats_and_community/ui/Widgets/chats_and_community_screen.dart';
 import 'package:sanad/features/main/view/main_screen.dart';
 
 import '../../features/attendance/view/attendance_confirmation_screen.dart';
@@ -22,10 +19,11 @@ class AppRouter {
   static const kregister = '/register';
   static const kforget = '/forget';
   static const konboarding = '/onboarding';
-  static const khome = '/home';
-  static const kmap = '/map';
-  static const kchat = '/chat';
-  static const kaccount = '/account';
+  static const kmain = '/main';
+  static const khome = '/main';
+  static const kmap = '/main';
+  static const kchat = '/main';
+  static const kaccount = '/main';
   static const kAttendanceConfirmation = '/attendanceConfirmation';
   static const kCampaignDetails = '/campaignDetails';
   static const kSuccessCheckin = '/successCheckin';
@@ -49,37 +47,7 @@ class AppRouter {
         builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(path: kforget, builder: (context, state) => const ForgetView()),
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) {
-          return MainScreen(navigationShell: navigationShell);
-        },
-        branches: [
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: khome,
-                builder: (context, state) => const HomeScreen(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: kmap,
-                builder: (context, state) => const MapScreen(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: kchat,
-                builder: (context, state) => const ChatsAndCommunityScreen(),
-              ),
-            ],
-          ),
-        ],
-      ),
+      GoRoute(path: kmain, builder: (context, state) => const MainScreen()),
       GoRoute(
         path: kAttendanceConfirmation,
         parentNavigatorKey: _rootNavigatorKey,

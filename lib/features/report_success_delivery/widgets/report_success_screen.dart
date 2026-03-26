@@ -12,7 +12,7 @@ class ReportSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.white,
       body: Stack(
         children: [
@@ -43,7 +43,7 @@ class ReportSuccessScreen extends StatelessWidget {
                 // Bottom Text and Return Button
                 ReturnHomeActionWidget(),
 
-                verticalSpace(context,height: 20),
+                verticalSpace(context, height: 20),
               ],
             ),
           ),

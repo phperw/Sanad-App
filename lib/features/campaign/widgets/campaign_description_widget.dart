@@ -15,17 +15,16 @@ class CampaignDescriptionWidget extends StatelessWidget {
         children: [
           Text(
             'وصف المهمة',
-            style: TextStyles.cairoRegular14Muted(context).copyWith(
-              fontSize: 12.sp(context),
-            ),
+            style: TextStyles.cairoRegular14Muted(
+              context,
+            ).copyWith(fontSize: 12.sp(context)),
           ),
           verticalSpace(context, height: 8),
           Text(
             'توزيع مطبوعات توعوية على السكان وإجراء جلسات تعريفية بمخاطر الإدمان في المنطقة السكنية. يُرجى الالتزام بالزي الرسمي للصندوق.',
-            style: TextStyles.cairoRegular14Black(context).copyWith(
-              fontSize: 14.sp(context),
-              height: 1.6,
-            ),
+            style: TextStyles.cairoRegular14Black(
+              context,
+            ).copyWith(fontSize: 14.sp(context), height: 1.6),
           ),
           verticalSpace(context, height: 24),
         ],

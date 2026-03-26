@@ -20,9 +20,9 @@ class AttendanceConfirmationScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'تأكيد الحضور',
-          style: TextStyles.cairoBold32Dark(context).copyWith(
-            fontSize: 18.sp(context),
-          ),
+          style: TextStyles.cairoBold32Dark(
+            context,
+          ).copyWith(fontSize: 18.sp(context)),
         ),
         leading: IconButton(
           icon: Icon(

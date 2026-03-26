@@ -7,9 +7,9 @@ import 'package:sanad/features/chats_and_community/ui/Widgets/chat_input_bar.dar
 import 'package:sanad/features/chats_and_community/ui/Widgets/chat_tab_button.dart';
 import 'package:sanad/features/chats_and_community/ui/chat_screen.dart';
 import 'package:sanad/features/chats_and_community/ui/community_screen.dart';
-import '../../../../core/constants/app_images.dart';
-import '../../../../core/helper/responsive_extensions.dart';
-import '../../../../core/helper/spacing.dart';
+import '../../../core/constants/app_images.dart';
+import '../../../core/helper/responsive_extensions.dart';
+import '../../../core/helper/spacing.dart';
 
 class ChatsAndCommunityScreen extends StatelessWidget {
   const ChatsAndCommunityScreen({super.key});
