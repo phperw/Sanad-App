@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/text_styles.dart';
+import '../../account/ui/account_screen.dart';
 import '../../chats_and_community/ui/chats_and_community_screen.dart';
 import '../../home/view/home_screen.dart';
 import '../../../core/constants/app_images.dart';
@@ -18,12 +19,13 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
+  final List<bool> _visited = [true, false, false, false];
 
-  final List<Widget> screens = [
-    const HomeScreen(),
-    const MapScreen(),
-    const ChatsAndCommunityScreen(),
-    const AccountScreen(),
+  final List<Widget> _screens = const [
+    HomeScreen(),
+    MapScreen(),
+    ChatsAndCommunityScreen(),
+    AccountScreen(),
   ];
 
   Widget _svgIcon(BuildContext context, String path, bool isActive) {
@@ -41,7 +43,15 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: currentIndex, children: screens),
+      body: Stack(
+        children: List.generate(_screens.length, (index) {
+          if (!_visited[index]) return const SizedBox.shrink();
+          return Offstage(
+            offstage: currentIndex != index,
+            child: _screens[index],
+          );
+        }),
+      ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
           color: AppColors.white,
@@ -78,7 +88,12 @@ class _MainScreenState extends State<MainScreen> {
                 vertical: 10.h(context),
               ),
               selectedIndex: currentIndex,
-              onTabChange: (index) => setState(() => currentIndex = index),
+              onTabChange: (index) {
+                setState(() {
+                  _visited[index] = true;
+                  currentIndex = index;
+                });
+              },
               tabs: [
                 GButton(
                   icon: Icons.home_outlined,
@@ -113,18 +128,6 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("حسابي")),
-      body: const Center(child: Text("هذه شاشة حسابي")),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../helper/spacing.dart';
 import '../theme/app_colors.dart';
 import '../theme/text_styles.dart';
 import '../helper/responsive_extensions.dart';
@@ -58,6 +59,13 @@ class _LoadingDialog extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Text(
+              message ?? 'جاري تسجيل الدخول',
+
+              style: TextStyles.cairoMedium14Black(context),
+            ),
+            horizontalSpace(context, width: 16),
+
             SizedBox(
               width: 24.w(context),
               height: 24.h(context),
@@ -65,11 +73,6 @@ class _LoadingDialog extends StatelessWidget {
                 color: AppColors.primaryColor,
                 strokeWidth: 2.5,
               ),
-            ),
-            SizedBox(width: 16.w(context)),
-            Text(
-              message ?? 'جاري تسجيل الدخول',
-              style: TextStyles.cairoMedium14Black(context),
             ),
           ],
         ),
