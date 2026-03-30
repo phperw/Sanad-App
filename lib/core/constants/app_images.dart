@@ -2,6 +2,7 @@ class Assets {
   static const String _pngPath = 'assets/images/';
   static const String _svgPath = 'assets/SVG/';
 
+  ///***************************/PNG//***************************************** */
   static const String backgroundSplashScreen =
       '${_pngPath}background_splash_screen.png';
   static const String logoSplash = '${_pngPath}logo_splash.png';
@@ -19,6 +20,22 @@ class Assets {
   static const String campaignPhoto = '${_pngPath}Image (Campaign photo).png';
   static const String mapTest = '${_pngPath}Map_test.png';
 
+  /// 🔥 icons_account
+  static const String iconTime = '${_pngPath}icons_account/icon_time.png';
+  static const String iconDocument =
+      '${_pngPath}icons_account/icon_document.png';
+  static const String iconLockOutline =
+      '${_pngPath}icons_account/icon_lock_outline.png';
+  static const String iconLockFilled =
+      '${_pngPath}icons_account/icon_lock_filled.png';
+  static const String iconShield = '${_pngPath}icons_account/icon_shield.png';
+  static const String iconFavorite =
+      '${_pngPath}icons_account/icon_favorite.png';
+
+  ///***************************/SVG//***************************************** */
+  static const String background = '${_svgPath}background.svg';
+  static const String backgroundDark = '${_svgPath}background_dark.svg';
+  static const String accountBackground = '${_svgPath}account_backgraond.svg';
   static const String onboarding1 = '${_svgPath}onboarding_1.svg';
   static const String onboarding2 = '${_svgPath}onboarding_2.svg';
   static const String onboarding3 = '${_svgPath}onboarding_3.svg';
