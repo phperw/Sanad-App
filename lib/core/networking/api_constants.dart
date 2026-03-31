@@ -1,11 +1,8 @@
-class ApiConstants {
-  // static const String baseURL = 'http://10.0.2.2:3000/api/';
-  static const String baseURL =
-      'https://yalla-koraapi-production.up.railway.app/api/';
-  static const String login = 'auth/login';
-  static const String register = 'auth/register';
-  static const String verifyOtp = 'auth/verify-otp';
+class ApiEndpoints {
+  static const String baseUrl = "https://sanad-app-production.up.railway.app/api";
+  static const String register = "/auth/register";
 }
+
 
 class ApiErrors {
   static const String badRequestError = "badRequestError";

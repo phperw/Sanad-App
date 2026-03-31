@@ -38,7 +38,9 @@ class NewsSection extends StatelessWidget {
             separatorBuilder: (context, index) =>
                 horizontalSpace(context, width: 12),
             itemBuilder: (context, index) {
-              return const NewsCard();
+              return  NewsCard(
+                des:  'شارك في تحسين الوعي \nالمجتمعي في المناطق السكنية',
+                text1: "تحديث جديد في تطبيق سند! اكتشف الميزات الجديدة الآن");
             },
           ),
         ),
@@ -48,7 +50,8 @@ class NewsSection extends StatelessWidget {
 }
 
 class NewsCard extends StatelessWidget {
-  const NewsCard({super.key});
+  const NewsCard({super.key,required this.text1,required this.des});
+  final String text1,des ;
 
   @override
   Widget build(BuildContext context) {
@@ -81,14 +84,14 @@ class NewsCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'حملة التوعية الجديدة في الجيزة',
+                  text1,
                   style: TextStyles.cairoBold14Black2(context),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 verticalSpace(context, height: 4),
                 Text(
-                  'شارك في تحسين الوعي \nالمجتمعي في المناطق السكنية',
+                 des,
                   style: TextStyles.cairoRegular12DescriptionGray(context),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

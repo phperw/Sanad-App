@@ -6,7 +6,8 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 
 class HeaderSection extends StatelessWidget {
-  const HeaderSection({super.key});
+  const HeaderSection({super.key,required this.name});
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class HeaderSection extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("مرحباً، أحمد", style: TextStyles.cairoBold16Black(context)),
+            Text("مرحباً، $name", style: TextStyles.cairoBold16Black(context)),
             Row(
               children: [
                 Container(
