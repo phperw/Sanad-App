@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../../core/helper/shared_pref_helper.dart';
 import '../../../core/helper/spacing.dart';
 import '../../../core/helper/responsive_extensions.dart';
+import '../../../core/routing/router.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/text_styles.dart';
 import 'Widgets/circular_avatar_widget.dart';
 import 'Widgets/active_volunteer_badge_widget.dart';
 import 'Widgets/member_since_widget.dart';
@@ -8,6 +12,7 @@ import 'Widgets/stats_card_widget.dart';
 import 'Widgets/leaderboard_card_widget.dart';
 import 'Widgets/achievements_card_widget.dart';
 import 'Widgets/certificates_card_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -38,6 +43,22 @@ class AccountScreen extends StatelessWidget {
               const AchievementsCardWidget(),
               verticalSpace(context, height: 16),
               const CertificatesCardWidget(),
+              verticalSpace(context, height: 16),
+
+              ElevatedButton(
+                onPressed: () async {
+                  await SharedPrefHelper.clearAll();
+                  // ignore: use_build_context_synchronously
+                  context.go(AppRouter.kstart);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.sosRed,
+                ),
+                child: Text(
+                  'تسجيل الخروج',
+                  style: TextStyles.cairoBold14White(context),
+                ),
+              ),
             ],
           ),
         ),

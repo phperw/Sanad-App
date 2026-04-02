@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/routing/router.dart';
 import 'package:sanad/core/widgets/app_button.dart';
-import 'package:sanad/core/widgets/loading_app.dart';
 import 'package:sanad/features/auth/login/view/widget/header_auth.dart';
-import 'package:sanad/features/auth/login/view/widget/text_form_field_custom.dart';
-import 'package:sanad/features/auth/login/view_model/controller/login_controller.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../../core/theme/text_styles.dart';
+import '../../logic/login_cubit.dart';
+import '../../logic/login_state.dart';
+import 'text_form_field_custom.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
@@ -20,9 +20,10 @@ class LoginBody extends StatefulWidget {
 }
 
 class _LoginBodyState extends State<LoginBody> {
-  final TextEditingController national = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  final TextEditingController _nationalId = TextEditingController();
+  final TextEditingController _password = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _isPasswordHidden = true;
 
   @override
   Widget build(BuildContext context) {
@@ -46,21 +47,25 @@ class _LoginBodyState extends State<LoginBody> {
                   verticalSpace(context, height: 40),
                   TextFormFieldCustom(
                     validator: AppValidator.validateNationalId,
-                    controller: national,
+                    controller: _nationalId,
                     label: 'الرقم القومي',
+                    keyboardType: TextInputType.number,
                   ),
                   verticalSpace(context, height: 16),
-                  Consumer<LoginController>(
-                    builder: (context, controller, child) {
+                  BlocBuilder<LoginCubit, LoginState>(
+                    buildWhen: (_, current) => current is LoginInitial,
+                    builder: (context, state) {
                       return TextFormFieldCustom(
                         validator: AppValidator.validatePassword,
-                        controller: password,
-                        obscureText: controller.isPasswordHidden,
+                        controller: _password,
+                        obscureText: _isPasswordHidden,
                         suffixIcon: IconButton(
                           color: Colors.grey,
-                          onPressed: () => controller.isHidden(),
+                          onPressed: () => setState(
+                            () => _isPasswordHidden = !_isPasswordHidden,
+                          ),
                           icon: Icon(
-                            controller.isPasswordHidden
+                            _isPasswordHidden
                                 ? Icons.visibility_off
                                 : Icons.visibility,
                           ),
@@ -88,12 +93,12 @@ class _LoginBodyState extends State<LoginBody> {
                   verticalSpace(context, height: 10),
                   AppButton(
                     text: 'تسجيل دخول',
-                    onPressed: () async {
+                    onPressed: () {
                       if (!_formKey.currentState!.validate()) return;
-                      showLoadingDialog(context, message: 'جاري تسجيل الدخول');
-                      await Future.delayed(const Duration(seconds: 1));
-                      if (context.mounted) Navigator.of(context).pop();
-                      if (context.mounted) context.go(AppRouter.khome);
+                      context.read<LoginCubit>().login(
+                        nationalId: _nationalId.text.trim(),
+                        password: _password.text.trim(),
+                      );
                     },
                   ),
                   verticalSpace(context, height: 105),
@@ -129,8 +134,8 @@ class _LoginBodyState extends State<LoginBody> {
 
   @override
   void dispose() {
-    national.dispose();
-    password.dispose();
+    _nationalId.dispose();
+    _password.dispose();
     super.dispose();
   }
 }

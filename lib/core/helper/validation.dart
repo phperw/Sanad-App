@@ -91,20 +91,28 @@ class AppValidator {
   }
 
   /// validate Age
-  static String? validateAge(String? value) {
-    if (value == null || value.trim().isEmpty) {
-      return 'العمر مطلوب';
-    }
-    if (int.tryParse(value.trim()) == null) {
-      return "من فضلك أدخل عمر صحيح";
-    }
-    return null;
-  }
+  // static String? validateAge(String? value) {
+  //   if (value == null || value.trim().isEmpty) {
+  //     return 'العمر مطلوب';
+  //   }
+  //   if (int.tryParse(value.trim()) == null) {
+  //     return "من فضلك أدخل عمر صحيح";
+  //   }
+  //   return null;
+  // }
 
   /// validate City
   static String? validateCity(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'المحافظة مطلوبة';
+    }
+    return null;
+  }
+
+  /// validate Age (Auto-extracted Birthdate)
+  static String? validateAge(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'يرجى إدخال الرقم القومي بالكامل لاستخراج تاريخ الميلاد';
     }
     return null;
   }

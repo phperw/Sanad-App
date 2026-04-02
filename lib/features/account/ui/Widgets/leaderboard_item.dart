@@ -22,6 +22,7 @@ class LeaderboardItem extends StatelessWidget {
         CircleAvatar(
           radius: 20.r(context),
           backgroundImage: NetworkImage(entry.imageUrl),
+          // ignore: unnecessary_underscores
           onBackgroundImageError: (_, __) {},
         ),
         horizontalSpace(context, width: 12),
