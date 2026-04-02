@@ -15,15 +15,6 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
-// Map<String, dynamic> _$LoginResponseToJson(LoginResponse instance) =>
-//     <String, dynamic>{
-//       'success': instance.success,
-//       'message': instance.message,
-//       'accessToken': instance.accessToken,
-//       'refreshToken': instance.refreshToken,
-//       'user': instance.user,
-//     };
-
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   id: (json['id'] as num).toInt(),
   fullName: json['fullName'] as String,
@@ -42,32 +33,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   stats: UserStats.fromJson(json['stats'] as Map<String, dynamic>),
 );
 
-// Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
-//   'id': instance.id,
-//   'fullName': instance.fullName,
-//   'nationalId': instance.nationalId,
-//   'email': instance.email,
-//   'phone': instance.phone,
-//   'avatarUrl': instance.avatarUrl,
-//   'gender': instance.gender,
-//   'dateOfBirth': instance.dateOfBirth,
-//   'city': instance.city,
-//   'joinDate': instance.joinDate,
-//   'status': instance.status,
-//   'totalHours': instance.totalHours,
-//   'points': instance.points,
-//   'createdAt': instance.createdAt,
-//   'stats': instance.stats,
-// };
-
 UserStats _$UserStatsFromJson(Map<String, dynamic> json) => UserStats(
   campaignsCreated: (json['campaignsCreated'] as num).toInt(),
   assignedTasks: (json['assignedTasks'] as num).toInt(),
   badges: (json['badges'] as num).toInt(),
 );
-
-// Map<String, dynamic> _$UserStatsToJson(UserStats instance) => <String, dynamic>{
-//   'campaignsCreated': instance.campaignsCreated,
-//   'assignedTasks': instance.assignedTasks,
-//   'badges': instance.badges,
-// };

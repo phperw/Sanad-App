@@ -2,7 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:sanad/core/networking/api_constants.dart';
 import 'package:sanad/core/networking/api_error_model.dart';
 import 'package:sanad/core/networking/api_result.dart';
-import '../../../../../core/networking/error_hander.dart';
+import 'package:sanad/core/networking/error_hander.dart';
+import '../../../../../core/helper/shared_pref_helper.dart';
 import '../models/login_request.dart';
 import '../models/login_response.dart';
 
@@ -14,12 +15,20 @@ class LoginRepository {
   Future<ApiResult<LoginResponse>> login(LoginRequest request) async {
     try {
       final response = await _dio.post(
-        ApiConstants.login,
+        ApiConstants.endpointLogin,
         data: request.toJson(),
       );
-      return Success(
-        LoginResponse.fromJson(response.data as Map<String, dynamic>),
+
+      final loginResponse = LoginResponse.fromJson(
+        response.data as Map<String, dynamic>,
       );
+
+      await SharedPrefHelper.saveTokens(
+        accessToken: loginResponse.accessToken,
+        refreshToken: loginResponse.refreshToken,
+      );
+
+      return Success(loginResponse);
     } on DioException catch (e) {
       return Failure(ErrorHandler.handle(e));
     } catch (e) {

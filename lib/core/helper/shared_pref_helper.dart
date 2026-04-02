@@ -3,6 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPrefHelper {
   static late SharedPreferences sharedPreferences;
 
+  static const String keyAccessToken = 'access_token';
+  static const String keyRefreshToken = 'refresh_token';
+
   static Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
   }
@@ -28,5 +31,28 @@ class SharedPrefHelper {
 
   static Future<bool> clearAll() async {
     return await sharedPreferences.clear();
+  }
+
+  // ── Token helpers ──────────────────────────────────────────
+  static Future<void> saveTokens({
+    required String accessToken,
+    required String refreshToken,
+  }) async {
+    await setData(key: keyAccessToken, value: accessToken);
+    await setData(key: keyRefreshToken, value: refreshToken);
+  }
+
+  static String? getAccessToken() => getData(key: keyAccessToken) as String?;
+
+  static String? getRefreshToken() => getData(key: keyRefreshToken) as String?;
+
+  static Future<void> clearTokens() async {
+    await removeData(key: keyAccessToken);
+    await removeData(key: keyRefreshToken);
+  }
+
+  static bool hasToken() {
+    final token = getAccessToken();
+    return token != null && token.isNotEmpty;
   }
 }
