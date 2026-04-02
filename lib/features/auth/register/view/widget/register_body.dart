@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/routing/router.dart';
 import 'package:sanad/core/widgets/app_button.dart';
-import 'package:sanad/core/widgets/loading_app.dart';
-import 'package:sanad/features/auth/login/view/widget/header_auth.dart';
-import 'package:sanad/features/auth/login/view/widget/text_form_field_custom.dart';
-import 'package:sanad/features/auth/login/view_model/controller/login_controller.dart';
 import '../../../../../core/helper/validation.dart';
 import '../../../../../core/theme/text_styles.dart';
+import '../../../login/view/widget/header_auth.dart';
+import '../../../login/view/widget/text_form_field_custom.dart';
+import '../../logic/register_cubit.dart';
 
 class RegisterBody extends StatefulWidget {
   const RegisterBody({super.key});
@@ -28,6 +27,48 @@ class _RegisterBodyState extends State<RegisterBody> {
   final TextEditingController password = TextEditingController();
   final TextEditingController confirmPassword = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool isPasswordHidden = true;
+  bool isConfirmPasswordHidden = true;
+
+  @override
+  void initState() {
+    super.initState();
+    national.addListener(_extractDateFromNationalId);
+  }
+
+  void _extractDateFromNationalId() {
+    String id = national.text;
+
+    if (id.length >= 7) {
+      String centuryDigit = id.substring(0, 1);
+      String yearDigits = id.substring(1, 3);
+      String month = id.substring(3, 5);
+      String day = id.substring(5, 7);
+
+      String fullYear = '';
+
+      if (centuryDigit == '2') {
+        fullYear = '19$yearDigits';
+      } else if (centuryDigit == '3') {
+        fullYear = '20$yearDigits';
+      } else {
+        return;
+      }
+
+      String formattedDate = "$fullYear-$month-$day";
+
+      if (age.text != formattedDate) {
+        setState(() {
+          age.text = formattedDate;
+        });
+      }
+    } else if (id.length < 7 && age.text.isNotEmpty) {
+      setState(() {
+        age.clear();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +99,21 @@ class _RegisterBodyState extends State<RegisterBody> {
                   TextFormFieldCustom(
                     validator: AppValidator.validateNationalId,
                     controller: national,
+                    keyboardType: TextInputType.number,
                     label: 'الرقم القومي',
                   ),
                   verticalSpace(context, height: 10),
                   TextFormFieldCustom(
                     validator: AppValidator.validateAge,
                     controller: age,
-                    label: 'العمر',
+                    label: 'تاريخ الميلاد',
+                    readOnly: true,
                   ),
                   verticalSpace(context, height: 10),
                   TextFormFieldCustom(
                     validator: AppValidator.validateEmail,
                     controller: email,
+                    keyboardType: TextInputType.emailAddress,
                     suffixIcon: const Icon(
                       Icons.email_outlined,
                       color: Colors.grey,
@@ -80,62 +124,68 @@ class _RegisterBodyState extends State<RegisterBody> {
                   TextFormFieldCustom(
                     validator: AppValidator.validatePhone,
                     controller: phone,
+                    keyboardType: TextInputType.phone,
                     suffixIcon: const Icon(Icons.phone, color: Colors.grey),
                     label: 'رقم الهاتف',
                   ),
                   verticalSpace(context, height: 10),
-                  Consumer<LoginController>(
-                    builder: (context, controller, child) {
-                      return TextFormFieldCustom(
-                        validator: AppValidator.validatePassword,
-                        controller: password,
-                        obscureText: controller.isPasswordHidden,
-                        suffixIcon: IconButton(
-                          color: Colors.grey,
-                          onPressed: () => controller.isHidden(),
-                          icon: Icon(
-                            controller.isPasswordHidden
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                        ),
-                        label: 'كلمة المرور',
-                      );
-                    },
+                  TextFormFieldCustom(
+                    validator: AppValidator.validatePassword,
+                    controller: password,
+                    obscureText: isPasswordHidden,
+                    suffixIcon: IconButton(
+                      color: Colors.grey,
+                      onPressed: () {
+                        setState(() {
+                          isPasswordHidden = !isPasswordHidden;
+                        });
+                      },
+                      icon: Icon(
+                        isPasswordHidden
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                    ),
+                    label: 'كلمة المرور',
                   ),
                   verticalSpace(context, height: 10),
-                  Consumer<LoginController>(
-                    builder: (context, controller, child) {
-                      return TextFormFieldCustom(
-                        controller: confirmPassword,
-                        obscureText: controller.isPasswordHidden,
-                        suffixIcon: IconButton(
-                          color: Colors.grey,
-                          onPressed: () => controller.isHidden(),
-                          icon: Icon(
-                            controller.isPasswordHidden
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                          ),
-                        ),
-                        label: 'تأكيد كلمة المرور',
-                        validator: (value) =>
-                            AppValidator.validateConfirmPassword(
-                              value,
-                              password.text,
-                            ),
-                      );
-                    },
+                  TextFormFieldCustom(
+                    controller: confirmPassword,
+                    obscureText: isConfirmPasswordHidden,
+                    suffixIcon: IconButton(
+                      color: Colors.grey,
+                      onPressed: () {
+                        setState(() {
+                          isConfirmPasswordHidden = !isConfirmPasswordHidden;
+                        });
+                      },
+                      icon: Icon(
+                        isConfirmPasswordHidden
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                    ),
+                    label: 'تأكيد كلمة المرور',
+                    validator: (value) => AppValidator.validateConfirmPassword(
+                      value,
+                      password.text,
+                    ),
                   ),
                   verticalSpace(context, height: 10),
                   AppButton(
                     text: 'انشاء حساب',
-                    onPressed: () async {
-                      if (!_formKey.currentState!.validate()) return;
-                      showLoadingDialog(context, message: 'جاري إنشاء الحساب');
-                      await Future.delayed(const Duration(seconds: 1));
-                      if (context.mounted) Navigator.of(context).pop();
-                      if (context.mounted) context.go(AppRouter.khome);
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<RegisterCubit>().register(
+                          fullName: name.text,
+                          nationalId: national.text,
+                          email: email.text,
+                          phone: phone.text,
+                          dateOfBirth: age.text,
+                          password: password.text,
+                          confirmPassword: confirmPassword.text,
+                        );
+                      }
                     },
                   ),
                   verticalSpace(context, height: 10),
@@ -173,6 +223,7 @@ class _RegisterBodyState extends State<RegisterBody> {
 
   @override
   void dispose() {
+    national.removeListener(_extractDateFromNationalId);
     email.dispose();
     national.dispose();
     phone.dispose();

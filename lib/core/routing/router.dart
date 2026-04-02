@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanad/features/auth/forget/forget_view.dart';
-import 'package:sanad/features/auth/login/view/login_screen.dart';
 import 'package:sanad/features/auth/register/view/register_screen.dart';
 import 'package:sanad/features/onboarding/ui/on_boarding_screen.dart';
 import 'package:sanad/features/splash/ui/splash_screen.dart';
 import 'package:sanad/features/main/view/main_screen.dart';
 
 import '../../features/attendance/view/attendance_confirmation_screen.dart';
+import '../../features/auth/login/view/login_screen.dart';
 import '../../features/campaign/view/campaign_details_screen.dart';
 import '../../features/report/campaign_report_screen.dart';
 import '../../features/report_success_delivery/widgets/report_success_screen.dart';

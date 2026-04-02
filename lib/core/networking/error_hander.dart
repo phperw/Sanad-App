@@ -1,113 +1,49 @@
-// // ignore_for_file: constant_identifier_names
+import 'package:dio/dio.dart';
+import 'api_error_model.dart';
 
-// import 'package:dio/dio.dart';
-// import 'package:yalla_kora/core/networking/api_constants.dart';
-// import 'package:yalla_kora/core/networking/api_error_model.dart';
+class ErrorHandler {
+  ErrorHandler._();
 
-// /// ================================
-// /// Data Source enum (المكان اللي جه منه الخطأ)
-// /// ================================
-// enum DataSource {
-//   SUCCESS,
-//   NO_CONTENT,
-//   BAD_REQUEST,
-//   FORBIDDEN,
-//   UNAUTHORIZED,
-//   NOT_FOUND,
-//   CONFLICT,
-//   INTERNAL_SERVER_ERROR,
-//   CONNECT_TIMEOUT,
-//   CANCEL,
-//   RECEIVE_TIMEOUT,
-//   SEND_TIMEOUT,
-//   CACHE_ERROR,
-//   NO_INTERNET_CONNECTION,
-//   DEFAULT,
-// }
+  static ApiErrorModel handle(dynamic error) {
+    if (error is DioException) {
+      return _handleDioException(error);
+    }
+    return const ApiErrorModel(message: 'حدث خطأ غير متوقع');
+  }
 
-// /// ================================
-// /// Extension to convert DataSource → ApiErrorModel
-// /// ================================
-// extension DataSourceExtension on DataSource {
-//   ApiErrorModel getFailure() {
-//     switch (this) {
-//       case DataSource.BAD_REQUEST:
-//         return ApiErrorModel(message: ApiErrors.badRequestError, code: 400);
+  static ApiErrorModel _handleDioException(DioException e) {
+    switch (e.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+        return const ApiErrorModel(
+          message: 'انتهت مهلة الاتصال، حاول مرة أخرى',
+          statusCode: 408,
+        );
 
-//       case DataSource.FORBIDDEN:
-//         return ApiErrorModel(message: ApiErrors.forbiddenError, code: 403);
+      case DioExceptionType.badResponse:
+        try {
+          return ApiErrorModel.fromJson(
+            e.response?.data as Map<String, dynamic>,
+          );
+        } catch (_) {
+          return ApiErrorModel(
+            message: 'حدث خطأ من السيرفر',
+            statusCode: e.response?.statusCode,
+          );
+        }
 
-//       case DataSource.UNAUTHORIZED:
-//         return ApiErrorModel(message: ApiErrors.unauthorizedError, code: 401);
+      case DioExceptionType.connectionError:
+        return const ApiErrorModel(message: 'لا يوجد اتصال بالإنترنت');
 
-//       case DataSource.NOT_FOUND:
-//         return ApiErrorModel(message: ApiErrors.notFoundError, code: 404);
+      case DioExceptionType.cancel:
+        return const ApiErrorModel(message: 'تم إلغاء الطلب');
 
-//       case DataSource.CONFLICT:
-//         return ApiErrorModel(message: ApiErrors.conflictError, code: 409);
+      case DioExceptionType.badCertificate:
+        return const ApiErrorModel(message: 'خطأ في الشهادة الأمنية');
 
-//       case DataSource.INTERNAL_SERVER_ERROR:
-//         return ApiErrorModel(message: ApiErrors.internalServerError, code: 500);
-
-//       case DataSource.CONNECT_TIMEOUT:
-//       case DataSource.SEND_TIMEOUT:
-//       case DataSource.RECEIVE_TIMEOUT:
-//         return ApiErrorModel(message: ApiErrors.timeoutError, code: 408);
-
-//       case DataSource.CANCEL:
-//         return ApiErrorModel(message: ApiErrors.defaultError, code: 0);
-
-//       case DataSource.NO_INTERNET_CONNECTION:
-//         return ApiErrorModel(message: ApiErrors.noInternetError, code: 0);
-
-//       case DataSource.DEFAULT:
-//       default:
-//         return ApiErrorModel(message: ApiErrors.defaultError, code: 0);
-//     }
-//   }
-// }
-
-// /// ================================
-// /// Error Handler class EXACT like instructor
-// /// ================================
-// class ErrorHandler implements Exception {
-//   late ApiErrorModel apiErrorModel;
-
-//   ErrorHandler.handle(dynamic error) {
-//     if (error is DioException) {
-//       apiErrorModel = _handleDioError(error);
-//     } else {
-//       apiErrorModel = DataSource.DEFAULT.getFailure();
-//     }
-//   }
-
-//   ApiErrorModel _handleDioError(DioException error) {
-//     switch (error.type) {
-//       case DioExceptionType.connectionTimeout:
-//         return DataSource.CONNECT_TIMEOUT.getFailure();
-
-//       case DioExceptionType.sendTimeout:
-//         return DataSource.SEND_TIMEOUT.getFailure();
-
-//       case DioExceptionType.receiveTimeout:
-//         return DataSource.RECEIVE_TIMEOUT.getFailure();
-
-//       case DioExceptionType.badCertificate:
-//       case DioExceptionType.cancel:
-//         return DataSource.CANCEL.getFailure();
-
-//       case DioExceptionType.badResponse:
-//         try {
-//           return ApiErrorModel.fromJson(error.response?.data);
-//         } catch (_) {
-//           return DataSource.DEFAULT.getFailure();
-//         }
-
-//       case DioExceptionType.connectionError:
-//         return DataSource.NO_INTERNET_CONNECTION.getFailure();
-
-//       case DioExceptionType.unknown:
-//         return DataSource.DEFAULT.getFailure();
-//     }
-//   }
-// }
+      case DioExceptionType.unknown:
+        return const ApiErrorModel(message: 'حدث خطأ غير متوقع');
+    }
+  }
+}
