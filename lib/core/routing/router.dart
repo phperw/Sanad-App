@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sanad/core/networking/api_service.dart';
 import 'package:sanad/features/auth/forget/forget_view.dart';
 import 'package:sanad/features/auth/login/view/login_screen.dart';
-import 'package:sanad/features/auth/login/view_model/login/login_cubit.dart';
 import 'package:sanad/features/auth/register/view/register_screen.dart';
-import 'package:sanad/features/auth/register/view_model/register_cubit.dart';
-import 'package:sanad/features/home/view_model/home/home_cubit.dart';
 import 'package:sanad/features/onboarding/ui/on_boarding_screen.dart';
 import 'package:sanad/features/splash/ui/splash_screen.dart';
 import 'package:sanad/features/main/view/main_screen.dart';
@@ -46,28 +41,13 @@ class AppRouter {
         path: konboarding,
         builder: (context, state) => const OnBoardingScreen(),
       ),
-      GoRoute(
-        path: klogin,
-        builder: (context, state) => BlocProvider(
-          create: (context) => LoginCubit(ApiDioService()),
-          child: LoginScreen(),
-        ),
-      ),
+      GoRoute(path: klogin, builder: (context, state) => const LoginScreen()),
       GoRoute(
         path: kregister,
-        builder: (context, state) => BlocProvider(
-          create: (context) => RegisterCubit(ApiDioService()),
-          child: RegisterScreen(),
-        ),
+        builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(path: kforget, builder: (context, state) => const ForgetView()),
-      GoRoute(
-        path: kmain,
-        builder: (context, state) => BlocProvider(
-          create: (context) => HomeCubit(ApiDioService())..getHomeSummary(),
-          child: const MainScreen(),
-        ),
-      ),
+      GoRoute(path: kmain, builder: (context, state) => const MainScreen()),
       GoRoute(
         path: kAttendanceConfirmation,
         parentNavigatorKey: _rootNavigatorKey,

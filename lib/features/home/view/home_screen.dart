@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sanad/features/home/view_model/home/home_cubit.dart';
-import 'package:sanad/features/home/view_model/home/home_state.dart';
 import 'widget/stats_row.dart';
 import 'widget/task_header.dart';
 import '../../../core/helper/responsive_extensions.dart';
@@ -9,61 +7,25 @@ import 'widget/header_section.dart';
 import 'widget/news_section.dart';
 import 'widget/sos_button.dart';
 import 'widget/scheduled_task_card.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        if (state is HomeLoading) {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-    
-        if (state is HomeError) {
-          return Scaffold(
-            body: Center(
-              child: Text(state.error),
-            ),
-          );
-        }
-    
-        if (state is HomeSuccess) {
-          final data = state.homeModel;
-    
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            body: SafeArea(
-              child: ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16.w(context),
-                ),
-                children: [
-                  HeaderSection(
-                    name: data.summary!.volunteer!.fullName??'',
-                  ),
-    
-                  verticalSpace(context, height: 20),
-    
-                  const SOSButton(),
-    
-                  verticalSpace(context, height: 20),
-    
-                  StatsRow(
-                    hours: data.summary!.stats!.totalHours.toString(),
-                    points: data.summary!.stats!.points.toString(),
-                  ),
-    
-                  verticalSpace(context, height: 20),
-                NewsSection(),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 16.w(context)),
+          children: [
+            HeaderSection(),
+            verticalSpace(context, height: 20),
+            SOSButton(),
+            verticalSpace(context, height: 20),
+            StatsRow(),
+            verticalSpace(context, height: 20),
+            NewsSection(),
             verticalSpace(context, height: 20),
             TasksHeader(tasksCount: 2),
             verticalSpace(context, height: 16),
@@ -81,57 +43,9 @@ class HomeScreen extends StatelessWidget {
               taskType: 'دعم لوجستي و توزيع',
             ),
             verticalSpace(context, height: 20),
-                ],
-              ),
-            ),
-          );
-        }
-    
-        return const Scaffold(
-          body: SizedBox(),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.transparent,
-//       body: SafeArea(
-//         child: ListView(
-//           padding: EdgeInsets.symmetric(horizontal: 16.w(context)),
-//           children: [
-//             HeaderSection(),
-//             verticalSpace(context, height: 20),
-//             SOSButton(),
-//             verticalSpace(context, height: 20),
-//             StatsRow(),
-//             verticalSpace(context, height: 20),
-//             NewsSection(),
-//             verticalSpace(context, height: 20),
-//             TasksHeader(tasksCount: 2),
-//             verticalSpace(context, height: 16),
-//             ScheduledTaskCard(
-//               time: 'AM 10:00',
-//               remainingTime: 'متبقي 2س',
-//               locationName: 'منطقة أكتوبر السكنية',
-//               taskType: 'مهمة ميدانية سريعة',
-//             ),
-//             verticalSpace(context, height: 12),
-//             ScheduledTaskCard(
-//               time: 'PM 2:30',
-//               remainingTime: 'متبقي 5س',
-//               locationName: 'حي المعادي - شارع 9',
-//               taskType: 'دعم لوجستي و توزيع',
-//             ),
-//             verticalSpace(context, height: 20),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

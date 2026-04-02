@@ -4,10 +4,7 @@ import 'package:sanad/core/helper/spacing.dart';
 import 'stat_card.dart';
 
 class StatsRow extends StatelessWidget {
-  const StatsRow({super.key, required this.hours,
-    required this.points, });
-    final String hours;
-  final String points;
+  const StatsRow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +13,7 @@ class StatsRow extends StatelessWidget {
         Expanded(
           child: StatCard(
             title: 'عدد الساعات',
-            value: hours,
+            value: '120',
             valueStyle: TextStyles.cairoBold24Primary(context),
           ),
         ),
@@ -24,7 +21,7 @@ class StatsRow extends StatelessWidget {
         Expanded(
           child: StatCard(
             title: 'انجازاتي',
-            value: points,
+            value: '450',
             valueStyle: TextStyles.cairoBold24Orange(context),
           ),
         ),
