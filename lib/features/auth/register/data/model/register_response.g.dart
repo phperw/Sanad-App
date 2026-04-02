@@ -14,4 +14,3 @@ RegisterResponse _$RegisterResponseFromJson(Map<String, dynamic> json) =>
       refreshToken: json['refreshToken'] as String,
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
-

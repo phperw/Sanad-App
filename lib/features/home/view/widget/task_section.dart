@@ -1,67 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:sanad/core/helper/spacing.dart';
+import '../../data/models/home_response.dart';
+import 'empty_state_widget.dart';
+import 'scheduled_task_card.dart';
+import 'task_header.dart';
 
 class TasksSection extends StatelessWidget {
-  const TasksSection({super.key});
+  final List<HomeTask> tasks;
 
-  // هنا نعمل قائمة من المهام
-  final List<Map<String, String>> tasks = const [
-    {"title": "منطقة كفر الدوار السكنية", "time": "AM 10:00"},
-    {"title": "حي العمال - شارع 9", "time": "PM 2:30"},
-    {"title": "شارع التحرير - مكتب البريد", "time": "PM 4:00"},
-    // ممكن تضيفي أي عدد من المهام هنا
-  ];
+  const TasksSection({super.key, required this.tasks});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          "مهام اليوم",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-        ),
-        const SizedBox(height: 10),
-        // نستخدم ListView.builder داخل Container مع ارتفاع محدد
-        SizedBox(
-          height: 300, // ضبطي الارتفاع حسب الحاجة
-          child: ListView.builder(
+        TasksHeader(tasksCount: tasks.length),
+        verticalSpace(context, height: 16),
+        if (tasks.isEmpty)
+          const EmptyStateWidget(
+            message: 'لا توجد مهام معينة لك اليوم',
+            icon: Icons.task_alt,
+          )
+        else
+          ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: tasks.length,
+            separatorBuilder: (context, index) =>
+                verticalSpace(context, height: 12),
             itemBuilder: (context, index) {
               final task = tasks[index];
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: TaskCard(title: task["title"]!, time: task["time"]!),
+              return ScheduledTaskCard(
+                time: task.time,
+                remainingTime: task.remainingTime,
+                locationName: task.locationName,
+                taskType: task.taskType,
               );
             },
           ),
-        ),
       ],
-    );
-  }
-}
-
-class TaskCard extends StatelessWidget {
-  final String title;
-  final String time;
-
-  const TaskCard({super.key, required this.title, required this.time});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          const Icon(Icons.location_on, color: Colors.green),
-          const SizedBox(width: 10),
-          Expanded(child: Text(title)),
-          Text(time, style: const TextStyle(color: Colors.green)),
-        ],
-      ),
     );
   }
 }

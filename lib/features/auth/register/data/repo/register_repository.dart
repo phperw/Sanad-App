@@ -14,7 +14,7 @@ class RegisterRepository {
   Future<ApiResult<RegisterResponse>> register(RegisterRequest request) async {
     try {
       final response = await _dio.post(
-        ApiConstants.register,
+        ApiConstants.endpointRegister,
         data: request.toJson(),
       );
       return Success(RegisterResponse.fromJson(response.data));
