@@ -177,6 +177,7 @@ class _ErrorScreenState extends State<ErrorScreen>
 
                     // await SharedPrefHelper.clearAll();
 
+                    // ignore: use_build_context_synchronously
                     context.go(AppRouter.klogin);
                   },
                   onTapCancel: () => _buttonController.reverse(),

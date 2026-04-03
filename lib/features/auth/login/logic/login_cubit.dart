@@ -35,6 +35,10 @@ class LoginCubit extends Cubit<LoginState> {
           key: SharedPrefKeys.userId,
           value: data.user.id,
         );
+        await SharedPrefHelper.setData(
+          key: SharedPrefKeys.userName,
+          value: data.user.fullName,
+        );
         emit(LoginSuccess(data));
       case Failure(:final error):
         emit(LoginFailure(error));

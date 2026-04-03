@@ -5,6 +5,8 @@ class ApiConstants {
   static const String endpointRegister = '/auth/register';
   static const String endpointHome = '/home';
   static const String endpointProfile = '/auth/me';
+  static const String endpointCreateCommunityPost = '/community/posts';
+  static const String endpointCommunityFeed = '/community/feed';
 }
 
 class ApiErrors {

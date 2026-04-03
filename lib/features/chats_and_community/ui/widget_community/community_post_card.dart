@@ -11,7 +11,7 @@ class CommunityPostCard extends StatelessWidget {
   final String timeAgo;
   final String postText;
   final String? imageUrl;
-  final String avatarUrl;
+  final String? avatarUrl;
   final int likesCount;
   final int commentsCount;
   final VoidCallback? onLike;
@@ -31,6 +31,9 @@ class CommunityPostCard extends StatelessWidget {
     this.onComment,
     this.onShare,
   });
+
+  bool get _hasValidAvatar =>
+      avatarUrl != null && avatarUrl!.trim().isNotEmpty && avatarUrl != 'null';
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +70,6 @@ class CommunityPostCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            // Header: Avatar + Name + Time
             Row(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,42 +92,59 @@ class CommunityPostCard extends StatelessWidget {
                   width: 40.w(context),
                   height: 40.w(context),
                   decoration: ShapeDecoration(
+                    color: AppColors.lightGreenishWhite,
                     shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 1.5,
+                        color: AppColors.chatChipBorder,
+                      ),
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    image: DecorationImage(
-                      image: NetworkImage(avatarUrl),
-                      fit: BoxFit.cover,
-                    ),
+                    image: _hasValidAvatar
+                        ? DecorationImage(
+                            image: NetworkImage(avatarUrl!),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
                   ),
+                  child: !_hasValidAvatar
+                      ? Center(
+                          child: Text(
+                            userName.trim().isNotEmpty
+                                ? userName.trim()[0].toUpperCase()
+                                : '؟',
+                            style: TextStyles.cairoBold16DarkBlue(
+                              context,
+                            ).copyWith(color: AppColors.primaryColor),
+                          ),
+                        )
+                      : null,
                 ),
               ],
             ),
             verticalSpace(context, height: 8),
-
-            // Post text
             Text(
               postText,
               textAlign: TextAlign.right,
               style: TextStyles.cairoRegular12DarkBlue(context),
             ),
             verticalSpace(context, height: 4),
-
-            // Post image (optional)
-            if (imageUrl != null) ...[
+            if (imageUrl != null &&
+                imageUrl!.trim().isNotEmpty &&
+                imageUrl != 'null') ...[
               ClipRRect(
                 borderRadius: BorderRadius.circular(14.r(context)),
-                child: Image.asset(
+                child: Image.network(
                   imageUrl!,
                   width: double.infinity,
                   height: 180.h(context),
                   fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const SizedBox(),
                 ),
               ),
               verticalSpace(context, height: 8),
             ],
-
-            // Actions bar
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(vertical: 8.h(context)),
@@ -137,7 +156,6 @@ class CommunityPostCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  // مشاركة
                   _ActionButton(
                     iconPath: Assets.share,
                     label: 'مشاركة',
@@ -146,8 +164,6 @@ class CommunityPostCard extends StatelessWidget {
                     onTap: onShare,
                   ),
                   horizontalSpace(context, width: 24),
-
-                  // تعليق
                   _ActionButton(
                     iconPath: Assets.comment,
                     label: 'تعليق',
@@ -156,8 +172,6 @@ class CommunityPostCard extends StatelessWidget {
                     onTap: onComment,
                   ),
                   horizontalSpace(context, width: 24),
-
-                  // إعجاب
                   _ActionButton(
                     iconPath: Assets.like,
                     label: 'إعجاب',

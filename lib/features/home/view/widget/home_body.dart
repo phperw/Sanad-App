@@ -78,8 +78,9 @@ class HomeBody extends StatelessWidget {
         final volunteer = state is HomeSuccess
             ? state.data.summary.volunteer
             : _fakeVolunteer;
-        final stats =
-            state is HomeSuccess ? state.data.summary.stats : _fakeStats;
+        final stats = state is HomeSuccess
+            ? state.data.summary.stats
+            : _fakeStats;
         final announcements = state is HomeSuccess
             ? state.data.summary.announcements
             : _fakeAnnouncements;
