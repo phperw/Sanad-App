@@ -19,6 +19,7 @@ class Assets {
   static const String add = '${_pngPath}add.png';
   static const String campaignPhoto = '${_pngPath}Image (Campaign photo).png';
   static const String mapTest = '${_pngPath}Map_test.png';
+  static const String errorRobot = '${_pngPath}Error_Robot.png';
 
   /// 🔥 icons_account
   static const String iconTime = '${_pngPath}icons_account/icon_time.png';

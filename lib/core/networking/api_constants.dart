@@ -4,6 +4,7 @@ class ApiConstants {
   static const String endpointLogin = '/auth/login';
   static const String endpointRegister = '/auth/register';
   static const String endpointHome = '/home';
+  static const String endpointProfile = '/auth/me';
 }
 
 class ApiErrors {

@@ -281,4 +281,10 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     height: 2.17,
   );
+  static TextStyle cairoBold20Dark(BuildContext context) => TextStyle(
+    color: AppColors.dark,
+    fontSize: 20.sp(context),
+    fontFamily: 'Cairo',
+    fontWeight: FontWeight.bold,
+  );
 }

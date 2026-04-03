@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/helper/responsive_extensions.dart';
@@ -7,19 +8,32 @@ import 'leaderboard_header.dart';
 import 'leaderboard_item.dart';
 
 class LeaderboardCardWidget extends StatelessWidget {
-  final List<LeaderboardEntry> entries;
+  final String currentUserName;
+  final String currentUserPoints;
+  final String? currentUserImageUrl;
 
   const LeaderboardCardWidget({
     super.key,
-    this.entries = const [
-      LeaderboardEntry(
+    required this.currentUserName,
+    required this.currentUserPoints,
+    this.currentUserImageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final String safeUserName = currentUserName.length > 12
+        ? '${currentUserName.substring(0, 12)}...'
+        : currentUserName;
+
+    final List<LeaderboardEntry> entries = [
+      const LeaderboardEntry(
         medal: '🥇',
         name: 'محمد السيد',
         points: '850 نقطة',
         imageUrl: 'https://placehold.co/40x40',
         pointsColor: AppColors.orange,
       ),
-      LeaderboardEntry(
+      const LeaderboardEntry(
         medal: '🥈',
         name: 'سارة أحمد',
         points: '720 نقطة',
@@ -28,17 +42,14 @@ class LeaderboardCardWidget extends StatelessWidget {
       ),
       LeaderboardEntry(
         medal: '🥉',
-        name: 'أحمد محمد (أنت)',
-        points: '470 نقطة',
-        imageUrl: 'https://placehold.co/40x40',
+        name: '$safeUserName (أنت)',
+        points: '$currentUserPoints نقطة',
+        imageUrl: currentUserImageUrl ?? 'https://placehold.co/40x40',
         isCurrentUser: true,
         pointsColor: AppColors.chatChipBorder,
       ),
-    ],
-  });
+    ];
 
-  @override
-  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       padding: context.responsivePadding(all: 20),

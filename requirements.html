@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>وثيقة متطلبات نظام سند - الشاملة</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #2980b9;
+            --accent: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f1c40f;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .pdf-page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 10mm auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-top: 10px solid var(--primary);
+            position: relative;
+        }
+        header {
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 { color: var(--primary); margin: 0; font-size: 26px; }
+        .section { margin-bottom: 30px; }
+        .section-title {
+            background: #ecf0f1;
+            padding: 10px;
+            color: var(--secondary);
+            font-weight: bold;
+            border-right: 5px solid var(--secondary);
+            margin-bottom: 15px;
+        }
+        .content { line-height: 1.7; color: #34495e; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+        th { background-color: #f8f9fa; color: var(--primary); }
+        .api-box {
+            background: #2d3436;
+            color: #fab1a0;
+            padding: 15px;
+            border-radius: 5px;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 10px 0;
+        }
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .rescuer { background-color: #95a5a6; } /* منقذ */
+        .hero { background-color: #f39c12; }    /* بطل توعية */
+        .executor { background-color: #8e44ad; }/* منفذ */
+        
+        .ui-note {
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .add { background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .remove { background-color: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+    </style>
+</head>
+<body>
+
+<div class="pdf-page">
+    <header>
+        <h1>وثيقة تحليل المتطلبات الفنية (SRS)</h1>
+        <p>مشروع تطبيق: <strong>سند (Sanad)</strong></p>
+        <p>إعداد المحلل: <strong>أحمد عبد الكريم</strong></p>
+    </header>
+
+    <div class="section">
+        <div class="section-title">1. هيكلية المهام (Tasks Logic)</div>
+        <div class="content">
+            <table>
+                <tr>
+                    <th>العملية</th>
+                    <th>الوصف الوظيفي</th>
+                    <th>الربط البرمجي</th>
+                </tr>
+                <tr>
+                    <td>Create Task</td>
+                    <td>إنشاء "قالب" المهمة العام</td>
+                    <td>يُخزن في جدول المهام الرئيسي</td>
+                </tr>
+                <tr>
+                    <td>Create Task Assignment</td>
+                    <td>إسناد مهمة معينة لمتطوع محدد</td>
+                    <td>يربط بين الـ Volunteer ID والـ Task ID</td>
+                </tr>
+            </table>
+            <p><strong>منطق شاشة الهوم:</strong> يتم ربط الـ <code>Task Assignment</code> الخاص بـ <code>ID</code> المتطوع بـ <code>Task Today</code> من خلال فلترة التاريخ الحالي.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">2. تكامل الـ APIs والتقارير</div>
+        <div class="content">
+            <ul>
+                <li><strong>الربط:</strong> ربط API الـ <code>Reports</code> بـ API الـ <code>Campaigns</code> (كل تقرير ينتمي لحملة).</li>
+                <li><strong>الصلاحيات:</strong> (-) السماح للمستخدم العادي بتعديل تقريره الخاص من خلال الـ API.</li>
+            </ul>
+            <p>نقاط النهاية المطلوبة (Endpoints):</p>
+            <div class="api-box">
+                GET    /api/reports/{id}       // Get report with ID <br>
+                PUT    /api/reports/{id}       // Update report <br>
+                GET    /api/sos/{id}           // List SOS request by ID <br>
+                PATCH  /api/sos/{id}           // Update SOS request status <br>
+                POST   /api/ai/chatbot         // Chatbot API Integration
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">3. نظام النقاط والترقية (Gamification)</div>
+        <div class="content">
+            <p>(+) <strong>لوحة المتصدرين:</strong> يتم ترتيب المتطوعين تنازلياً (من الأعلى إلى الأقل) بناءً على إجمالي النقاط.</p>
+            <p><strong>نظام الألقاب (بناءً على الساعات والمهام):</strong></p>
+            <table>
+                <tr>
+                    <th>اللقب</th>
+                    <th>شرط الاستحقاق</th>
+                    <th>المستوى</th>
+                </tr>
+                <tr>
+                    <td><span class="badge rescuer">منقذ</span></td>
+                    <td>المستوى الترحيبي (أقل مرتبة)</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td><span class="badge hero">بطل توعية</span></td>
+                    <td>تحقيق عدد ساعات ومهام متوسط</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td><span class="badge executor">منفذ</span></td>
+                    <td>تحقيق أعلى معدل ساعات وإنجاز مهام</td>
+                    <td>3</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">4. متطلبات واجهة المستخدم (UI/UX)</div>
+        <div class="ui-note remove">
+            (-) <strong>حذف:</strong> لا يوجد صفحة مستقلة باسم (page reports done list reports).
+        </div>
+        <div class="ui-note add">
+            (+) <strong>إضافة:</strong> شاشة لوحة المتصدرين (Leaderboard) مع عرض الألقاب بجانب الأسماء.
+        </div>
+    </div>
+
+    <footer style="text-align: center; font-size: 12px; color: #7f8c8d; border-top: 1px solid #eee; padding-top: 10px; position: absolute; bottom: 20mm; width: 80%;">
+        جميع الحقوق محفوظة لفريق تطوير تطبيق سند - 2026
+    </footer>
+</div>
+
+</body>
+</html>

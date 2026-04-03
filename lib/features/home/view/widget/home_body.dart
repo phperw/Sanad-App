@@ -4,6 +4,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../../../../core/widgets/error_screen.dart';
 import '../../data/models/home_response.dart';
 import '../../logic/home_cubit.dart';
 import '../../logic/home_state.dart';
@@ -63,29 +64,28 @@ class HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
+        if (state is HomeFailure) {
+          return Center(
+            child: ErrorScreen(
+              message: state.error.message,
+              onRetry: () => context.read<HomeCubit>().getHomeData(),
+            ),
+          );
+        }
+
         final isLoading = state is HomeLoading || state is HomeInitial;
 
         final volunteer = state is HomeSuccess
             ? state.data.summary.volunteer
             : _fakeVolunteer;
-        final stats = state is HomeSuccess
-            ? state.data.summary.stats
-            : _fakeStats;
+        final stats =
+            state is HomeSuccess ? state.data.summary.stats : _fakeStats;
         final announcements = state is HomeSuccess
             ? state.data.summary.announcements
             : _fakeAnnouncements;
         final tasks = state is HomeSuccess
             ? state.data.summary.todayTasks
             : _fakeTasks;
-
-        if (state is HomeFailure) {
-          return Center(
-            child: Text(
-              'حدث خطأ أثناء تحميل البيانات',
-              style: TextStyle(fontSize: 16.sp(context)),
-            ),
-          );
-        }
 
         return Skeletonizer(
           enabled: isLoading,
