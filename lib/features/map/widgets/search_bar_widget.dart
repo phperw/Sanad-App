@@ -41,7 +41,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               child: Container(
                 height: 50.h(context),
                 decoration: BoxDecoration(
-                  color: AppColors.white,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(12.r(context)),
                   boxShadow: [
                     BoxShadow(

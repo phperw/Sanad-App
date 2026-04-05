@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
-import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'mission_card_widget.dart';
 
@@ -16,7 +15,7 @@ class MissionsBottomSheetWidget extends StatelessWidget {
         height: context.screenHeight * 0.45, // Responsive height
         width: double.infinity,
         decoration: BoxDecoration(
-          color: AppColors.white, // Matching the UI background
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24.r(context)),
             topRight: Radius.circular(24.r(context)),

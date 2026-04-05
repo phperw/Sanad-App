@@ -1,7 +1,11 @@
+
 import 'package:get_it/get_it.dart';
 import 'package:sanad/core/networking/dio_factory.dart';
+import '../../features/account/data/api service/account_api_service.dart';
 import '../../features/account/data/repo/account_repository.dart';
+import '../../features/account/data/repo/get_users_card/account_repository.dart' as card;
 import '../../features/account/logic/account_cubit.dart';
+import '../../features/account/logic/get_user_card/account_cubit.dart';
 import '../../features/auth/login/data/repo/login_repository.dart';
 import '../../features/auth/login/logic/login_cubit.dart';
 import '../../features/auth/register/data/repo/register_repository.dart';
@@ -32,10 +36,13 @@ Future<void> setupDependencies() async {
   getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
 
   // Account
+  getIt.registerLazySingleton(() => AccountApiService(getIt()));
   getIt.registerLazySingleton(() => AccountRepository(getIt()));
   getIt.registerFactory(() => AccountCubit(getIt()));
+  getIt.registerLazySingleton(() => card.AccountRepository(getIt()));
+  getIt.registerFactory(() => AccountCubitCard(getIt()));
 
-  //create post
+  // Community
   getIt.registerLazySingleton(() => PostApiService(getIt()));
   getIt.registerLazySingleton(() => PostRepository(getIt()));
   getIt.registerFactory(() => CreatePostCubit(getIt()));

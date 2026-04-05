@@ -8,6 +8,8 @@ class LeaderboardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -15,7 +17,7 @@ class LeaderboardHeader extends StatelessWidget {
           'لوحة المتصدرين🏆',
           style: TextStyles.cairoBold16DarkBlue(
             context,
-          ).copyWith(fontWeight: FontWeight.w700),
+          ).copyWith(fontWeight: FontWeight.w700, color: onSurface),
         ),
         GestureDetector(
           onTap: () {},

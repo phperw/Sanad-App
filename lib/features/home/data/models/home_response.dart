@@ -91,14 +91,20 @@ class Stats {
 class Announcement {
   final int id;
   final String title;
+  @JsonKey(name: 'content')
   final String description;
+  @JsonKey(name: 'image')
   final String? imageUrl;
+  final bool isPinned;
+  final String createdAt;
 
   const Announcement({
     required this.id,
     required this.title,
     required this.description,
     this.imageUrl,
+    required this.isPinned,
+    required this.createdAt,
   });
 
   factory Announcement.fromJson(Map<String, dynamic> json) =>
@@ -106,23 +112,117 @@ class Announcement {
 }
 
 @JsonSerializable()
+class TaskLocation {
+  final int id;
+  final String name;
+  final double latitude;
+  final double longitude;
+  final String city;
+  final String area;
+
+  const TaskLocation({
+    required this.id,
+    required this.name,
+    required this.latitude,
+    required this.longitude,
+    required this.city,
+    required this.area,
+  });
+
+  factory TaskLocation.fromJson(Map<String, dynamic> json) =>
+      _$TaskLocationFromJson(json);
+}
+
+@JsonSerializable()
+class TaskCampaign {
+  final int id;
+  final String title;
+  final String? coverImage;
+
+  const TaskCampaign({
+    required this.id,
+    required this.title,
+    this.coverImage,
+  });
+
+  factory TaskCampaign.fromJson(Map<String, dynamic> json) =>
+      _$TaskCampaignFromJson(json);
+}
+
+@JsonSerializable()
+class TaskAssignment {
+  final String status;
+  final String? checkInTime;
+
+  const TaskAssignment({
+    required this.status,
+    this.checkInTime,
+  });
+
+  factory TaskAssignment.fromJson(Map<String, dynamic> json) =>
+      _$TaskAssignmentFromJson(json);
+}
+
+@JsonSerializable()
 class HomeTask {
   final int id;
   final String title;
-  final String time;
-  final String locationName;
-  final String taskType;
-  final String remainingTime;
+  final String? description;
+  final String date;
+  final String startTime;
+  final String endTime;
+  final String status;
+  final TaskLocation location;
+  final TaskCampaign campaign;
+  final TaskAssignment assignment;
 
   const HomeTask({
     required this.id,
     required this.title,
-    required this.time,
-    required this.locationName,
-    required this.taskType,
-    required this.remainingTime,
+    this.description,
+    required this.date,
+    required this.startTime,
+    required this.endTime,
+    required this.status,
+    required this.location,
+    required this.campaign,
+    required this.assignment,
   });
 
   factory HomeTask.fromJson(Map<String, dynamic> json) =>
       _$HomeTaskFromJson(json);
+
+  String get displayTime {
+    try {
+      final parts = startTime.split(':');
+      int hour = int.parse(parts[0]);
+      final min = parts[1];
+      final suffix = hour >= 12 ? 'م' : 'ص';
+      if (hour > 12) hour -= 12;
+      if (hour == 0) hour = 12;
+      return '$hour:$min $suffix';
+    } catch (_) {
+      return startTime;
+    }
+  }
+
+  String get remainingTimeLabel {
+    try {
+      final now = DateTime.now();
+      final parts = startTime.split(':');
+      final taskStart = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        int.parse(parts[0]),
+        int.parse(parts[1]),
+      );
+      final diff = taskStart.difference(now);
+      if (diff.isNegative) return 'انتهت';
+      if (diff.inMinutes < 60) return 'متبقي ${diff.inMinutes}د';
+      return 'متبقي ${diff.inHours}س';
+    } catch (_) {
+      return '';
+    }
+  }
 }

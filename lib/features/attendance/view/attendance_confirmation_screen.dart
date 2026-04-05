@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
-import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'widgets/attendance_details_card_widget.dart';
 import 'widgets/confirmation_actions_widget.dart';
@@ -12,24 +11,22 @@ class AttendanceConfirmationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bgColor = Theme.of(context).scaffoldBackgroundColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: AppColors.white,
+        backgroundColor: bgColor,
         elevation: 0,
         centerTitle: true,
         title: Text(
           'تأكيد الحضور',
-          style: TextStyles.cairoBold32Dark(
-            context,
-          ).copyWith(fontSize: 18.sp(context)),
+          style: TextStyles.cairoBold32Dark(context)
+              .copyWith(fontSize: 18.sp(context), color: onSurface),
         ),
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: AppColors.dark,
-            size: 20.r(context),
-          ),
+          icon: Icon(Icons.arrow_back_ios, color: onSurface, size: 20.r(context)),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -38,17 +35,11 @@ class AttendanceConfirmationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'موقعك الحالي',
-              style: TextStyles.cairoRegular14Muted(context),
-            ),
+            Text('موقعك الحالي', style: TextStyles.cairoRegular14Muted(context)),
             verticalSpace(context, height: 12),
             const CurrentLocationCardWidget(),
             verticalSpace(context, height: 24),
-            Text(
-              'تفاصيل تسجيل الحضور',
-              style: TextStyles.cairoRegular14Muted(context),
-            ),
+            Text('تفاصيل تسجيل الحضور', style: TextStyles.cairoRegular14Muted(context)),
             verticalSpace(context, height: 12),
             const AttendanceDetailsCardWidget(),
             verticalSpace(context, height: 20),

@@ -1,4 +1,4 @@
-part of 'create_post_cubit.dart';
+import '../data/models/create_post_response.dart';
 
 sealed class CreatePostState {}
 

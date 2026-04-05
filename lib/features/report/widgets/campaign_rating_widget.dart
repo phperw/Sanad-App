@@ -12,25 +12,29 @@ class CampaignRatingWidget extends StatefulWidget {
 }
 
 class _CampaignRatingWidgetState extends State<CampaignRatingWidget> {
-  int selectedIndex = 0; // 0: ممتازة, 1: جيدة, 2: صعبة
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final dividerColor = Theme.of(context).dividerColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Column(
       children: [
         Text(
           'كيف سارت الحملة؟',
           style: TextStyles.cairoBold32Dark(
             context,
-          ).copyWith(fontSize: 16.sp(context)),
+          ).copyWith(fontSize: 16.sp(context), color: onSurface),
         ),
         verticalSpace(context, height: 16),
         Container(
           padding: context.responsivePadding(vertical: 16, horizontal: 8),
           decoration: BoxDecoration(
-            color: const Color(0xFFF9FAFB), // Very light grey inner background
+            color: cardColor,
             borderRadius: BorderRadius.circular(16.r(context)),
-            border: Border.all(color: Colors.grey.shade200),
+            border: Border.all(color: dividerColor),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -56,6 +60,7 @@ class _CampaignRatingWidgetState extends State<CampaignRatingWidget> {
     required String emoji,
     required int index,
   }) {
+    final cardColor = Theme.of(context).cardColor;
     bool isSelected = selectedIndex == index;
 
     return GestureDetector(
@@ -67,7 +72,7 @@ class _CampaignRatingWidgetState extends State<CampaignRatingWidget> {
             height: 65.r(context),
             width: 65.r(context),
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: cardColor,
               shape: BoxShape.circle,
               border: isSelected
                   ? Border.all(color: AppColors.primaryColor, width: 2)

@@ -1,165 +1,464 @@
+// import 'package:flutter/material.dart';
+// import 'package:sanad/core/theme/app_colors.dart';
+// import '../helper/responsive_extensions.dart';
+
+// class TextStyles {
+//   static TextStyle cairoBold32Black(BuildContext context) => TextStyle(
+//     color: AppColors.black,
+//     fontSize: 32.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//   );
+
+//   static TextStyle cairoBold32Dark(BuildContext context) => TextStyle(
+//     color: AppColors.dark,
+//     fontSize: 32.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.14,
+//   );
+
+//   static TextStyle cairoRegular14Muted(BuildContext context) => TextStyle(
+//     color: AppColors.gray,
+//     fontSize: 14.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//     height: 1.82,
+//   );
+
+//   static TextStyle cairoExtraBold18White(BuildContext context) => TextStyle(
+//     color: AppColors.white,
+//     fontSize: 18.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w800,
+//     height: 1.56,
+//   );
+
+//   static TextStyle cairoMedium12Black(BuildContext context) => TextStyle(
+//     color: AppColors.black,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w500,
+//   );
+
+//   static TextStyle cairoRegular14Primary(BuildContext context) => TextStyle(
+//     color: AppColors.primaryColor,
+//     fontSize: 14.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//     height: 1.50,
+//   );
+
+//   static TextStyle cairoMedium14Black(BuildContext context) => TextStyle(
+//     color: AppColors.black,
+//     fontSize: 14.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w500,
+//   );
+
+//   static TextStyle cairoExtraLight12Hint(BuildContext context) => TextStyle(
+//     color: AppColors.hintColor,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w200,
+//   );
+
+//   static TextStyle cairoRegular14Black(BuildContext context) => TextStyle(
+//     color: AppColors.black,
+//     fontSize: 14.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//   );
+
+//   static TextStyle cairoBold14Primary(BuildContext context) => TextStyle(
+//     color: AppColors.primaryColor,
+//     fontSize: 14.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//   );
+
+//   static TextStyle cairoBold10Primary(BuildContext context) => TextStyle(
+//     color: AppColors.primaryColor,
+//     fontSize: 10.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//   );
+
+//   static TextStyle cairoBold10Gray(BuildContext context) => TextStyle(
+//     color: AppColors.gray,
+//     fontSize: 10.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//   );
+
+//   static TextStyle cairoRegular12Gray(BuildContext context) => TextStyle(
+//     color: AppColors.gray,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//     height: 1.50,
+//   );
+
+//   static TextStyle cairoBold16Black(BuildContext context) => TextStyle(
+//     color: AppColors.black,
+//     fontSize: 16.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//   );
+
+//   static TextStyle cairoBold16White(BuildContext context) => TextStyle(
+//     color: AppColors.white,
+//     fontSize: 16.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.50,
+//   );
+
+//   static TextStyle cairoBold24Primary(BuildContext context) => TextStyle(
+//     color: AppColors.primaryColor,
+//     fontSize: 24.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.50,
+//   );
+
+//   static TextStyle cairoBold24Orange(BuildContext context) => TextStyle(
+//     color: AppColors.orange,
+//     fontSize: 24.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.50,
+//   );
+
+//   static TextStyle cairoBold18Black2(BuildContext context) => TextStyle(
+//     color: AppColors.black2,
+//     fontSize: 18.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.50,
+//   );
+
+//   static TextStyle cairoRegular12Primary(BuildContext context) => TextStyle(
+//     color: AppColors.primaryColor,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//     height: 2.00,
+//   );
+
+//   static TextStyle cairoBold12Black(BuildContext context) => TextStyle(
+//     color: AppColors.black,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//   );
+
+//   static TextStyle cairoBold14Black2(BuildContext context) => TextStyle(
+//     color: AppColors.black2,
+//     fontSize: 14.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.38,
+//   );
+
+//   static TextStyle cairoRegular12DescriptionGray(BuildContext context) =>
+//       TextStyle(
+//         color: AppColors.descriptionGray,
+//         fontSize: 12.sp(context),
+//         fontFamily: 'Cairo',
+//         fontWeight: FontWeight.w400,
+//         height: 2.00,
+//       );
+
+//   static TextStyle cairoBold12BlackHeighted(BuildContext context) => TextStyle(
+//     color: AppColors.black,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 2.25,
+//   );
+
+//   static TextStyle cairoBold20DarkBlue(BuildContext context) => TextStyle(
+//     color: AppColors.darkBlue,
+//     fontSize: 20.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.40,
+//   );
+
+//   static TextStyle cairoBold14White(BuildContext context) => TextStyle(
+//     color: AppColors.white,
+//     fontSize: 14.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.71,
+//   );
+
+//   static TextStyle cairoBold14Gray(BuildContext context) => TextStyle(
+//     color: AppColors.textGray,
+//     fontSize: 14.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.71,
+//   );
+
+//   static TextStyle cairoMedium12DarkBlue(BuildContext context) => TextStyle(
+//     color: AppColors.darkBlue,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w500,
+//     height: 2.17,
+//   );
+
+//   static TextStyle cairoRegular10Gray(BuildContext context) => TextStyle(
+//     color: AppColors.textGray,
+//     fontSize: 10.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//     height: 1.60,
+//   );
+
+//   static TextStyle cairoSemiBold12Primary(BuildContext context) => TextStyle(
+//     color: AppColors.chatChipBorder,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w600,
+//     height: 1.67,
+//   );
+
+//   static TextStyle cairoMedium12White(BuildContext context) => TextStyle(
+//     color: AppColors.white,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w500,
+//     height: 2.17,
+//   );
+
+//   static TextStyle cairoSemiBold12White(BuildContext context) => TextStyle(
+//     color: AppColors.white,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w600,
+//     height: 1.67,
+//   );
+
+//   static TextStyle cairoRegular13White(BuildContext context) => TextStyle(
+//     color: AppColors.white,
+//     fontSize: 13.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//     height: 1.54,
+//   );
+
+//   static TextStyle cairoRegular10White(BuildContext context) => TextStyle(
+//     color: AppColors.white,
+//     fontSize: 10.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//     height: 1.60,
+//   );
+
+//   static TextStyle cairoMedium12Primary(BuildContext context) => TextStyle(
+//     color: AppColors.primaryColor,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w500,
+//     height: 2.17,
+//   );
+
+//   static TextStyle cairoBold16DarkBlue(BuildContext context) => TextStyle(
+//     color: AppColors.darkBlue,
+//     fontSize: 16.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w700,
+//     height: 1.50,
+//   );
+
+//   static TextStyle cairoRegular12DarkBlue(BuildContext context) => TextStyle(
+//     color: AppColors.darkBlue,
+//     fontSize: 12.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.w400,
+//     height: 2.17,
+//   );
+//   static TextStyle cairoBold20Dark(BuildContext context) => TextStyle(
+//     color: AppColors.dark,
+//     fontSize: 20.sp(context),
+//     fontFamily: 'Cairo',
+//     fontWeight: FontWeight.bold,
+//   );
+// }
 import 'package:flutter/material.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import '../helper/responsive_extensions.dart';
 
 class TextStyles {
+  // ── helpers ────────────────────────────────────────────────
+  // النصوص الداكنة بتاخد لونها من الـ theme تلقائياً
+  static Color _dark(BuildContext context) =>
+      Theme.of(context).colorScheme.onSurface;
+
+  // النصوص الفاتحة (على خلفيات داكنة) دايماً بيضاء
+  static Color _white(BuildContext context) => AppColors.white;
+
+  // ── styles ─────────────────────────────────────────────────
   static TextStyle cairoBold32Black(BuildContext context) => TextStyle(
-    color: AppColors.black,
-    fontSize: 32.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-  );
+        color: _dark(context),
+        fontSize: 32.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+      );
 
   static TextStyle cairoBold32Dark(BuildContext context) => TextStyle(
-    color: AppColors.dark,
-    fontSize: 32.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.14,
-  );
+        color: _dark(context),
+        fontSize: 32.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.14,
+      );
 
   static TextStyle cairoRegular14Muted(BuildContext context) => TextStyle(
-    color: AppColors.gray,
-    fontSize: 14.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-    height: 1.82,
-  );
+        color: AppColors.gray,
+        fontSize: 14.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+        height: 1.82,
+      );
 
   static TextStyle cairoExtraBold18White(BuildContext context) => TextStyle(
-    color: AppColors.white,
-    fontSize: 18.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w800,
-    height: 1.56,
-  );
+        color: _white(context),
+        fontSize: 18.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w800,
+        height: 1.56,
+      );
 
   static TextStyle cairoMedium12Black(BuildContext context) => TextStyle(
-    color: AppColors.black,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w500,
-  );
+        color: _dark(context),
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w500,
+      );
 
   static TextStyle cairoRegular14Primary(BuildContext context) => TextStyle(
-    color: AppColors.primaryColor,
-    fontSize: 14.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-    height: 1.50,
-  );
+        color: AppColors.primaryColor,
+        fontSize: 14.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+        height: 1.50,
+      );
 
   static TextStyle cairoMedium14Black(BuildContext context) => TextStyle(
-    color: AppColors.black,
-    fontSize: 14.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w500,
-  );
+        color: _dark(context),
+        fontSize: 14.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w500,
+      );
 
   static TextStyle cairoExtraLight12Hint(BuildContext context) => TextStyle(
-    color: AppColors.hintColor,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w200,
-  );
+        color: AppColors.hintColor,
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w200,
+      );
 
   static TextStyle cairoRegular14Black(BuildContext context) => TextStyle(
-    color: AppColors.black,
-    fontSize: 14.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-  );
+        color: _dark(context),
+        fontSize: 14.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+      );
 
   static TextStyle cairoBold14Primary(BuildContext context) => TextStyle(
-    color: AppColors.primaryColor,
-    fontSize: 14.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-  );
+        color: AppColors.primaryColor,
+        fontSize: 14.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+      );
 
   static TextStyle cairoBold10Primary(BuildContext context) => TextStyle(
-    color: AppColors.primaryColor,
-    fontSize: 10.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-  );
+        color: AppColors.primaryColor,
+        fontSize: 10.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+      );
 
   static TextStyle cairoBold10Gray(BuildContext context) => TextStyle(
-    color: AppColors.gray,
-    fontSize: 10.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-  );
+        color: AppColors.gray,
+        fontSize: 10.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+      );
 
   static TextStyle cairoRegular12Gray(BuildContext context) => TextStyle(
-    color: AppColors.gray,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-    height: 1.50,
-  );
+        color: AppColors.gray,
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+        height: 1.50,
+      );
 
   static TextStyle cairoBold16Black(BuildContext context) => TextStyle(
-    color: AppColors.black,
-    fontSize: 16.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-  );
+        color: _dark(context),
+        fontSize: 16.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+      );
 
   static TextStyle cairoBold16White(BuildContext context) => TextStyle(
-    color: AppColors.white,
-    fontSize: 16.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.50,
-  );
+        color: _white(context),
+        fontSize: 16.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.50,
+      );
 
   static TextStyle cairoBold24Primary(BuildContext context) => TextStyle(
-    color: AppColors.primaryColor,
-    fontSize: 24.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.50,
-  );
+        color: AppColors.primaryColor,
+        fontSize: 24.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.50,
+      );
 
   static TextStyle cairoBold24Orange(BuildContext context) => TextStyle(
-    color: AppColors.orange,
-    fontSize: 24.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.50,
-  );
+        color: AppColors.orange,
+        fontSize: 24.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.50,
+      );
 
   static TextStyle cairoBold18Black2(BuildContext context) => TextStyle(
-    color: AppColors.black2,
-    fontSize: 18.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.50,
-  );
+        color: _dark(context),
+        fontSize: 18.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.50,
+      );
 
   static TextStyle cairoRegular12Primary(BuildContext context) => TextStyle(
-    color: AppColors.primaryColor,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-    height: 2.00,
-  );
+        color: AppColors.primaryColor,
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+        height: 2.00,
+      );
 
   static TextStyle cairoBold12Black(BuildContext context) => TextStyle(
-    color: AppColors.black,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-  );
+        color: _dark(context),
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+      );
 
   static TextStyle cairoBold14Black2(BuildContext context) => TextStyle(
-    color: AppColors.black2,
-    fontSize: 14.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.38,
-  );
+        color: _dark(context),
+        fontSize: 14.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.38,
+      );
 
   static TextStyle cairoRegular12DescriptionGray(BuildContext context) =>
       TextStyle(
@@ -171,120 +470,121 @@ class TextStyles {
       );
 
   static TextStyle cairoBold12BlackHeighted(BuildContext context) => TextStyle(
-    color: AppColors.black,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 2.25,
-  );
+        color: _dark(context),
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 2.25,
+      );
 
   static TextStyle cairoBold20DarkBlue(BuildContext context) => TextStyle(
-    color: AppColors.darkBlue,
-    fontSize: 20.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.40,
-  );
+        color: _dark(context),
+        fontSize: 20.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.40,
+      );
 
   static TextStyle cairoBold14White(BuildContext context) => TextStyle(
-    color: AppColors.white,
-    fontSize: 14.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.71,
-  );
+        color: _white(context),
+        fontSize: 14.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.71,
+      );
 
   static TextStyle cairoBold14Gray(BuildContext context) => TextStyle(
-    color: AppColors.textGray,
-    fontSize: 14.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.71,
-  );
+        color: AppColors.gray,
+        fontSize: 14.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.71,
+      );
 
   static TextStyle cairoMedium12DarkBlue(BuildContext context) => TextStyle(
-    color: AppColors.darkBlue,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w500,
-    height: 2.17,
-  );
+        color: _dark(context),
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w500,
+        height: 2.17,
+      );
 
   static TextStyle cairoRegular10Gray(BuildContext context) => TextStyle(
-    color: AppColors.textGray,
-    fontSize: 10.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-    height: 1.60,
-  );
+        color: AppColors.textGray,
+        fontSize: 10.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+        height: 1.60,
+      );
 
   static TextStyle cairoSemiBold12Primary(BuildContext context) => TextStyle(
-    color: AppColors.chatChipBorder,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w600,
-    height: 1.67,
-  );
+        color: AppColors.chatChipBorder,
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w600,
+        height: 1.67,
+      );
 
   static TextStyle cairoMedium12White(BuildContext context) => TextStyle(
-    color: AppColors.white,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w500,
-    height: 2.17,
-  );
+        color: _white(context),
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w500,
+        height: 2.17,
+      );
 
   static TextStyle cairoSemiBold12White(BuildContext context) => TextStyle(
-    color: AppColors.white,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w600,
-    height: 1.67,
-  );
+        color: _white(context),
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w600,
+        height: 1.67,
+      );
 
   static TextStyle cairoRegular13White(BuildContext context) => TextStyle(
-    color: AppColors.white,
-    fontSize: 13.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-    height: 1.54,
-  );
+        color: _white(context),
+        fontSize: 13.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+        height: 1.54,
+      );
 
   static TextStyle cairoRegular10White(BuildContext context) => TextStyle(
-    color: AppColors.white,
-    fontSize: 10.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-    height: 1.60,
-  );
+        color: _white(context),
+        fontSize: 10.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+        height: 1.60,
+      );
 
   static TextStyle cairoMedium12Primary(BuildContext context) => TextStyle(
-    color: AppColors.primaryColor,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w500,
-    height: 2.17,
-  );
+        color: AppColors.primaryColor,
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w500,
+        height: 2.17,
+      );
 
   static TextStyle cairoBold16DarkBlue(BuildContext context) => TextStyle(
-    color: AppColors.darkBlue,
-    fontSize: 16.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w700,
-    height: 1.50,
-  );
+        color: _dark(context),
+        fontSize: 16.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w700,
+        height: 1.50,
+      );
 
   static TextStyle cairoRegular12DarkBlue(BuildContext context) => TextStyle(
-    color: AppColors.darkBlue,
-    fontSize: 12.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.w400,
-    height: 2.17,
-  );
+        color: _dark(context),
+        fontSize: 12.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.w400,
+        height: 2.17,
+      );
+
   static TextStyle cairoBold20Dark(BuildContext context) => TextStyle(
-    color: AppColors.dark,
-    fontSize: 20.sp(context),
-    fontFamily: 'Cairo',
-    fontWeight: FontWeight.bold,
-  );
+        color: _dark(context),
+        fontSize: 20.sp(context),
+        fontFamily: 'Cairo',
+        fontWeight: FontWeight.bold,
+      );
 }

@@ -33,6 +33,9 @@ class StatsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final dividerColor = Theme.of(context).dividerColor;
+
     final items = [
       _StatItem(value: points, label: 'نقطة', valueColor: AppColors.orange),
       _StatItem(
@@ -55,7 +58,7 @@ class StatsCardWidget extends StatelessWidget {
         vertical: 16.h(context),
       ),
       decoration: ShapeDecoration(
-        color: AppColors.white,
+        color: cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.r(context)),
         ),
@@ -74,7 +77,7 @@ class StatsCardWidget extends StatelessWidget {
             return Container(
               width: 1,
               height: 40.h(context),
-              color: AppColors.dividerColor,
+              color: dividerColor,
             );
           }
           final item = items[index ~/ 2];
@@ -107,15 +110,13 @@ class _StatCell extends StatelessWidget {
         SizedBox(height: item.isSelected ? 4.h(context) : 8.h(context)),
         Text(
           item.value,
-          style: TextStyles.cairoBold24Primary(
-            context,
-          ).copyWith(color: item.valueColor),
+          style: TextStyles.cairoBold24Primary(context)
+              .copyWith(color: item.valueColor),
         ),
         Text(
           item.label,
-          style: TextStyles.cairoRegular12Gray(
-            context,
-          ).copyWith(color: AppColors.textGray),
+          style: TextStyles.cairoRegular12Gray(context)
+              .copyWith(color: AppColors.textGray),
         ),
       ],
     );

@@ -20,6 +20,7 @@ CommunityFeedResponse _$CommunityFeedResponseFromJson(
 );
 
 
+
 PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) =>
     PaginationModel(
       page: (json['page'] as num).toInt(),
@@ -60,5 +61,4 @@ StatsModel _$StatsModelFromJson(Map<String, dynamic> json) => StatsModel(
   likes: (json['likes'] as num).toInt(),
   comments: (json['comments'] as num).toInt(),
 );
-
 

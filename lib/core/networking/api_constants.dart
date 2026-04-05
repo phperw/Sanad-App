@@ -7,6 +7,7 @@ class ApiConstants {
   static const String endpointProfile = '/auth/me';
   static const String endpointCreateCommunityPost = '/community/posts';
   static const String endpointCommunityFeed = '/community/feed';
+  static const String endpointGetallProfiles = '/profile';
 }
 
 class ApiErrors {

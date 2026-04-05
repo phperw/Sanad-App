@@ -37,6 +37,10 @@ class CommunityPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+    final divider = Theme.of(context).dividerColor;
+
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Container(
@@ -47,7 +51,7 @@ class CommunityPostCard extends StatelessWidget {
           left: 16.w(context),
         ),
         decoration: ShapeDecoration(
-          color: AppColors.white,
+          color: cardColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.r(context)),
           ),
@@ -79,7 +83,9 @@ class CommunityPostCard extends StatelessWidget {
                   children: [
                     Text(
                       userName,
-                      style: TextStyles.cairoBold16DarkBlue(context),
+                      style: TextStyles.cairoBold16DarkBlue(
+                        context,
+                      ).copyWith(color: onSurface),
                     ),
                     Text(
                       timeAgo,
@@ -126,7 +132,9 @@ class CommunityPostCard extends StatelessWidget {
             Text(
               postText,
               textAlign: TextAlign.right,
-              style: TextStyles.cairoRegular12DarkBlue(context),
+              style: TextStyles.cairoRegular12DarkBlue(
+                context,
+              ).copyWith(color: onSurface),
             ),
             verticalSpace(context, height: 4),
             if (imageUrl != null &&
@@ -148,10 +156,8 @@ class CommunityPostCard extends StatelessWidget {
             Container(
               width: double.infinity,
               padding: EdgeInsets.symmetric(vertical: 8.h(context)),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(width: 1, color: AppColors.dividerColor),
-                ),
+              decoration: BoxDecoration(
+                border: Border(top: BorderSide(width: 1, color: divider)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,

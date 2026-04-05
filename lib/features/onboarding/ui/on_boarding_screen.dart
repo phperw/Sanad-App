@@ -75,7 +75,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            Image.asset(Assets.backgroundSplashScreen, fit: BoxFit.cover),
             SafeArea(
               child: Column(
                 children: [

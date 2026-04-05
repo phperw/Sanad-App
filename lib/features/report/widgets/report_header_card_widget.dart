@@ -9,9 +9,12 @@ class ReportHeaderCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: cardColor,
         borderRadius: BorderRadius.circular(12.r(context)),
         boxShadow: [
           BoxShadow(
@@ -25,14 +28,11 @@ class ReportHeaderCardWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12.r(context)),
         child: Row(
           children: [
-            // The thick green accent bar (Right side in RTL)
             Container(
               width: 8.w(context),
               height: 80.h(context),
               color: AppColors.primaryColor,
             ),
-
-            // Content
             Expanded(
               child: Padding(
                 padding: context.responsivePadding(all: 16),
@@ -43,7 +43,7 @@ class ReportHeaderCardWidget extends StatelessWidget {
                       'حملة التوعية السكنية - أكتوبر',
                       style: TextStyles.cairoBold32Dark(
                         context,
-                      ).copyWith(fontSize: 16.sp(context)),
+                      ).copyWith(fontSize: 16.sp(context), color: onSurface),
                     ),
                     verticalSpace(context, height: 8),
                     Row(

@@ -32,10 +32,10 @@ class TasksSection extends StatelessWidget {
             itemBuilder: (context, index) {
               final task = tasks[index];
               return ScheduledTaskCard(
-                time: task.time,
-                remainingTime: task.remainingTime,
-                locationName: task.locationName,
-                taskType: task.taskType,
+                time: task.displayTime,
+                remainingTime: task.remainingTimeLabel,
+                locationName: task.location.name,
+                taskType: task.campaign.title,
               );
             },
           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:dotted_border/dotted_border.dart'; // Uncomment if you add the package!
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
@@ -10,6 +9,8 @@ class PhotoUploadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -17,22 +18,17 @@ class PhotoUploadWidget extends StatelessWidget {
           'إرفاق صور ميدانية',
           style: TextStyles.cairoBold32Dark(
             context,
-          ).copyWith(fontSize: 16.sp(context)),
+          ).copyWith(fontSize: 16.sp(context), color: onSurface),
         ),
         verticalSpace(context, height: 12),
         InkWell(
-          onTap: () {
-            // Open image picker
-          },
+          onTap: () {},
           child: Container(
             height: 120.h(context),
             width: double.infinity,
             decoration: BoxDecoration(
-              color: const Color(
-                0xFFF3FAF6,
-              ), // The distinct light green background
+              color: const Color(0xFFF3FAF6),
               borderRadius: BorderRadius.circular(16.r(context)),
-              // Native Border (Use DottedBorder package here if you want it exactly dashed!)
               border: Border.all(
                 color: AppColors.primaryColor.withOpacity(0.6),
                 width: 1.5,

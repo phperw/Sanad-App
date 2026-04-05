@@ -9,6 +9,8 @@ class SuccessHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Column(
       children: [
         Container(
@@ -34,19 +36,16 @@ class SuccessHeaderWidget extends StatelessWidget {
           ),
         ),
         verticalSpace(context, height: 24),
-
         Text(
           'تم تسجيل حضورك!',
-          style: TextStyles.cairoBold32Dark(
-            context,
-          ).copyWith(fontSize: 26.sp(context)),
+          style: TextStyles.cairoBold32Dark(context)
+              .copyWith(fontSize: 26.sp(context), color: onSurface),
         ),
         verticalSpace(context, height: 8),
         Text(
           'أحسنت! تم توثيق حضورك في الحملة بنجاح',
-          style: TextStyles.cairoRegular14Muted(
-            context,
-          ).copyWith(fontSize: 14.sp(context)),
+          style: TextStyles.cairoRegular14Muted(context)
+              .copyWith(fontSize: 14.sp(context)),
           textAlign: TextAlign.center,
         ),
       ],

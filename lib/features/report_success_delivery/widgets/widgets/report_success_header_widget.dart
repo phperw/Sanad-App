@@ -9,6 +9,8 @@ class ReportSuccessHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Padding(
       padding: context.responsivePadding(horizontal: 20),
       child: Column(
@@ -28,7 +30,6 @@ class ReportSuccessHeaderWidget extends StatelessWidget {
               ],
             ),
             child: Center(
-              // Paper plane icon for "Sent"
               child: Icon(
                 Icons.send_rounded,
                 color: AppColors.white,
@@ -37,12 +38,11 @@ class ReportSuccessHeaderWidget extends StatelessWidget {
             ),
           ),
           verticalSpace(context, height: 24),
-
           Text(
             'تم إرسال التقرير!',
             style: TextStyles.cairoBold32Dark(
               context,
-            ).copyWith(fontSize: 26.sp(context)),
+            ).copyWith(fontSize: 26.sp(context), color: onSurface),
           ),
           verticalSpace(context, height: 8),
           Text(

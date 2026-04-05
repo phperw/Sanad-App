@@ -10,10 +10,14 @@ class CurrentLocationCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final dividerColor = Theme.of(context).dividerColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.white,
-        border: Border.all(color: AppColors.dividerColor),
+        color: cardColor,
+        border: Border.all(color: dividerColor),
         borderRadius: BorderRadius.circular(16.r(context)),
       ),
       child: Column(
@@ -39,18 +43,14 @@ class CurrentLocationCardWidget extends StatelessWidget {
                   children: [
                     Text(
                       'موقعك الحالي',
-                      style: TextStyles.cairoBold32Dark(
-                        context,
-                      ).copyWith(fontSize: 14.sp(context)),
+                      style: TextStyles.cairoBold32Dark(context)
+                          .copyWith(fontSize: 14.sp(context), color: onSurface),
                     ),
                     verticalSpace(context, height: 4),
                     Row(
                       children: [
-                        Icon(
-                          Icons.check_circle_outline,
-                          color: AppColors.primaryColor,
-                          size: 16.r(context),
-                        ),
+                        Icon(Icons.check_circle_outline,
+                            color: AppColors.primaryColor, size: 16.r(context)),
                         horizontalSpace(context, width: 4),
                         Text(
                           'أنت داخل النطاق — على بعد 50 متر',
@@ -70,11 +70,8 @@ class CurrentLocationCardWidget extends StatelessWidget {
                     color: AppColors.lightGreenishWhite,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    Icons.location_on_outlined,
-                    color: AppColors.primaryColor,
-                    size: 20.r(context),
-                  ),
+                  child: Icon(Icons.location_on_outlined,
+                      color: AppColors.primaryColor, size: 20.r(context)),
                 ),
               ],
             ),

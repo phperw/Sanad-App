@@ -17,6 +17,8 @@ class QuickActionChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final inactiveColor = Theme.of(context).cardColor;
+
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
@@ -27,7 +29,7 @@ class QuickActionChip extends StatelessWidget {
           vertical: 8.h(context),
         ),
         decoration: ShapeDecoration(
-          color: isActive ? AppColors.chatChipBorder : AppColors.white,
+          color: isActive ? AppColors.chatChipBorder : inactiveColor,
           shape: RoundedRectangleBorder(
             side: const BorderSide(width: 1, color: AppColors.chatChipBorder),
             borderRadius: BorderRadius.circular(28.r(context)),

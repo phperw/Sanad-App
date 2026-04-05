@@ -17,7 +17,7 @@ class AddPostButton extends StatelessWidget {
         width: 56.w(context),
         height: 56.w(context),
         decoration: ShapeDecoration(
-          color: AppColors.chatChipBorder,
+          color: Theme.of(context).colorScheme.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100),
           ),

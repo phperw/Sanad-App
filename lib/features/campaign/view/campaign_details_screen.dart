@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/features/campaign/widgets/campaign_description_widget.dart';
 import 'package:sanad/features/campaign/widgets/campaign_header_image_widget.dart';
 import 'package:sanad/features/campaign/widgets/campaign_info_widget.dart';
@@ -11,9 +10,9 @@ class CampaignDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.white,
-      body: SingleChildScrollView(
+    return Scaffold(  
+      backgroundColor: Theme.of(context).cardColor,
+      body: const SingleChildScrollView( 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,7 +24,7 @@ class CampaignDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: RegisterAttendanceButtonWidget(),
+      bottomNavigationBar: const RegisterAttendanceButtonWidget(),
     );
   }
 }

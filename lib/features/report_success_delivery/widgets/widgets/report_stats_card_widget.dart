@@ -9,51 +9,48 @@ class ReportStatsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final dividerColor = Theme.of(context).dividerColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Padding(
       padding: context.responsivePadding(horizontal: 24),
       child: Container(
         padding: context.responsivePadding(all: 16),
         decoration: BoxDecoration(
-          color: AppColors.white,
-          border: Border.all(color: Colors.grey.shade200),
+          color: cardColor,
+          border: Border.all(color: dividerColor),
           borderRadius: BorderRadius.circular(16.r(context)),
         ),
         child: Column(
           children: [
             _buildStatRow(
               context,
+              onSurface,
               'نقاط مكتسبة',
               '+50 نقطة',
               Icons.star,
               const Color(0xFFF59E0B),
-            ), // Orange
-            Divider(
-              height: 24.h(context),
-              color: Colors.grey.shade100,
-              thickness: 1,
             ),
-
+            Divider(height: 24.h(context), color: dividerColor, thickness: 1),
             _buildStatRow(
               context,
+              onSurface,
               'ساعات مضافة',
               '+2 ساعة',
               Icons.access_time,
               AppColors.primaryColor,
-            ), // Green
-            Divider(
-              height: 24.h(context),
-              color: Colors.grey.shade100,
-              thickness: 1,
             ),
-
+            Divider(height: 24.h(context), color: dividerColor, thickness: 1),
             _buildStatRow(
               context,
+              onSurface,
               'إجمالي نقاطك',
               '470 نقطة',
               Icons.emoji_events_outlined,
-              AppColors.dark,
+              onSurface,
               isBold: true,
-            ), // Dark Trophy
+            ),
           ],
         ),
       ),
@@ -62,6 +59,7 @@ class ReportStatsCardWidget extends StatelessWidget {
 
   Widget _buildStatRow(
     BuildContext context,
+    Color onSurface,
     String title,
     String value,
     IconData icon,

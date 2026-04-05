@@ -14,6 +14,26 @@ import 'sos_button.dart';
 import 'stats_row.dart';
 import 'task_section.dart';
 
+final _fakeLocation = TaskLocation(
+  id: 0,
+  name: 'اسم الموقع يظهر هنا',
+  latitude: 0,
+  longitude: 0,
+  city: 'المدينة',
+  area: 'المنطقة',
+);
+
+final _fakeCampaign = TaskCampaign(
+  id: 0,
+  title: 'اسم الحملة',
+  coverImage: null,
+);
+
+final _fakeAssignment = TaskAssignment(
+  status: 'ASSIGNED',
+  checkInTime: null,
+);
+
 final _fakeVolunteer = Volunteer(
   id: 0,
   fullName: 'اسم المستخدم هنا',
@@ -42,6 +62,8 @@ final _fakeAnnouncements = List.generate(
     title: 'عنوان الخبر يظهر هنا',
     description: 'تفاصيل الخبر أو التنبيه تظهر في هذا المكان',
     imageUrl: null,
+    isPinned: false,
+    createdAt: '',
   ),
 );
 
@@ -50,10 +72,14 @@ final _fakeTasks = List.generate(
   (_) => HomeTask(
     id: 0,
     title: 'عنوان المهمة',
-    time: 'AM 10:00',
-    locationName: 'اسم الموقع يظهر هنا',
-    taskType: 'نوع المهمة',
-    remainingTime: 'متبقي 2س',
+    description: 'وصف المهمة يظهر هنا',
+    date: '2026-01-01',
+    startTime: '10:00:00',
+    endTime: '12:00:00',
+    status: 'ASSIGNED',
+    location: _fakeLocation,
+    campaign: _fakeCampaign,
+    assignment: _fakeAssignment,
   ),
 );
 
@@ -78,9 +104,8 @@ class HomeBody extends StatelessWidget {
         final volunteer = state is HomeSuccess
             ? state.data.summary.volunteer
             : _fakeVolunteer;
-        final stats = state is HomeSuccess
-            ? state.data.summary.stats
-            : _fakeStats;
+        final stats =
+            state is HomeSuccess ? state.data.summary.stats : _fakeStats;
         final announcements = state is HomeSuccess
             ? state.data.summary.announcements
             : _fakeAnnouncements;

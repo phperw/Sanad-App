@@ -9,6 +9,10 @@ class CampaignNotesInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final dividerColor = Theme.of(context).dividerColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -18,7 +22,7 @@ class CampaignNotesInputWidget extends StatelessWidget {
               'ملاحظات الحملة',
               style: TextStyles.cairoBold32Dark(
                 context,
-              ).copyWith(fontSize: 16.sp(context)),
+              ).copyWith(fontSize: 16.sp(context), color: onSurface),
             ),
             horizontalSpace(context, width: 8),
             Container(
@@ -39,13 +43,11 @@ class CampaignNotesInputWidget extends StatelessWidget {
         ),
         verticalSpace(context, height: 12),
         Container(
-          height: 160.h(context), // Slightly taller to fit the mic nicely
+          height: 160.h(context),
           decoration: BoxDecoration(
-            color: const Color(
-              0xFFF9FAFB,
-            ), // Matching the design's input background
+            color: cardColor,
             borderRadius: BorderRadius.circular(16.r(context)),
-            border: Border.all(color: Colors.grey.shade200),
+            border: Border.all(color: dividerColor),
           ),
           child: Stack(
             children: [
@@ -60,17 +62,13 @@ class CampaignNotesInputWidget extends StatelessWidget {
                   contentPadding: context.responsivePadding(all: 16),
                 ),
               ),
-
-              // Centered Mic Button
               Positioned(
                 bottom: 16.h(context),
                 left: 0,
                 right: 0,
                 child: Center(
                   child: InkWell(
-                    onTap: () {
-                      // Trigger voice recording
-                    },
+                    onTap: () {},
                     child: Container(
                       height: 50.r(context),
                       width: 50.r(context),

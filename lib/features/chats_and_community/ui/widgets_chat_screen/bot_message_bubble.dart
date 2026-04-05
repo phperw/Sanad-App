@@ -22,6 +22,9 @@ class BotMessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Align(
       alignment: Alignment.centerLeft,
       child: Directionality(
@@ -49,7 +52,7 @@ class BotMessageBubble extends StatelessWidget {
                       bottom: 16.h(context),
                     ),
                     decoration: ShapeDecoration(
-                      color: AppColors.white,
+                      color: cardColor,
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                           topRight: Radius.circular(16),
@@ -69,7 +72,8 @@ class BotMessageBubble extends StatelessWidget {
                         ? Text(
                             message,
                             textAlign: TextAlign.right,
-                            style: TextStyles.cairoMedium12DarkBlue(context),
+                            style: TextStyles.cairoMedium12DarkBlue(context)
+                                .copyWith(color: onSurface),
                           )
                         : spans != null
                         ? Text.rich(
@@ -79,9 +83,8 @@ class BotMessageBubble extends StatelessWidget {
                                   text: span.text,
                                   style: span.isHighlighted
                                       ? TextStyles.cairoMedium12Primary(context)
-                                      : TextStyles.cairoMedium12DarkBlue(
-                                          context,
-                                        ),
+                                      : TextStyles.cairoMedium12DarkBlue(context)
+                                          .copyWith(color: onSurface),
                                 );
                               }).toList(),
                             ),
@@ -90,7 +93,8 @@ class BotMessageBubble extends StatelessWidget {
                         : Text(
                             message,
                             textAlign: TextAlign.right,
-                            style: TextStyles.cairoMedium12DarkBlue(context),
+                            style: TextStyles.cairoMedium12DarkBlue(context)
+                                .copyWith(color: onSurface),
                           ),
                   ),
                 ),

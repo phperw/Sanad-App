@@ -15,6 +15,8 @@ LoginResponse _$LoginResponseFromJson(Map<String, dynamic> json) =>
       user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
     );
 
+
+
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   id: (json['id'] as num).toInt(),
   fullName: json['fullName'] as String,
@@ -33,8 +35,11 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
   stats: UserStats.fromJson(json['stats'] as Map<String, dynamic>),
 );
 
+
+
 UserStats _$UserStatsFromJson(Map<String, dynamic> json) => UserStats(
   campaignsCreated: (json['campaignsCreated'] as num).toInt(),
   assignedTasks: (json['assignedTasks'] as num).toInt(),
   badges: (json['badges'] as num).toInt(),
 );
+

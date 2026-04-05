@@ -2,36 +2,18 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../core/helper/responsive_extensions.dart';
-
-class CertificateItem {
-  final String title;
-  final String date;
-  final String? iconAsset;
-
-  const CertificateItem({
-    required this.title,
-    required this.date,
-    this.iconAsset,
-  });
-}
+import '../../data/models/get_user_card/profile_response.dart';
 
 class CertificatesCardWidget extends StatelessWidget {
-  final String count;
   final List<CertificateItem> certificates;
 
-  const CertificatesCardWidget({
-    super.key,
-    this.count = '2',
-    this.certificates = const [
-      CertificateItem(
-        title: 'شهادة تقدير — 100 ساعة تطوع',
-        date: 'فبراير 2026',
-      ),
-    ],
-  });
+  const CertificatesCardWidget({super.key, this.certificates = const []});
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(
@@ -39,7 +21,7 @@ class CertificatesCardWidget extends StatelessWidget {
         vertical: 20.h(context),
       ),
       decoration: ShapeDecoration(
-        color: AppColors.white,
+        color: cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.r(context)),
         ),
@@ -62,7 +44,9 @@ class CertificatesCardWidget extends StatelessWidget {
                   children: [
                     Text(
                       cert.title,
-                      style: TextStyles.cairoBold14Black2(context),
+                      style: TextStyles.cairoBold14Black2(
+                        context,
+                      ).copyWith(color: onSurface),
                     ),
                     SizedBox(height: 4.h(context)),
                     Text(
@@ -82,18 +66,13 @@ class CertificatesCardWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100.r(context)),
                   ),
                 ),
-                child: cert.iconAsset != null
-                    ? Center(
-                        child: Image.asset(
-                          cert.iconAsset!,
-                          width: 20.w(context),
-                        ),
-                      )
-                    : Icon(
-                        Icons.workspace_premium_rounded,
-                        color: AppColors.white,
-                        size: 18.w(context),
-                      ),
+                child: Center(
+                  child: Icon(
+                    Icons.workspace_premium_rounded,
+                    color: AppColors.white,
+                    size: 18.w(context),
+                  ),
+                ),
               ),
             ],
           );

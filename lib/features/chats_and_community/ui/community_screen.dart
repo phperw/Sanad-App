@@ -186,7 +186,11 @@ class _CommunityScreenState extends State<CommunityScreen> {
                   final String userName =
                       SharedPrefHelper.getData(key: SharedPrefKeys.userName) ??
                       'سند';
-                  showAddPostSheet(context, userName: userName);
+                  showAddPostSheet(
+                    context,
+                    userName: userName,
+                    feedCubit: _feedCubit,
+                  );
                 },
               ),
             ),

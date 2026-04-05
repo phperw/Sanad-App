@@ -9,13 +9,17 @@ class SuccessSummaryCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Padding(
       padding: context.responsivePadding(horizontal: 24),
       child: Container(
         padding: context.responsivePadding(all: 16),
         decoration: BoxDecoration(
-          color: AppColors.white,
-          border: Border.all(color: Colors.grey.shade200),
+          color: Theme.of(context).scaffoldBackgroundColor,
+          border: Border.all(
+            color: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
+          ),
           borderRadius: BorderRadius.circular(16.r(context)),
         ),
         child: Column(
@@ -25,32 +29,32 @@ class SuccessSummaryCardWidget extends StatelessWidget {
               'وقت التسجيل',
               '10:23 AM',
               Icons.access_time,
+              isDark,
             ),
             Divider(
               height: 24.h(context),
-              color: Colors.grey.shade100,
+              color: isDark ? Colors.grey.shade800 : Colors.grey.shade100,
               thickness: 1,
             ),
-
             _buildSummaryRow(
               context,
               'موقع الحملة',
               'منطقة أكتوبر السكنية',
               Icons.location_on_outlined,
+              isDark,
             ),
             Divider(
               height: 24.h(context),
-              color: Colors.grey.shade100,
+              color: isDark ? Colors.grey.shade800 : Colors.grey.shade100,
               thickness: 1,
             ),
-
-            // Gamification Points Row (Orange colors)
             _buildSummaryRow(
               context,
               'نقاط مكتسبة',
               '+50 نقطة',
               Icons.star,
-              valueColor: const Color(0xFFF59E0B), // Golden/Orange
+              isDark,
+              valueColor: const Color(0xFFF59E0B),
               iconColor: const Color(0xFFF59E0B),
             ),
           ],
@@ -63,7 +67,8 @@ class SuccessSummaryCardWidget extends StatelessWidget {
     BuildContext context,
     String title,
     String value,
-    IconData icon, {
+    IconData icon,
+    bool isDark, {
     Color? valueColor,
     Color? iconColor,
   }) {
@@ -80,9 +85,10 @@ class SuccessSummaryCardWidget extends StatelessWidget {
             horizontalSpace(context, width: 8),
             Text(
               title,
-              style: TextStyles.cairoRegular14Muted(
-                context,
-              ).copyWith(fontSize: 12.sp(context)),
+              style: TextStyles.cairoRegular14Muted(context).copyWith(
+                fontSize: 12.sp(context),
+                color: isDark ? Colors.grey.shade400 : null,
+              ),
             ),
           ],
         ),
@@ -90,7 +96,7 @@ class SuccessSummaryCardWidget extends StatelessWidget {
           value,
           style: TextStyles.cairoBold32Dark(context).copyWith(
             fontSize: 14.sp(context),
-            color: valueColor ?? AppColors.dark,
+            color: valueColor ?? (isDark ? Colors.white : AppColors.dark),
           ),
         ),
       ],

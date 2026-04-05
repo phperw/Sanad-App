@@ -13,6 +13,8 @@ ProfileResponse _$ProfileResponseFromJson(Map<String, dynamic> json) =>
       user: ProfileUser.fromJson(json['user'] as Map<String, dynamic>),
     );
 
+
+
 ProfileUser _$ProfileUserFromJson(Map<String, dynamic> json) => ProfileUser(
   id: (json['id'] as num).toInt(),
   fullName: json['fullName'] as String,
@@ -31,8 +33,12 @@ ProfileUser _$ProfileUserFromJson(Map<String, dynamic> json) => ProfileUser(
   stats: ProfileStats.fromJson(json['stats'] as Map<String, dynamic>),
 );
 
+
+
 ProfileStats _$ProfileStatsFromJson(Map<String, dynamic> json) => ProfileStats(
   campaignsCreated: (json['campaignsCreated'] as num).toInt(),
   assignedTasks: (json['assignedTasks'] as num).toInt(),
   badges: (json['badges'] as num).toInt(),
 );
+
+

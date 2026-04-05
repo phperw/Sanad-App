@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_images.dart'; // تأكد من مسار ملف Assets
+import '../../../../core/constants/app_images.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../core/helper/responsive_extensions.dart';
@@ -65,6 +65,9 @@ class AchievementsCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     final rows = <List<AchievementItem>>[];
     for (var i = 0; i < achievements.length; i += 3) {
       rows.add(
@@ -82,7 +85,7 @@ class AchievementsCardWidget extends StatelessWidget {
         vertical: 20.h(context),
       ),
       decoration: ShapeDecoration(
-        color: AppColors.white,
+        color: cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.r(context)),
         ),
@@ -97,13 +100,14 @@ class AchievementsCardWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'إنجازاتي🎖',
-                style: TextStyles.cairoBold16DarkBlue(context),
+                style: TextStyles.cairoBold16DarkBlue(
+                  context,
+                ).copyWith(color: onSurface),
               ),
               Text(
                 '$achieved / $total محققة',
@@ -114,14 +118,12 @@ class AchievementsCardWidget extends StatelessWidget {
             ],
           ),
           SizedBox(height: 16.h(context)),
-          // Grid
           Column(
             children: rows.map((row) {
               return Padding(
                 padding: EdgeInsets.only(bottom: 16.h(context)),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment
-                      .spaceBetween, // لتوزيع المسافات بالتساوي
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: row.map((item) {
                     return _AchievementCell(item: item);
@@ -143,12 +145,12 @@ class _AchievementCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Opacity(
-      opacity: item.isUnlocked
-          ? 1.0
-          : 0.5, // تقليل الشفافية للعناصر غير المحققة
+      opacity: item.isUnlocked ? 1.0 : 0.5,
       child: SizedBox(
-        width: 76.w(context), // تثبيت العرض عشان الكلام ميبوظش التنسيق
+        width: 76.w(context),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -175,9 +177,7 @@ class _AchievementCell extends StatelessWidget {
               item.label,
               textAlign: TextAlign.center,
               style: TextStyles.cairoRegular10Gray(context).copyWith(
-                color: item.isUnlocked
-                    ? AppColors.darkBlue
-                    : AppColors.textGray,
+                color: item.isUnlocked ? onSurface : AppColors.textGray,
                 fontWeight: item.isUnlocked ? FontWeight.w700 : FontWeight.w600,
                 height: 1.20,
               ),

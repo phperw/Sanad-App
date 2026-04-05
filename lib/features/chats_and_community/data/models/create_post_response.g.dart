@@ -13,6 +13,8 @@ CreatePostResponse _$CreatePostResponseFromJson(Map<String, dynamic> json) =>
       post: PostModel.fromJson(json['post'] as Map<String, dynamic>),
     );
 
+
+
 PostModel _$PostModelFromJson(Map<String, dynamic> json) => PostModel(
   id: (json['id'] as num).toInt(),
   content: json['content'] as String,
@@ -24,6 +26,8 @@ PostModel _$PostModelFromJson(Map<String, dynamic> json) => PostModel(
   likedByMe: json['likedByMe'] as bool,
 );
 
+
+
 PostVolunteer _$PostVolunteerFromJson(Map<String, dynamic> json) =>
     PostVolunteer(
       id: (json['id'] as num).toInt(),
@@ -33,6 +37,8 @@ PostVolunteer _$PostVolunteerFromJson(Map<String, dynamic> json) =>
       avatarUrl: json['avatarUrl'] as String?,
       status: json['status'] as String,
     );
+
+
 
 PostStats _$PostStatsFromJson(Map<String, dynamic> json) => PostStats(
   likes: (json['likes'] as num).toInt(),

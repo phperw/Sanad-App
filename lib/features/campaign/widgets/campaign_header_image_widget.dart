@@ -9,6 +9,9 @@ class CampaignHeaderImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -35,23 +38,22 @@ class CampaignHeaderImageWidget extends StatelessWidget {
                 SizedBox(width: 40.w(context)),
                 Text(
                   'التفاصيل',
-                  style: TextStyles.cairoBold32Dark(
-                    context,
-                  ).copyWith(fontSize: 18.sp(context)),
+                  style: TextStyles.cairoBold32Dark(context)
+                      .copyWith(fontSize: 18.sp(context), color: onSurface),
                 ),
                 GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Container(
                     padding: EdgeInsets.all(8.r(context)),
-                    decoration: const BoxDecoration(
-                      color: AppColors.white,
+                    decoration: BoxDecoration(
+                      color: cardColor,
                       shape: BoxShape.circle,
                     ),
                     child: Center(
                       child: Icon(
                         Icons.arrow_forward_ios,
                         size: 18.r(context),
-                        color: AppColors.dark,
+                        color: onSurface,
                       ),
                     ),
                   ),
@@ -79,9 +81,8 @@ class CampaignHeaderImageWidget extends StatelessWidget {
                 horizontalSpace(context, width: 4),
                 Text(
                   'مهمة ميدانية',
-                  style: TextStyles.cairoBold12Black(
-                    context,
-                  ).copyWith(color: AppColors.white),
+                  style: TextStyles.cairoBold12Black(context)
+                      .copyWith(color: AppColors.white),
                 ),
               ],
             ),

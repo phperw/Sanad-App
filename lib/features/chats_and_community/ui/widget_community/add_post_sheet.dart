@@ -10,23 +10,30 @@ import 'package:sanad/core/widgets/app_button.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../data/repo/post_repository.dart';
 import '../../logic/create_post_cubit.dart';
+import '../../logic/create_post_state.dart';
+import '../../logic/community/community_feed_cubit.dart';
 
-void showAddPostSheet(BuildContext context, {required String userName}) {
+void showAddPostSheet(
+  BuildContext context, {
+  required String userName,
+  required CommunityFeedCubit feedCubit,
+}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     builder: (_) => BlocProvider(
       create: (_) => CreatePostCubit(getIt<PostRepository>()),
-      child: _AddPostSheet(userName: userName),
+      child: _AddPostSheet(userName: userName, feedCubit: feedCubit),
     ),
   );
 }
 
 class _AddPostSheet extends StatefulWidget {
   final String userName;
+  final CommunityFeedCubit feedCubit;
 
-  const _AddPostSheet({required this.userName, super.key});
+  const _AddPostSheet({required this.userName, required this.feedCubit});
 
   @override
   State<_AddPostSheet> createState() => _AddPostSheetState();
@@ -59,14 +66,28 @@ class _AddPostSheetState extends State<_AddPostSheet> {
   void _submit() {
     final content = _contentController.text.trim();
     if (content.isEmpty) return;
-    context.read<CreatePostCubit>().createPost(content: content);
+
+    File? imageFile;
+    if (_selectedImages.isNotEmpty) {
+      imageFile = File(_selectedImages.first.path);
+    }
+
+    context.read<CreatePostCubit>().createPost(
+          content: content,
+          image: imageFile,
+        );
   }
 
   @override
   Widget build(BuildContext context) {
+    final sheetBg = Theme.of(context).brightness == Brightness.dark
+        ? const Color(0xFF1E1E2E)
+        : const Color(0xFFEEEEEE);
+
     return BlocConsumer<CreatePostCubit, CreatePostState>(
       listener: (context, state) {
         if (state is CreatePostSuccess) {
+          widget.feedCubit.getFeed(isRefresh: true);
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -96,9 +117,9 @@ class _AddPostSheetState extends State<_AddPostSheet> {
         return Directionality(
           textDirection: TextDirection.rtl,
           child: Container(
-            decoration: const BoxDecoration(
-              color: Color(0xFFEEEEEE),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            decoration: BoxDecoration(
+              color: sheetBg,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
             ),
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -148,6 +169,7 @@ class _AddPostSheetState extends State<_AddPostSheet> {
   }
 
   Widget _buildHeader() {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -155,23 +177,31 @@ class _AddPostSheetState extends State<_AddPostSheet> {
           onTap: () => Navigator.pop(context),
           child: Text(
             'إلغاء',
-            style: TextStyles.cairoBold16DarkBlue(
-              context,
-            ).copyWith(color: AppColors.errorColor),
+            style: TextStyles.cairoBold16DarkBlue(context)
+                .copyWith(color: AppColors.errorColor),
           ),
         ),
-        Text('منشور جديد', style: TextStyles.cairoBold16DarkBlue(context)),
+        Text(
+          'منشور جديد',
+          style: TextStyles.cairoBold16DarkBlue(context)
+              .copyWith(color: onSurface),
+        ),
         SizedBox(width: 40.w(context)),
       ],
     );
   }
 
   Widget _buildUserRow() {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
     return Row(
       children: [
         _buildAvatar(fullName: widget.userName),
         horizontalSpace(context, width: 8),
-        Text(widget.userName, style: TextStyles.cairoBold16DarkBlue(context)),
+        Text(
+          widget.userName,
+          style: TextStyles.cairoBold16DarkBlue(context)
+              .copyWith(color: onSurface),
+        ),
       ],
     );
   }
@@ -193,21 +223,23 @@ class _AddPostSheetState extends State<_AddPostSheet> {
       child: Center(
         child: Text(
           fullName.isNotEmpty ? fullName[0].toUpperCase() : '؟',
-          style: TextStyles.cairoBold16DarkBlue(
-            context,
-          ).copyWith(color: AppColors.primaryColor),
+          style: TextStyles.cairoBold16DarkBlue(context)
+              .copyWith(color: AppColors.primaryColor),
         ),
       ),
     );
   }
 
   Widget _buildTextInput() {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Container(
       width: double.infinity,
       height: 190.h(context),
       padding: EdgeInsets.all(16.w(context)),
       decoration: ShapeDecoration(
-        color: AppColors.white,
+        color: cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.r(context)),
         ),
@@ -230,17 +262,17 @@ class _AddPostSheetState extends State<_AddPostSheet> {
             buildCounter:
                 (_, {required currentLength, required isFocused, maxLength}) =>
                     null,
+            style: TextStyles.cairoBold16DarkBlue(context).copyWith(
+              fontWeight: FontWeight.w400,
+              color: onSurface,
+            ),
             decoration: InputDecoration(
               hintText: 'شارك إنجازك أو تجربتك مع الفريق...',
-              hintStyle: TextStyles.cairoRegular12Gray(
-                context,
-              ).copyWith(fontSize: 16.sp(context)),
+              hintStyle: TextStyles.cairoRegular12Gray(context)
+                  .copyWith(fontSize: 16.sp(context)),
               border: InputBorder.none,
               contentPadding: EdgeInsets.zero,
             ),
-            style: TextStyles.cairoBold16DarkBlue(
-              context,
-            ).copyWith(fontWeight: FontWeight.w400),
             onChanged: (_) => setState(() {}),
           ),
           Positioned(
@@ -257,11 +289,14 @@ class _AddPostSheetState extends State<_AddPostSheet> {
   }
 
   Widget _buildImagesSection() {
+    final cardColor = Theme.of(context).cardColor;
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.w(context)),
       decoration: ShapeDecoration(
-        color: AppColors.white,
+        color: cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.r(context)),
         ),
@@ -281,11 +316,14 @@ class _AddPostSheetState extends State<_AddPostSheet> {
             children: [
               Text(
                 'حتى $_maxImages صور',
-                style: TextStyles.cairoRegular12Gray(
-                  context,
-                ).copyWith(fontSize: 13.sp(context)),
+                style: TextStyles.cairoRegular12Gray(context)
+                    .copyWith(fontSize: 13.sp(context)),
               ),
-              Text('إضافة صور', style: TextStyles.cairoBold16DarkBlue(context)),
+              Text(
+                'إضافة صور',
+                style: TextStyles.cairoBold16DarkBlue(context)
+                    .copyWith(color: onSurface),
+              ),
             ],
           ),
           verticalSpace(context, height: 12),
@@ -294,13 +332,14 @@ class _AddPostSheetState extends State<_AddPostSheet> {
             reverse: true,
             child: Row(
               children: [
-                if (_selectedImages.length < _maxImages) _buildAddImageButton(),
+                if (_selectedImages.length < _maxImages)
+                  _buildAddImageButton(),
                 ..._selectedImages.asMap().entries.map(
-                  (e) => Padding(
-                    padding: EdgeInsets.only(right: 16.w(context)),
-                    child: _buildImageThumbnail(e.key, e.value),
-                  ),
-                ),
+                      (e) => Padding(
+                        padding: EdgeInsets.only(right: 16.w(context)),
+                        child: _buildImageThumbnail(e.key, e.value),
+                      ),
+                    ),
               ],
             ),
           ),
@@ -333,9 +372,8 @@ class _AddPostSheetState extends State<_AddPostSheet> {
             SizedBox(height: 4.h(context)),
             Text(
               'إضافة',
-              style: TextStyles.cairoMedium12Primary(
-                context,
-              ).copyWith(fontSize: 11.sp(context)),
+              style: TextStyles.cairoMedium12Primary(context)
+                  .copyWith(fontSize: 11.sp(context)),
             ),
           ],
         ),

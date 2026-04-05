@@ -6,6 +6,8 @@ part of 'register_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+
+
 Map<String, dynamic> _$RegisterRequestToJson(RegisterRequest instance) =>
     <String, dynamic>{
       'fullName': instance.fullName,
