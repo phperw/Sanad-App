@@ -30,7 +30,7 @@ import 'core/widgets/error_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env");
+  // await dotenv.load(fileName: ".env");
 
   ErrorWidget.builder = (FlutterErrorDetails details) {
     return Scaffold(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanad/features/auth/forget/forget_view.dart';
 import 'package:sanad/features/auth/register/view/register_screen.dart';
+import 'package:sanad/features/campaign/model/campaign_mode.dart';
 import 'package:sanad/features/onboarding/ui/on_boarding_screen.dart';
 import 'package:sanad/features/splash/ui/splash_screen.dart';
 import 'package:sanad/features/main/view/main_screen.dart';
@@ -49,11 +50,24 @@ class AppRouter {
       ),
       GoRoute(path: kforget, builder: (context, state) => const ForgetView()),
       GoRoute(path: kmain, builder: (context, state) => const MainScreen()),
+      // GoRoute(
+      //   path: kAttendanceConfirmation,
+      //   parentNavigatorKey: _rootNavigatorKey,
+      //   builder: (context, state) => const AttendanceConfirmationScreen(),
+      // ),
       GoRoute(
-        path: kAttendanceConfirmation,
-        parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const AttendanceConfirmationScreen(),
-      ),
+  path: AppRouter.kAttendanceConfirmation,
+  builder: (context, state) {
+    // استقبل البيانات من الـ extra
+    final args = state.extra as Map<String, dynamic>;
+    return AttendanceConfirmationScreen(
+      taskLatitude: args['taskLatitude'],
+      taskLongitude: args['taskLongitude'],
+      radiusMeters: args['radiusMeters'],
+      camp: args  ['camp'] as Campaign, 
+    );
+  },
+),
       GoRoute(
         path: kCampaignDetails,
         parentNavigatorKey: _rootNavigatorKey,

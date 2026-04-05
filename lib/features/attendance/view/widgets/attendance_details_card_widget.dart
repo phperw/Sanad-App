@@ -3,10 +3,18 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:sanad/features/campaign/model/campaign_mode.dart';
 
 class AttendanceDetailsCardWidget extends StatelessWidget {
-  const AttendanceDetailsCardWidget({super.key});
-
+  const AttendanceDetailsCardWidget({super.key,required this.camp});
+  final Campaign camp;
+  String _formatDate(DateTime? date) {
+  if (date == null) return '';
+  final days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  final months = ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
+    'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'];
+  return '${days[date.weekday % 7]}، ${date.day} ${months[date.month - 1]} ${date.year}';
+}
   @override
   Widget build(BuildContext context) {
     final cardColor = Theme.of(context).cardColor;
@@ -31,7 +39,7 @@ class AttendanceDetailsCardWidget extends StatelessWidget {
               ),
               horizontalSpace(context, width: 12),
               Text(
-                'الإثنين، 14 مارس 2026',
+                _formatDate(camp.startDate),
                 style: TextStyles.cairoBold32Dark(
                   context,
                 ).copyWith(fontSize: 14.sp(context), color: onSurface),

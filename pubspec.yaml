@@ -16,6 +16,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_map: ^8.2.2
+  geolocator: ^14.0.2
+  latlong2: ^0.9.1
   flutter_dotenv: ^6.0.0
   flutter_image_compress: ^2.4.0
   flutter_localizations:
@@ -49,7 +52,7 @@ flutter:
     - assets/images/
     - assets/images/icons_account/
     - assets/SVG/
-    - .env
+    # - .env
   fonts:
     - family: Cairo
       fonts:

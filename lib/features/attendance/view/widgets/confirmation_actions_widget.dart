@@ -6,9 +6,13 @@ import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/widgets/app_button.dart';
 import '../../../../core/routing/router.dart';
-
 class ConfirmationActionsWidget extends StatelessWidget {
-  const ConfirmationActionsWidget({super.key});
+ 
+
+  const ConfirmationActionsWidget({
+    super.key,
+   
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +26,13 @@ class ConfirmationActionsWidget extends StatelessWidget {
               text: 'تأكيد الحضور',
               height: 55.h(context),
               borderRadius: 12,
-              onPressed: () {
-                context.push(AppRouter.kSuccessCheckin);
-              },
+              // ← مفعّل بس لو داخل النطاق
+              buttonColor:
+                  AppColors.primaryColor,
+              
+              onPressed: 
+                   () => context.push(AppRouter.kSuccessCheckin)
+                 
             ),
             verticalSpace(context, height: 12),
             AppButton(
@@ -33,9 +41,8 @@ class ConfirmationActionsWidget extends StatelessWidget {
               borderRadius: 12,
               buttonColor: AppColors.transparent,
               boxShadow: const [],
-              textStyle: TextStyles.cairoBold32Dark(
-                context,
-              ).copyWith(fontSize: 16.sp(context), color: AppColors.gray),
+              textStyle: TextStyles.cairoBold32Dark(context)
+                  .copyWith(fontSize: 16.sp(context), color: AppColors.gray),
               onPressed: () => context.pop(),
             ),
           ],
