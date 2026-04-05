@@ -68,7 +68,6 @@ class _ChatInputBarState extends State<ChatInputBar> {
             ),
           ),
           horizontalSpace(context, width: 8),
-          _ActionButton(imagePath: Assets.imageMicrophone, onTap: () {}),
         ],
       ),
     );

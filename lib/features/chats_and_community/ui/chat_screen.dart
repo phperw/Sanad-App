@@ -5,6 +5,7 @@ import 'package:sanad/features/chats_and_community/ui/widgets_chat_screen/quick_
 import 'package:sanad/features/chats_and_community/ui/widgets_chat_screen/user_message_bubble.dart';
 import '../../../core/helper/responsive_extensions.dart';
 import '../../../core/helper/spacing.dart';
+import '../../../core/widgets/typing_indicator_widget.dart';
 import '../logic/chat_screen_cubit.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -15,7 +16,12 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  static const List<String> quickActions = ['مهامي اليومية 📋', 'أقرب حملة 📍'];
+  static const List<String> quickActions = [
+    'مهامي اليومية 📋',
+    'أقرب حملة 📍',
+    'نقاطي ⭐',
+    'كيف أسجل الحضور؟ ✅',
+  ];
 
   final ScrollController _scrollController = ScrollController();
 
@@ -57,17 +63,15 @@ class _ChatScreenState extends State<ChatScreen> {
             verticalSpace(context, height: 12),
             Directionality(
               textDirection: TextDirection.ltr,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+              child: Wrap(
+                spacing: 8.w(context),
+                runSpacing: 8.h(context),
                 children: quickActions.map((label) {
                   final isActive = state.selectedChip == label;
-                  return Padding(
-                    padding: EdgeInsets.only(right: 12.w(context)),
-                    child: QuickActionChip(
-                      label: label,
-                      isActive: isActive,
-                      onTap: () => cubit.sendMessage(label),
-                    ),
+                  return QuickActionChip(
+                    label: label,
+                    isActive: isActive,
+                    onTap: () => cubit.sendMessage(label),
                   );
                 }).toList(),
               ),
@@ -88,6 +92,13 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                   ),
                 ),
+
+            // Typing Indicator
+            if (state.isTyping)
+              const Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: TypingIndicatorWidget(),
+              ),
           ],
         );
       },

@@ -13,8 +13,6 @@ ProfileResponse _$ProfileResponseFromJson(Map<String, dynamic> json) =>
       profile: ProfileData.fromJson(json['profile'] as Map<String, dynamic>),
     );
 
-
-
 ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
   volunteer: ProfileVolunteer.fromJson(
     json['volunteer'] as Map<String, dynamic>,
@@ -31,8 +29,6 @@ ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
   ),
 );
 
-
-
 ProfileVolunteer _$ProfileVolunteerFromJson(Map<String, dynamic> json) =>
     ProfileVolunteer(
       id: (json['id'] as num).toInt(),
@@ -47,8 +43,6 @@ ProfileVolunteer _$ProfileVolunteerFromJson(Map<String, dynamic> json) =>
       joinDate: json['joinDate'] as String,
     );
 
-
-
 ProfileStats _$ProfileStatsFromJson(Map<String, dynamic> json) => ProfileStats(
   totalHours: (json['totalHours'] as num).toInt(),
   points: (json['points'] as num).toInt(),
@@ -56,8 +50,6 @@ ProfileStats _$ProfileStatsFromJson(Map<String, dynamic> json) => ProfileStats(
   badgesCount: (json['badgesCount'] as num).toInt(),
   certificatesCount: (json['certificatesCount'] as num).toInt(),
 );
-
-
 
 ProfileLeaderboard _$ProfileLeaderboardFromJson(Map<String, dynamic> json) =>
     ProfileLeaderboard(
@@ -74,7 +66,6 @@ ProfileLeaderboard _$ProfileLeaderboardFromJson(Map<String, dynamic> json) =>
         json['currentUser'] as Map<String, dynamic>,
       ),
     );
-
 
 LeaderboardUser _$LeaderboardUserFromJson(Map<String, dynamic> json) =>
     LeaderboardUser(
@@ -99,8 +90,6 @@ ProfileAchievements _$ProfileAchievementsFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-
-
 AchievementItem _$AchievementItemFromJson(Map<String, dynamic> json) =>
     AchievementItem(
       key: json['key'] as String,
@@ -115,8 +104,6 @@ AchievementItem _$AchievementItemFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-
-
 ProfileCertificates _$ProfileCertificatesFromJson(Map<String, dynamic> json) =>
     ProfileCertificates(
       count: (json['count'] as num).toInt(),
@@ -124,8 +111,6 @@ ProfileCertificates _$ProfileCertificatesFromJson(Map<String, dynamic> json) =>
           .map((e) => CertificateItem.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
-
-
 
 CertificateItem _$CertificateItemFromJson(Map<String, dynamic> json) =>
     CertificateItem(
@@ -135,5 +120,3 @@ CertificateItem _$CertificateItemFromJson(Map<String, dynamic> json) =>
       subtitle: json['subtitle'] as String,
       icon: json['icon'] as String,
     );
-
-
