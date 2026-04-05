@@ -50,11 +50,12 @@ class PostRepository {
           contentType: MediaType('image', 'jpeg'),
         );
 
-        response =
-            await _apiService.createPostWithImage(content, multipartImage);
+        response = await _apiService.createPostWithImage(
+          content,
+          multipartImage,
+        );
       } else {
-        response =
-            await _apiService.createPostTextOnly({'content': content});
+        response = await _apiService.createPostTextOnly({'content': content});
       }
 
       return Success(response);

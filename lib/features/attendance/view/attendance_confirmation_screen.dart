@@ -22,11 +22,16 @@ class AttendanceConfirmationScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'تأكيد الحضور',
-          style: TextStyles.cairoBold32Dark(context)
-              .copyWith(fontSize: 18.sp(context), color: onSurface),
+          style: TextStyles.cairoBold32Dark(
+            context,
+          ).copyWith(fontSize: 18.sp(context), color: onSurface),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: onSurface, size: 20.r(context)),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: onSurface,
+            size: 20.r(context),
+          ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -35,11 +40,17 @@ class AttendanceConfirmationScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('موقعك الحالي', style: TextStyles.cairoRegular14Muted(context)),
+            Text(
+              'موقعك الحالي',
+              style: TextStyles.cairoRegular14Muted(context),
+            ),
             verticalSpace(context, height: 12),
             const CurrentLocationCardWidget(),
             verticalSpace(context, height: 24),
-            Text('تفاصيل تسجيل الحضور', style: TextStyles.cairoRegular14Muted(context)),
+            Text(
+              'تفاصيل تسجيل الحضور',
+              style: TextStyles.cairoRegular14Muted(context),
+            ),
             verticalSpace(context, height: 12),
             const AttendanceDetailsCardWidget(),
             verticalSpace(context, height: 20),

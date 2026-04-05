@@ -5,7 +5,7 @@ import 'package:sanad/features/auth/register/view/register_screen.dart';
 import 'package:sanad/features/onboarding/ui/on_boarding_screen.dart';
 import 'package:sanad/features/splash/ui/splash_screen.dart';
 import 'package:sanad/features/main/view/main_screen.dart';
-
+import '../../features/account/ui/Widgets/leaderboard/full_leader_board_screen.dart';
 import '../../features/attendance/view/attendance_confirmation_screen.dart';
 import '../../features/auth/login/view/login_screen.dart';
 import '../../features/campaign/view/campaign_details_screen.dart';
@@ -29,6 +29,7 @@ class AppRouter {
   static const kSuccessCheckin = '/successCheckin';
   static const kCampaignReport = '/campaignReport';
   static const kReportSuccess = '/reportSuccess';
+  static const kFullLeaderBoardScreen = '/fullLeaderBoard';
 
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -72,6 +73,11 @@ class AppRouter {
         path: kReportSuccess,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const ReportSuccessScreen(),
+      ),
+      GoRoute(
+        path: kFullLeaderBoardScreen,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const FullLeaderBoardScreen(),
       ),
     ],
   );

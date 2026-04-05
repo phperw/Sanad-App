@@ -19,8 +19,6 @@ CommunityFeedResponse _$CommunityFeedResponseFromJson(
       .toList(),
 );
 
-
-
 PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) =>
     PaginationModel(
       page: (json['page'] as num).toInt(),
@@ -28,8 +26,6 @@ PaginationModel _$PaginationModelFromJson(Map<String, dynamic> json) =>
       total: (json['total'] as num).toInt(),
       pages: (json['pages'] as num).toInt(),
     );
-
-
 
 PostModel _$PostModelFromJson(Map<String, dynamic> json) => PostModel(
   id: (json['id'] as num).toInt(),
@@ -42,8 +38,6 @@ PostModel _$PostModelFromJson(Map<String, dynamic> json) => PostModel(
   likedByMe: json['likedByMe'] as bool,
 );
 
-
-
 VolunteerModel _$VolunteerModelFromJson(Map<String, dynamic> json) =>
     VolunteerModel(
       id: (json['id'] as num).toInt(),
@@ -55,10 +49,7 @@ VolunteerModel _$VolunteerModelFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String,
     );
 
-
-
 StatsModel _$StatsModelFromJson(Map<String, dynamic> json) => StatsModel(
   likes: (json['likes'] as num).toInt(),
   comments: (json['comments'] as num).toInt(),
 );
-

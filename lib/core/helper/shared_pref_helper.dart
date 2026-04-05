@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'shared_pref_keys.dart';
+
 class SharedPrefHelper {
   static late SharedPreferences sharedPreferences;
 
@@ -55,6 +56,7 @@ class SharedPrefHelper {
     final token = getAccessToken();
     return token != null && token.isNotEmpty;
   }
+
   // ── Theme helpers (Dark Mode) ──────────────────────────────
   static Future<void> saveThemeMode(bool isDark) async {
     await setData(key: SharedPrefKeys.isDarkMode, value: isDark);

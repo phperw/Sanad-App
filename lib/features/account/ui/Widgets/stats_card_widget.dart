@@ -110,13 +110,15 @@ class _StatCell extends StatelessWidget {
         SizedBox(height: item.isSelected ? 4.h(context) : 8.h(context)),
         Text(
           item.value,
-          style: TextStyles.cairoBold24Primary(context)
-              .copyWith(color: item.valueColor),
+          style: TextStyles.cairoBold24Primary(
+            context,
+          ).copyWith(color: item.valueColor),
         ),
         Text(
           item.label,
-          style: TextStyles.cairoRegular12Gray(context)
-              .copyWith(color: AppColors.textGray),
+          style: TextStyles.cairoRegular12Gray(
+            context,
+          ).copyWith(color: AppColors.textGray),
         ),
       ],
     );

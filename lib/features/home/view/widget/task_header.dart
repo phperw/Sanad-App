@@ -10,21 +10,33 @@ class TasksHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onSurface = Theme.of(context).colorScheme.onSurface;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('مهام اليوم', style: TextStyles.cairoBold18Black2(context)),
+        Text(
+          'مهام اليوم',
+          style: TextStyles.cairoBold18Black2(
+            context,
+          ).copyWith(color: onSurface),
+        ),
         Container(
           height: 30.h(context),
           padding: EdgeInsets.symmetric(horizontal: 10.w(context)),
           decoration: BoxDecoration(
-            color: AppColors.tasksChipBackground,
+            color: isDark
+                ? AppColors.primaryColor.withOpacity(0.15)
+                : AppColors.tasksChipBackground,
             borderRadius: BorderRadius.circular(24.r(context)),
           ),
           child: Center(
             child: Text(
               '$tasksCount مهمة',
-              style: TextStyles.cairoBold12BlackHeighted(context),
+              style: TextStyles.cairoBold12BlackHeighted(context).copyWith(
+                color: isDark ? AppColors.primaryColor : AppColors.dark,
+              ),
             ),
           ),
         ),

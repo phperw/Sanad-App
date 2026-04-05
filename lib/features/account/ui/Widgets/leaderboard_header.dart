@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../../core/routing/router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../core/helper/responsive_extensions.dart';
@@ -20,7 +22,9 @@ class LeaderboardHeader extends StatelessWidget {
           ).copyWith(fontWeight: FontWeight.w700, color: onSurface),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            context.push(AppRouter.kFullLeaderBoardScreen);
+          },
           child: Text(
             'عرض الكل',
             style: TextStyles.cairoMedium14Black(context).copyWith(

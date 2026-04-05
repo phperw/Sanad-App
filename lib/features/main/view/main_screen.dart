@@ -104,7 +104,11 @@ class _MainScreenState extends State<MainScreen> {
                   tabs: [
                     GButton(
                       icon: Icons.home_outlined,
-                      leading: _svgIcon(context, Assets.home, currentIndex == 0),
+                      leading: _svgIcon(
+                        context,
+                        Assets.home,
+                        currentIndex == 0,
+                      ),
                       text: 'الرئيسية',
                       textStyle: TextStyles.cairoBold10Primary(context),
                     ),
@@ -126,7 +130,11 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                     GButton(
                       icon: Icons.person_outline,
-                      leading: _svgIcon(context, Assets.account, currentIndex == 3),
+                      leading: _svgIcon(
+                        context,
+                        Assets.account,
+                        currentIndex == 3,
+                      ),
                       text: 'حسابي',
                       textStyle: TextStyles.cairoBold10Primary(context),
                     ),

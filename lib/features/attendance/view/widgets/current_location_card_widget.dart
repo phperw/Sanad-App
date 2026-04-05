@@ -43,14 +43,18 @@ class CurrentLocationCardWidget extends StatelessWidget {
                   children: [
                     Text(
                       'موقعك الحالي',
-                      style: TextStyles.cairoBold32Dark(context)
-                          .copyWith(fontSize: 14.sp(context), color: onSurface),
+                      style: TextStyles.cairoBold32Dark(
+                        context,
+                      ).copyWith(fontSize: 14.sp(context), color: onSurface),
                     ),
                     verticalSpace(context, height: 4),
                     Row(
                       children: [
-                        Icon(Icons.check_circle_outline,
-                            color: AppColors.primaryColor, size: 16.r(context)),
+                        Icon(
+                          Icons.check_circle_outline,
+                          color: AppColors.primaryColor,
+                          size: 16.r(context),
+                        ),
                         horizontalSpace(context, width: 4),
                         Text(
                           'أنت داخل النطاق — على بعد 50 متر',
@@ -70,8 +74,11 @@ class CurrentLocationCardWidget extends StatelessWidget {
                     color: AppColors.lightGreenishWhite,
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(Icons.location_on_outlined,
-                      color: AppColors.primaryColor, size: 20.r(context)),
+                  child: Icon(
+                    Icons.location_on_outlined,
+                    color: AppColors.primaryColor,
+                    size: 20.r(context),
+                  ),
                 ),
               ],
             ),

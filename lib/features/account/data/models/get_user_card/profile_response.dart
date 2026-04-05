@@ -201,10 +201,7 @@ class ProfileCertificates {
   final int count;
   final List<CertificateItem> items;
 
-  const ProfileCertificates({
-    required this.count,
-    required this.items,
-  });
+  const ProfileCertificates({required this.count, required this.items});
 
   factory ProfileCertificates.fromJson(Map<String, dynamic> json) =>
       _$ProfileCertificatesFromJson(json);

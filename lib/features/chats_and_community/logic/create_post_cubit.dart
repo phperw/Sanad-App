@@ -9,16 +9,10 @@ class CreatePostCubit extends Cubit<CreatePostState> {
 
   CreatePostCubit(this._repository) : super(CreatePostInitial());
 
-  Future<void> createPost({
-    required String content,
-    File? image,
-  }) async {
+  Future<void> createPost({required String content, File? image}) async {
     emit(CreatePostLoading());
 
-    final result = await _repository.createPost(
-      content: content,
-      image: image,
-    );
+    final result = await _repository.createPost(content: content, image: image);
 
     switch (result) {
       case Success(:final data):

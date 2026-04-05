@@ -14,9 +14,9 @@ class ThemeCubit extends Cubit<bool> {
   // ───────── COLORS ─────────
 
   // 🌙 Dark Mode Colors (الموحدة)
-  static const Color darkBg = Color(0xFF13131F); 
-  static const Color darkSurface = Color(0xFF1E1E2E); 
-  static const Color darkOnSurface = Color(0xFFE8E8E8); 
+  static const Color darkBg = Color(0xFF13131F);
+  static const Color darkSurface = Color(0xFF1E1E2E);
+  static const Color darkOnSurface = Color(0xFFE8E8E8);
   static const Color darkNavBg = Color(0xFF13131F);
 
   // ☀️ Light Mode Colors
@@ -48,7 +48,7 @@ class ThemeCubit extends Cubit<bool> {
   // ───────── DARK THEME ─────────
   ThemeData get darkTheme => ThemeData(
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: darkBg, 
+    scaffoldBackgroundColor: darkBg,
     colorScheme: const ColorScheme.dark(
       primary: Color(0xFF188A55),
       secondary: Color(0xFF5EC8D8),

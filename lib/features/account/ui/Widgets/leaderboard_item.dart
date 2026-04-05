@@ -51,8 +51,9 @@ class LeaderboardItem extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyles.cairoMedium14Black(context).copyWith(
               color: entry.isCurrentUser ? AppColors.primaryColor : onSurface,
-              fontWeight:
-                  entry.isCurrentUser ? FontWeight.w700 : FontWeight.w600,
+              fontWeight: entry.isCurrentUser
+                  ? FontWeight.w700
+                  : FontWeight.w600,
             ),
           ),
         ),
@@ -61,8 +62,7 @@ class LeaderboardItem extends StatelessWidget {
           entry.points,
           style: TextStyles.cairoMedium14Black(context).copyWith(
             color: entry.pointsColor,
-            fontWeight:
-                entry.isCurrentUser ? FontWeight.w700 : FontWeight.w600,
+            fontWeight: entry.isCurrentUser ? FontWeight.w700 : FontWeight.w600,
           ),
         ),
       ],

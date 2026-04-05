@@ -8,6 +8,16 @@ class ApiConstants {
   static const String endpointCreateCommunityPost = '/community/posts';
   static const String endpointCommunityFeed = '/community/feed';
   static const String endpointGetallProfiles = '/profile';
+  static const String endpointLeaderboard = '/profile/leaderboard';
+
+  static const String endpointWeeklyLeaderboard =
+      '$endpointLeaderboard?period=weekly';
+
+  static const String endpointMonthlyLeaderboard =
+      '$endpointLeaderboard?period=monthly';
+
+  static const String endpointAllTimeLeaderboard =
+      '$endpointLeaderboard?period=all';
 }
 
 class ApiErrors {

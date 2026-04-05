@@ -139,11 +139,7 @@ class TaskCampaign {
   final String title;
   final String? coverImage;
 
-  const TaskCampaign({
-    required this.id,
-    required this.title,
-    this.coverImage,
-  });
+  const TaskCampaign({required this.id, required this.title, this.coverImage});
 
   factory TaskCampaign.fromJson(Map<String, dynamic> json) =>
       _$TaskCampaignFromJson(json);
@@ -154,10 +150,7 @@ class TaskAssignment {
   final String status;
   final String? checkInTime;
 
-  const TaskAssignment({
-    required this.status,
-    this.checkInTime,
-  });
+  const TaskAssignment({required this.status, this.checkInTime});
 
   factory TaskAssignment.fromJson(Map<String, dynamic> json) =>
       _$TaskAssignmentFromJson(json);

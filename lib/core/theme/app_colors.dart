@@ -33,34 +33,34 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static const Color primaryColor       = Color(0xFF188A55);
-  static const Color gray               = Color(0xFF6B7280);
-  static const Color lightGray          = Color(0xFFECECEC);
-  static const Color dark               = Color(0xFF111827);
-  static const Color black              = Colors.black;
-  static const Color black2             = Color(0xFF1C2024);
-  static const Color white              = Colors.white;
-  static const Color buttonShadow       = Color(0x331A56DB);
-  static const Color hintColor          = Color(0xFFABABAB);
-  static const Color borderColor        = Color(0xFFB3B3B3);
-  static const Color errorColor         = Colors.red;
-  static const Color transparent        = Colors.transparent;
-  static const Color sosRed             = Color(0xFFD32F2F);
-  static const Color orange             = Color(0xFFF5A623);
-  static const Color cardBorder         = Color(0xFFE5E7EB);
-  static const Color gradientGray       = Color(0xFF999999);
+  static const Color primaryColor = Color(0xFF188A55);
+  static const Color gray = Color(0xFF6B7280);
+  static const Color lightGray = Color(0xFFECECEC);
+  static const Color dark = Color(0xFF111827);
+  static const Color black = Colors.black;
+  static const Color black2 = Color(0xFF1C2024);
+  static const Color white = Colors.white;
+  static const Color buttonShadow = Color(0x331A56DB);
+  static const Color hintColor = Color(0xFFABABAB);
+  static const Color borderColor = Color(0xFFB3B3B3);
+  static const Color errorColor = Colors.red;
+  static const Color transparent = Colors.transparent;
+  static const Color sosRed = Color(0xFFD32F2F);
+  static const Color orange = Color(0xFFF5A623);
+  static const Color cardBorder = Color(0xFFE5E7EB);
+  static const Color gradientGray = Color(0xFF999999);
   static const Color lightGreenishWhite = Color(0xFFE8F3EE);
-  static const Color descriptionGray    = Color(0xFF686464);
-  static const Color tasksChipBackground= Color(0xFFD3F7E6);
-  static const Color secondaryGray      = Color(0xFF979797);
-  static const Color iconBackgroundGreen= Color(0x26188A55);
-  static const Color chatChipBorder     = Color(0xFF1A7A4A);
-  static const Color shadowColor        = Color(0x19000000);
-  static const Color darkGreen          = Color(0xFF063610);
-  static const Color darkBlue           = Color(0xFF1A1A2E);
-  static const Color textGray           = Color(0xFF888888);
-  static const Color dividerColor       = Color(0xFFE8E8E8);
-  static const Color darkNavy           = Color(0xFF0D1B3E);
+  static const Color descriptionGray = Color(0xFF686464);
+  static const Color tasksChipBackground = Color(0xFFD3F7E6);
+  static const Color secondaryGray = Color(0xFF979797);
+  static const Color iconBackgroundGreen = Color(0x26188A55);
+  static const Color chatChipBorder = Color(0xFF1A7A4A);
+  static const Color shadowColor = Color(0x19000000);
+  static const Color darkGreen = Color(0xFF063610);
+  static const Color darkBlue = Color(0xFF1A1A2E);
+  static const Color textGray = Color(0xFF888888);
+  static const Color dividerColor = Color(0xFFE8E8E8);
+  static const Color darkNavy = Color(0xFF0D1B3E);
 
   // ✅ بيرجع لون الـ card حسب الـ theme (light = أبيض / dark = رمادي داكن)
   static Color cardBackground(BuildContext context) =>
@@ -69,8 +69,8 @@ class AppColors {
   // ✅ بيرجع لون الـ border حسب الـ theme
   static Color borderThemed(BuildContext context) =>
       Theme.of(context).brightness == Brightness.dark
-          ? const Color(0xFF2A2A2A)
-          : cardBorder;
+      ? const Color(0xFF2A2A2A)
+      : cardBorder;
 
   // ✅ بيرجع لون الـ scaffold حسب الـ theme
   static Color scaffoldThemed(BuildContext context) =>

@@ -10,10 +10,7 @@ import 'leaderboard_item.dart';
 class LeaderboardCardWidget extends StatelessWidget {
   final ProfileLeaderboard leaderboard;
 
-  const LeaderboardCardWidget({
-    super.key,
-    required this.leaderboard,
-  });
+  const LeaderboardCardWidget({super.key, required this.leaderboard});
 
   String _medal(int rank) {
     switch (rank) {
@@ -44,10 +41,7 @@ class LeaderboardCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final cardColor = Theme.of(context).cardColor;
 
-
-    final others = leaderboard.entries
-        .where((e) => !e.isCurrentUser)
-        .toList()
+    final others = leaderboard.entries.where((e) => !e.isCurrentUser).toList()
       ..sort((a, b) => b.points.compareTo(a.points));
 
     final currentUser = leaderboard.currentUser;

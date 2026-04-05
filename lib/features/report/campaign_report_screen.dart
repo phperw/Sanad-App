@@ -23,8 +23,9 @@ class CampaignReportScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'تقرير الحملة',
-          style: TextStyles.cairoBold32Dark(context)
-              .copyWith(fontSize: 18.sp(context), color: onSurface),
+          style: TextStyles.cairoBold32Dark(
+            context,
+          ).copyWith(fontSize: 18.sp(context), color: onSurface),
         ),
         leading: IconButton(
           icon: Icon(

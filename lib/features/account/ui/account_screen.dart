@@ -86,10 +86,7 @@ final _fakeAchievements = ProfileAchievements(
   items: [],
 );
 
-final _fakeCertificates = ProfileCertificates(
-  count: 2,
-  items: [],
-);
+final _fakeCertificates = ProfileCertificates(count: 2, items: []);
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
@@ -158,7 +155,9 @@ class _AccountView extends StatelessWidget {
                 children: [
                   SingleChildScrollView(
                     padding: context.responsivePadding(
-                        horizontal: 16, bottom: 24),
+                      horizontal: 16,
+                      bottom: 24,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -171,14 +170,16 @@ class _AccountView extends StatelessWidget {
                         ),
                         verticalSpace(context, height: 8),
                         ActiveVolunteerBadgeWidget(
-                          label: volunteer.statusLabel ??
+                          label:
+                              volunteer.statusLabel ??
                               (volunteer.status == 'ACTIVE'
                                   ? 'متطوع نشط 🌟'
                                   : 'غير نشط'),
                         ),
                         verticalSpace(context, height: 8),
                         MemberSinceWidget(
-                          date: volunteer.memberSinceLabel ?? volunteer.joinDate,
+                          date:
+                              volunteer.memberSinceLabel ?? volunteer.joinDate,
                         ),
                         verticalSpace(context, height: 24),
                         StatsCardWidget(
@@ -194,16 +195,15 @@ class _AccountView extends StatelessWidget {
                           total: '${achievements.totalCount}',
                         ),
                         verticalSpace(context, height: 16),
-CertificatesCardWidget(certificates: certificates.items),                        verticalSpace(context, height: 16),
+                        CertificatesCardWidget(
+                          certificates: certificates.items,
+                        ),
+                        verticalSpace(context, height: 16),
                         const _LogoutButton(),
                       ],
                     ),
                   ),
-                  const Positioned(
-                    top: 12,
-                    left: 16,
-                    child: ThemeToggle(),
-                  ),
+                  const Positioned(top: 12, left: 16, child: ThemeToggle()),
                 ],
               ),
             ),

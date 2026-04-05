@@ -39,6 +39,12 @@ class _LoadingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final bgColor = Theme.of(context).cardColor;
+    final shadowColor = isDark
+        ? Colors.black.withOpacity(0.4)
+        : AppColors.dark.withOpacity(0.12);
+
     return Center(
       child: Container(
         padding: EdgeInsets.symmetric(
@@ -46,11 +52,11 @@ class _LoadingDialog extends StatelessWidget {
           vertical: 24.h(context),
         ),
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: bgColor,
           borderRadius: BorderRadius.circular(20.r(context)),
           boxShadow: [
             BoxShadow(
-              color: AppColors.dark.withOpacity(0.12),
+              color: shadowColor,
               blurRadius: 24,
               offset: const Offset(0, 8),
             ),
@@ -61,11 +67,11 @@ class _LoadingDialog extends StatelessWidget {
           children: [
             Text(
               message ?? 'جاري تسجيل الدخول',
-
-              style: TextStyles.cairoMedium14Black(context),
+              style: TextStyles.cairoMedium14Black(
+                context,
+              ).copyWith(color: Theme.of(context).colorScheme.onSurface),
             ),
             horizontalSpace(context, width: 16),
-
             SizedBox(
               width: 24.w(context),
               height: 24.h(context),

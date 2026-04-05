@@ -72,8 +72,9 @@ class BotMessageBubble extends StatelessWidget {
                         ? Text(
                             message,
                             textAlign: TextAlign.right,
-                            style: TextStyles.cairoMedium12DarkBlue(context)
-                                .copyWith(color: onSurface),
+                            style: TextStyles.cairoMedium12DarkBlue(
+                              context,
+                            ).copyWith(color: onSurface),
                           )
                         : spans != null
                         ? Text.rich(
@@ -83,8 +84,9 @@ class BotMessageBubble extends StatelessWidget {
                                   text: span.text,
                                   style: span.isHighlighted
                                       ? TextStyles.cairoMedium12Primary(context)
-                                      : TextStyles.cairoMedium12DarkBlue(context)
-                                          .copyWith(color: onSurface),
+                                      : TextStyles.cairoMedium12DarkBlue(
+                                          context,
+                                        ).copyWith(color: onSurface),
                                 );
                               }).toList(),
                             ),
@@ -93,8 +95,9 @@ class BotMessageBubble extends StatelessWidget {
                         : Text(
                             message,
                             textAlign: TextAlign.right,
-                            style: TextStyles.cairoMedium12DarkBlue(context)
-                                .copyWith(color: onSurface),
+                            style: TextStyles.cairoMedium12DarkBlue(
+                              context,
+                            ).copyWith(color: onSurface),
                           ),
                   ),
                 ),

@@ -29,10 +29,7 @@ final _fakeCampaign = TaskCampaign(
   coverImage: null,
 );
 
-final _fakeAssignment = TaskAssignment(
-  status: 'ASSIGNED',
-  checkInTime: null,
-);
+final _fakeAssignment = TaskAssignment(status: 'ASSIGNED', checkInTime: null);
 
 final _fakeVolunteer = Volunteer(
   id: 0,
@@ -104,8 +101,9 @@ class HomeBody extends StatelessWidget {
         final volunteer = state is HomeSuccess
             ? state.data.summary.volunteer
             : _fakeVolunteer;
-        final stats =
-            state is HomeSuccess ? state.data.summary.stats : _fakeStats;
+        final stats = state is HomeSuccess
+            ? state.data.summary.stats
+            : _fakeStats;
         final announcements = state is HomeSuccess
             ? state.data.summary.announcements
             : _fakeAnnouncements;

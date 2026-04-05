@@ -73,9 +73,9 @@ class _AddPostSheetState extends State<_AddPostSheet> {
     }
 
     context.read<CreatePostCubit>().createPost(
-          content: content,
-          image: imageFile,
-        );
+      content: content,
+      image: imageFile,
+    );
   }
 
   @override
@@ -119,7 +119,9 @@ class _AddPostSheetState extends State<_AddPostSheet> {
           child: Container(
             decoration: BoxDecoration(
               color: sheetBg,
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
             ),
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -177,14 +179,16 @@ class _AddPostSheetState extends State<_AddPostSheet> {
           onTap: () => Navigator.pop(context),
           child: Text(
             'إلغاء',
-            style: TextStyles.cairoBold16DarkBlue(context)
-                .copyWith(color: AppColors.errorColor),
+            style: TextStyles.cairoBold16DarkBlue(
+              context,
+            ).copyWith(color: AppColors.errorColor),
           ),
         ),
         Text(
           'منشور جديد',
-          style: TextStyles.cairoBold16DarkBlue(context)
-              .copyWith(color: onSurface),
+          style: TextStyles.cairoBold16DarkBlue(
+            context,
+          ).copyWith(color: onSurface),
         ),
         SizedBox(width: 40.w(context)),
       ],
@@ -199,8 +203,9 @@ class _AddPostSheetState extends State<_AddPostSheet> {
         horizontalSpace(context, width: 8),
         Text(
           widget.userName,
-          style: TextStyles.cairoBold16DarkBlue(context)
-              .copyWith(color: onSurface),
+          style: TextStyles.cairoBold16DarkBlue(
+            context,
+          ).copyWith(color: onSurface),
         ),
       ],
     );
@@ -223,8 +228,9 @@ class _AddPostSheetState extends State<_AddPostSheet> {
       child: Center(
         child: Text(
           fullName.isNotEmpty ? fullName[0].toUpperCase() : '؟',
-          style: TextStyles.cairoBold16DarkBlue(context)
-              .copyWith(color: AppColors.primaryColor),
+          style: TextStyles.cairoBold16DarkBlue(
+            context,
+          ).copyWith(color: AppColors.primaryColor),
         ),
       ),
     );
@@ -262,14 +268,14 @@ class _AddPostSheetState extends State<_AddPostSheet> {
             buildCounter:
                 (_, {required currentLength, required isFocused, maxLength}) =>
                     null,
-            style: TextStyles.cairoBold16DarkBlue(context).copyWith(
-              fontWeight: FontWeight.w400,
-              color: onSurface,
-            ),
+            style: TextStyles.cairoBold16DarkBlue(
+              context,
+            ).copyWith(fontWeight: FontWeight.w400, color: onSurface),
             decoration: InputDecoration(
               hintText: 'شارك إنجازك أو تجربتك مع الفريق...',
-              hintStyle: TextStyles.cairoRegular12Gray(context)
-                  .copyWith(fontSize: 16.sp(context)),
+              hintStyle: TextStyles.cairoRegular12Gray(
+                context,
+              ).copyWith(fontSize: 16.sp(context)),
               border: InputBorder.none,
               contentPadding: EdgeInsets.zero,
             ),
@@ -316,13 +322,15 @@ class _AddPostSheetState extends State<_AddPostSheet> {
             children: [
               Text(
                 'حتى $_maxImages صور',
-                style: TextStyles.cairoRegular12Gray(context)
-                    .copyWith(fontSize: 13.sp(context)),
+                style: TextStyles.cairoRegular12Gray(
+                  context,
+                ).copyWith(fontSize: 13.sp(context)),
               ),
               Text(
                 'إضافة صور',
-                style: TextStyles.cairoBold16DarkBlue(context)
-                    .copyWith(color: onSurface),
+                style: TextStyles.cairoBold16DarkBlue(
+                  context,
+                ).copyWith(color: onSurface),
               ),
             ],
           ),
@@ -332,14 +340,13 @@ class _AddPostSheetState extends State<_AddPostSheet> {
             reverse: true,
             child: Row(
               children: [
-                if (_selectedImages.length < _maxImages)
-                  _buildAddImageButton(),
+                if (_selectedImages.length < _maxImages) _buildAddImageButton(),
                 ..._selectedImages.asMap().entries.map(
-                      (e) => Padding(
-                        padding: EdgeInsets.only(right: 16.w(context)),
-                        child: _buildImageThumbnail(e.key, e.value),
-                      ),
-                    ),
+                  (e) => Padding(
+                    padding: EdgeInsets.only(right: 16.w(context)),
+                    child: _buildImageThumbnail(e.key, e.value),
+                  ),
+                ),
               ],
             ),
           ),
@@ -372,8 +379,9 @@ class _AddPostSheetState extends State<_AddPostSheet> {
             SizedBox(height: 4.h(context)),
             Text(
               'إضافة',
-              style: TextStyles.cairoMedium12Primary(context)
-                  .copyWith(fontSize: 11.sp(context)),
+              style: TextStyles.cairoMedium12Primary(
+                context,
+              ).copyWith(fontSize: 11.sp(context)),
             ),
           ],
         ),

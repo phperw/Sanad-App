@@ -24,21 +24,28 @@ class AttendanceDetailsCardWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.calendar_today_outlined,
-                  color: AppColors.gray, size: 20.r(context)),
+              Icon(
+                Icons.calendar_today_outlined,
+                color: AppColors.gray,
+                size: 20.r(context),
+              ),
               horizontalSpace(context, width: 12),
               Text(
                 'الإثنين، 14 مارس 2026',
-                style: TextStyles.cairoBold32Dark(context)
-                    .copyWith(fontSize: 14.sp(context), color: onSurface),
+                style: TextStyles.cairoBold32Dark(
+                  context,
+                ).copyWith(fontSize: 14.sp(context), color: onSurface),
               ),
             ],
           ),
           verticalSpace(context, height: 16),
           Row(
             children: [
-              Icon(Icons.access_time,
-                  color: AppColors.primaryColor, size: 20.r(context)),
+              Icon(
+                Icons.access_time,
+                color: AppColors.primaryColor,
+                size: 20.r(context),
+              ),
               horizontalSpace(context, width: 12),
               Text(
                 '10:23 AM',
@@ -53,14 +60,18 @@ class AttendanceDetailsCardWidget extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.info_outline,
-                  color: AppColors.gray, size: 18.r(context)),
+              Icon(
+                Icons.info_outline,
+                color: AppColors.gray,
+                size: 18.r(context),
+              ),
               horizontalSpace(context, width: 8),
               Expanded(
                 child: Text(
                   'سيتم تسجيل وقت وموقع حضورك بشكل فعلي',
-                  style: TextStyles.cairoRegular14Muted(context)
-                      .copyWith(fontSize: 12.sp(context)),
+                  style: TextStyles.cairoRegular14Muted(
+                    context,
+                  ).copyWith(fontSize: 12.sp(context)),
                 ),
               ),
             ],
