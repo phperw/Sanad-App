@@ -17,8 +17,7 @@ class MonthlyLeaderboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          getIt<MonthlyLeaderboardCubit>()..getMonthlyLeaderboard(),
+      create: (_) => getIt<MonthlyLeaderboardCubit>()..getMonthlyLeaderboard(),
       child: const _MonthlyLeaderboardContent(),
     );
   }
@@ -44,8 +43,9 @@ class _MonthlyLeaderboardContent extends StatelessWidget {
 
         final isLoading =
             state is LeaderboardInitial || state is LeaderboardLoading;
-        final data =
-            state is LeaderboardSuccess ? state.data.leaderboard : _fakeData;
+        final data = state is LeaderboardSuccess
+            ? state.data.leaderboard
+            : _fakeData;
 
         return Skeletonizer(
           enabled: isLoading,
@@ -244,8 +244,9 @@ class _PodiumItem extends StatelessWidget {
                     alignment: Alignment.center,
                     child: Text(
                       _initials(name),
-                      style: TextStyles.cairoBold16DarkBlue(context)
-                          .copyWith(color: borderColor, fontSize: 14.sp(context)),
+                      style: TextStyles.cairoBold16DarkBlue(
+                        context,
+                      ).copyWith(color: borderColor, fontSize: 14.sp(context)),
                     ),
                   ),
           ),
@@ -289,8 +290,9 @@ class _PodiumItem extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             '$rank',
-            style: TextStyles.cairoBold16White(context)
-                .copyWith(fontSize: rank == 1 ? 32.sp(context) : 28.sp(context)),
+            style: TextStyles.cairoBold16White(
+              context,
+            ).copyWith(fontSize: rank == 1 ? 32.sp(context) : 28.sp(context)),
           ),
         ),
       ],
@@ -362,10 +364,9 @@ class _RankRow extends StatelessWidget {
             child: Text(
               '${user.rank}',
               textAlign: TextAlign.center,
-              style: TextStyles.cairoBold16DarkBlue(context).copyWith(
-                fontSize: 18.sp(context),
-                color: AppColors.textGray,
-              ),
+              style: TextStyles.cairoBold16DarkBlue(
+                context,
+              ).copyWith(fontSize: 18.sp(context), color: AppColors.textGray),
             ),
           ),
           SizedBox(width: 12.w(context)),
@@ -392,8 +393,9 @@ class _RankRow extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     _initials(user.fullName),
-                    style: TextStyles.cairoBold16White(context)
-                        .copyWith(fontSize: 15.sp(context)),
+                    style: TextStyles.cairoBold16White(
+                      context,
+                    ).copyWith(fontSize: 15.sp(context)),
                   ),
                 ),
           SizedBox(width: 12.w(context)),
@@ -405,8 +407,9 @@ class _RankRow extends StatelessWidget {
                   user.fullName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyles.cairoBold16DarkBlue(context)
-                      .copyWith(fontSize: 14.sp(context), color: onSurface),
+                  style: TextStyles.cairoBold16DarkBlue(
+                    context,
+                  ).copyWith(fontSize: 14.sp(context), color: onSurface),
                 ),
                 Text(
                   '${user.points} نقطة',
@@ -440,10 +443,7 @@ class _CurrentUserCard extends StatelessWidget {
   final LeaderboardUser currentUser;
   final String subtitle;
 
-  const _CurrentUserCard({
-    required this.currentUser,
-    required this.subtitle,
-  });
+  const _CurrentUserCard({required this.currentUser, required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -489,7 +489,8 @@ class _CurrentUserCard extends StatelessWidget {
               shape: BoxShape.circle,
               border: Border.all(color: AppColors.chatChipBorder, width: 1.1),
             ),
-            child: currentUser.avatarUrl != null &&
+            child:
+                currentUser.avatarUrl != null &&
                     currentUser.avatarUrl!.isNotEmpty
                 ? ClipOval(
                     child: Image.network(
