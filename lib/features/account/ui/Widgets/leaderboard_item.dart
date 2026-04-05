@@ -30,6 +30,7 @@ class LeaderboardItem extends StatelessWidget {
           backgroundImage: entry.imageUrl != null && entry.imageUrl!.isNotEmpty
               ? NetworkImage(entry.imageUrl!)
               : null,
+          // ignore: unnecessary_underscores
           onBackgroundImageError: entry.imageUrl != null ? (_, __) {} : null,
           child: entry.imageUrl == null || entry.imageUrl!.isEmpty
               ? Text(
