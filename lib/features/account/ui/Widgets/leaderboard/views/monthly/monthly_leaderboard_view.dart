@@ -1,105 +1,185 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import 'package:sanad/core/di/dependency_injection.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:sanad/core/widgets/error_screen.dart';
+import '../../data/models/leaderboard_response.dart';
+import '../../logic/leaderboard_state.dart';
+import '../../logic/monthly_cubit/monthly_leaderboard_cubit.dart';
 
-class MonthlyLeaderboardView extends StatefulWidget {
+class MonthlyLeaderboardView extends StatelessWidget {
   const MonthlyLeaderboardView({super.key});
 
   @override
-  State<MonthlyLeaderboardView> createState() => _MonthlyLeaderboardViewState();
-}
-
-class _MonthlyLeaderboardViewState extends State<MonthlyLeaderboardView> {
-  bool isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchMonthlyData();
-  }
-
-  Future<void> _fetchMonthlyData() async {
-    await Future.delayed(const Duration(seconds: 2));
-    if (mounted) setState(() => isLoading = false);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: SingleChildScrollView(
-        padding: context.responsivePadding(horizontal: 16, bottom: 24),
-        child: Column(
-          children: [
-            verticalSpace(context, height: 20),
-            _PodiumSection(),
-            verticalSpace(context, height: 20),
-            _RanksCard(),
-            verticalSpace(context, height: 12),
-            _CurrentUserCard(),
-          ],
-        ),
-      ),
+    return BlocProvider(
+      create: (_) =>
+          getIt<MonthlyLeaderboardCubit>()..getMonthlyLeaderboard(),
+      child: const _MonthlyLeaderboardContent(),
     );
   }
 }
 
-class _PodiumSection extends StatelessWidget {
+class _MonthlyLeaderboardContent extends StatelessWidget {
+  const _MonthlyLeaderboardContent();
+
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<MonthlyLeaderboardCubit, LeaderboardState>(
+      builder: (context, state) {
+        if (state is LeaderboardFailure) {
+          return Center(
+            child: ErrorScreen(
+              message: state.error.message,
+              onRetry: () => context
+                  .read<MonthlyLeaderboardCubit>()
+                  .getMonthlyLeaderboard(),
+            ),
+          );
+        }
+
+        final isLoading =
+            state is LeaderboardInitial || state is LeaderboardLoading;
+        final data =
+            state is LeaderboardSuccess ? state.data.leaderboard : _fakeData;
+
+        return Skeletonizer(
+          enabled: isLoading,
+          enableSwitchAnimation: true,
+          effect: ShimmerEffect(
+            baseColor: AppColors.lightGray,
+            highlightColor: AppColors.lightGreenishWhite,
+            duration: const Duration(milliseconds: 1200),
+          ),
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: SingleChildScrollView(
+              padding: context.responsivePadding(horizontal: 16, bottom: 24),
+              child: Column(
+                children: [
+                  verticalSpace(context, height: 20),
+                  _PodiumSection(data: data),
+                  verticalSpace(context, height: 20),
+                  _RanksCard(data: data),
+                  verticalSpace(context, height: 12),
+                  _CurrentUserCard(
+                    currentUser: data.currentUser,
+                    subtitle: '${data.currentUser.points} نقطة هذا الشهر',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+final _fakeUser = LeaderboardUser(
+  rank: 1,
+  id: 0,
+  fullName: 'اسم المستخدم',
+  avatarUrl: null,
+  isCurrentUser: false,
+  status: 'ACTIVE',
+  points: 999,
+  totalHours: 0,
+  completedCampaigns: 0,
+  reportsCount: 0,
+);
+
+final _fakeData = LeaderboardData(
+  period: 'monthly',
+  totalParticipants: 10,
+  currentUserRank: 12,
+  topThree: [_fakeUser, _fakeUser, _fakeUser],
+  entries: [_fakeUser, _fakeUser, _fakeUser, _fakeUser],
+  currentUser: LeaderboardUser(
+    rank: 12,
+    id: 0,
+    fullName: 'أنت',
+    avatarUrl: null,
+    isCurrentUser: true,
+    status: 'ACTIVE',
+    points: 980,
+    totalHours: 0,
+    completedCampaigns: 0,
+    reportsCount: 0,
+  ),
+);
+
+String _initials(String name) {
+  final parts = name.trim().split(' ').where((p) => p.isNotEmpty).toList();
+  if (parts.isEmpty) return '؟';
+  if (parts.length == 1) return parts[0][0].toUpperCase();
+  return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+}
+
+const _gradients = [
+  [Color(0xFFFF8904), Color(0xFFF54900)],
+  [Color(0xFF00D5BE), Color(0xFF009689)],
+  [Color(0xFF7C86FF), Color(0xFF4F39F6)],
+  [Color(0xFFFF6467), Color(0xFFE7000B)],
+  [Color(0xFFF39C12), Color(0xFFE67E22)],
+  [Color(0xFF2ECC71), Color(0xFF27AE60)],
+];
+
+class _PodiumSection extends StatelessWidget {
+  final LeaderboardData data;
+  const _PodiumSection({required this.data});
+
+  static const _podiumConfig = [
+    {'rank': 3, 'podiumHeight': 44.0, 'avatarSize': 56.0, 'innerSize': 52.0},
+    {'rank': 1, 'podiumHeight': 80.0, 'avatarSize': 72.0, 'innerSize': 68.0},
+    {'rank': 2, 'podiumHeight': 60.0, 'avatarSize': 60.0, 'innerSize': 56.0},
+  ];
+
+  static const _rankColors = {
+    1: Color(0xFFF39C12),
+    2: Color(0xFF888888),
+    3: Color(0xFFCD7F32),
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final top3 = data.topThree;
+
+    LeaderboardUser? userForRank(int rank) {
+      try {
+        return top3.firstWhere((u) => u.rank == rank);
+      } catch (_) {
+        return top3.length >= rank ? top3[rank - 1] : null;
+      }
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Expanded(
+      children: _podiumConfig.map((cfg) {
+        final rank = cfg['rank'] as int;
+        final user = userForRank(rank);
+        if (user == null) return const Expanded(child: SizedBox());
+        final color = _rankColors[rank]!;
+        return Expanded(
           child: _PodiumItem(
-            rank: 3,
-            podiumHeight: 44,
-            avatarSize: 56,
-            innerAvatarSize: 52,
-            name: 'خالد عمر',
-            points: '1,950',
-            borderColor: const Color(0xFFCD7F32),
-            pointsColor: const Color(0xFFCD7F32),
-            imageUrl: 'https://i.pravatar.cc/52?img=3',
+            rank: rank,
+            podiumHeight: cfg['podiumHeight'] as double,
+            avatarSize: cfg['avatarSize'] as double,
+            innerAvatarSize: cfg['innerSize'] as double,
+            name: user.fullName,
+            points: '${user.points}',
+            borderColor: color,
+            pointsColor: rank == 2 ? AppColors.textGray : color,
+            avatarUrl: user.avatarUrl,
+            showCrown: rank == 1,
           ),
-        ),
-        SizedBox(width: 12.w(context)),
-        Expanded(
-          child: _PodiumItem(
-            rank: 1,
-            podiumHeight: 80,
-            avatarSize: 72,
-            innerAvatarSize: 68,
-            name: 'محمد السيد',
-            points: '3,200',
-            borderColor: const Color(0xFFF39C12),
-            pointsColor: const Color(0xFFF39C12),
-            imageUrl: 'https://i.pravatar.cc/68?img=1',
-            showCrown: true,
-          ),
-        ),
-        SizedBox(width: 12.w(context)),
-        Expanded(
-          child: _PodiumItem(
-            rank: 2,
-            podiumHeight: 60,
-            avatarSize: 60,
-            innerAvatarSize: 56,
-            name: 'سارة أحمد',
-            points: '2,580',
-            borderColor: const Color(0xFF888888),
-            pointsColor: AppColors.textGray,
-            imageUrl: 'https://i.pravatar.cc/56?img=5',
-          ),
-        ),
-      ],
+        );
+      }).toList(),
     );
   }
 }
@@ -113,7 +193,7 @@ class _PodiumItem extends StatelessWidget {
   final String points;
   final Color borderColor;
   final Color pointsColor;
-  final String imageUrl;
+  final String? avatarUrl;
   final bool showCrown;
 
   const _PodiumItem({
@@ -125,7 +205,7 @@ class _PodiumItem extends StatelessWidget {
     required this.points,
     required this.borderColor,
     required this.pointsColor,
-    required this.imageUrl,
+    required this.avatarUrl,
     this.showCrown = false,
   });
 
@@ -152,30 +232,45 @@ class _PodiumItem extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              width: innerAvatarSize.w(context),
-              height: innerAvatarSize.w(context),
-            ),
+            child: avatarUrl != null && avatarUrl!.isNotEmpty
+                ? Image.network(
+                    avatarUrl!,
+                    fit: BoxFit.cover,
+                    width: innerAvatarSize.w(context),
+                    height: innerAvatarSize.w(context),
+                  )
+                : Container(
+                    color: borderColor.withOpacity(0.15),
+                    alignment: Alignment.center,
+                    child: Text(
+                      _initials(name),
+                      style: TextStyles.cairoBold16DarkBlue(context)
+                          .copyWith(color: borderColor, fontSize: 14.sp(context)),
+                    ),
+                  ),
           ),
         ),
         verticalSpace(context, height: 8),
         Text(
           name,
           textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: TextStyles.cairoBold16DarkBlue(context).copyWith(
             fontSize: rank == 1 ? 14.sp(context) : 13.sp(context),
             color: onSurface,
           ),
         ),
         verticalSpace(context, height: 2),
-        Text(
-          '$points نقطة',
-          textAlign: TextAlign.center,
-          style: TextStyles.cairoBold16DarkBlue(context).copyWith(
-            fontSize: rank == 1 ? 14.sp(context) : 13.sp(context),
-            color: pointsColor,
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            '$points نقطة',
+            textAlign: TextAlign.center,
+            style: TextStyles.cairoBold16DarkBlue(context).copyWith(
+              fontSize: rank == 1 ? 14.sp(context) : 13.sp(context),
+              color: pointsColor,
+            ),
           ),
         ),
         verticalSpace(context, height: 8),
@@ -194,9 +289,8 @@ class _PodiumItem extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             '$rank',
-            style: TextStyles.cairoBold16White(
-              context,
-            ).copyWith(fontSize: rank == 1 ? 32.sp(context) : 28.sp(context)),
+            style: TextStyles.cairoBold16White(context)
+                .copyWith(fontSize: rank == 1 ? 32.sp(context) : 28.sp(context)),
           ),
         ),
       ],
@@ -205,39 +299,13 @@ class _PodiumItem extends StatelessWidget {
 }
 
 class _RanksCard extends StatelessWidget {
-  final List<_RankEntry> entries = const [
-    _RankEntry(
-      rank: 4,
-      name: 'فاطمة علي',
-      points: 1750,
-      initials: 'فع',
-      gradientColors: [Color(0xFFFF8904), Color(0xFFF54900)],
-    ),
-    _RankEntry(
-      rank: 5,
-      name: 'عمر حسن',
-      points: 1600,
-      initials: 'عح',
-      gradientColors: [Color(0xFF00D5BE), Color(0xFF009689)],
-    ),
-    _RankEntry(
-      rank: 6,
-      name: 'منى إبراهيم',
-      points: 1480,
-      initials: 'مإ',
-      gradientColors: [Color(0xFF7C86FF), Color(0xFF4F39F6)],
-    ),
-    _RankEntry(
-      rank: 7,
-      name: 'كريم أحمد',
-      points: 1350,
-      initials: 'كأ',
-      gradientColors: [Color(0xFFFF6467), Color(0xFFE7000B)],
-    ),
-  ];
+  final LeaderboardData data;
+  const _RanksCard({required this.data});
 
   @override
   Widget build(BuildContext context) {
+    final entries = data.entries;
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -259,11 +327,12 @@ class _RanksCard extends StatelessWidget {
       ),
       child: Column(
         children: List.generate(entries.length, (i) {
-          final e = entries[i];
+          final user = entries[i];
           final isLast = i == entries.length - 1;
+          final gradient = _gradients[i % _gradients.length];
           return Column(
             children: [
-              _RankRow(entry: e),
+              _RankRow(user: user, gradientColors: gradient),
               if (!isLast)
                 Divider(height: 1, thickness: 1, color: AppColors.cardBorder),
             ],
@@ -274,58 +343,75 @@ class _RanksCard extends StatelessWidget {
   }
 }
 
-class _RankEntry {
-  final int rank;
-  final String name;
-  final int points;
-  final String initials;
+class _RankRow extends StatelessWidget {
+  final LeaderboardUser user;
   final List<Color> gradientColors;
 
-  const _RankEntry({
-    required this.rank,
-    required this.name,
-    required this.points,
-    required this.initials,
-    required this.gradientColors,
-  });
-}
-
-class _RankRow extends StatelessWidget {
-  final _RankEntry entry;
-
-  const _RankRow({required this.entry});
+  const _RankRow({required this.user, required this.gradientColors});
 
   @override
   Widget build(BuildContext context) {
     final onSurface = Theme.of(context).colorScheme.onSurface;
 
     return Padding(
-      padding: context.responsivePadding(horizontal: 16, vertical: 12),
+      padding: context.responsivePadding(horizontal: 16, vertical: 14),
       child: Row(
         children: [
           SizedBox(
-            width: 24.w(context),
+            width: 28.w(context),
             child: Text(
-              '${entry.rank}',
+              '${user.rank}',
               textAlign: TextAlign.center,
-              style: TextStyles.cairoBold16DarkBlue(
-                context,
-              ).copyWith(fontSize: 18.sp(context), color: AppColors.textGray),
+              style: TextStyles.cairoBold16DarkBlue(context).copyWith(
+                fontSize: 18.sp(context),
+                color: AppColors.textGray,
+              ),
             ),
           ),
+          SizedBox(width: 12.w(context)),
+          user.avatarUrl != null && user.avatarUrl!.isNotEmpty
+              ? Container(
+                  width: 46.w(context),
+                  height: 46.w(context),
+                  decoration: const BoxDecoration(shape: BoxShape.circle),
+                  child: ClipOval(
+                    child: Image.network(user.avatarUrl!, fit: BoxFit.cover),
+                  ),
+                )
+              : Container(
+                  width: 46.w(context),
+                  height: 46.w(context),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: gradientColors,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    _initials(user.fullName),
+                    style: TextStyles.cairoBold16White(context)
+                        .copyWith(fontSize: 15.sp(context)),
+                  ),
+                ),
           SizedBox(width: 12.w(context)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  entry.name,
-                  style: TextStyles.cairoBold16DarkBlue(
-                    context,
-                  ).copyWith(fontSize: 14.sp(context), color: onSurface),
+                  user.fullName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyles.cairoBold16DarkBlue(context)
+                      .copyWith(fontSize: 14.sp(context), color: onSurface),
                 ),
                 Text(
-                  '${entry.points} نقطة',
+                  '${user.points} نقطة',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyles.cairoRegular12Gray(context).copyWith(
                     color: AppColors.textGray,
                     fontSize: 12.sp(context),
@@ -334,35 +420,14 @@ class _RankRow extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 12.w(context)),
-          Container(
-            width: 44.w(context),
-            height: 44.w(context),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: entry.gradientColors,
-              ),
-              shape: BoxShape.circle,
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              entry.initials,
-              style: TextStyles.cairoBold16White(
-                context,
-              ).copyWith(fontSize: 16.sp(context)),
-            ),
-          ),
-          SizedBox(width: 12.w(context)),
-          SizedBox(
-            width: 36.w(context),
-            child: Text(
-              '${entry.points}',
-              textAlign: TextAlign.end,
-              style: TextStyles.cairoBold16DarkBlue(
-                context,
-              ).copyWith(color: AppColors.chatChipBorder),
+          SizedBox(width: 8.w(context)),
+          Text(
+            '${user.points}',
+            maxLines: 1,
+            textAlign: TextAlign.end,
+            style: TextStyles.cairoBold16DarkBlue(context).copyWith(
+              color: AppColors.chatChipBorder,
+              fontSize: 14.sp(context),
             ),
           ),
         ],
@@ -372,6 +437,14 @@ class _RankRow extends StatelessWidget {
 }
 
 class _CurrentUserCard extends StatelessWidget {
+  final LeaderboardUser currentUser;
+  final String subtitle;
+
+  const _CurrentUserCard({
+    required this.currentUser,
+    required this.subtitle,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -397,9 +470,9 @@ class _CurrentUserCard extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-            width: 24.w(context),
+            width: 28.w(context),
             child: Text(
-              '12',
+              '${currentUser.rank}',
               textAlign: TextAlign.center,
               style: TextStyles.cairoBold16DarkBlue(context).copyWith(
                 fontSize: 18.sp(context),
@@ -408,19 +481,54 @@ class _CurrentUserCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 12.w(context)),
+          Container(
+            width: 46.w(context),
+            height: 46.w(context),
+            padding: const EdgeInsets.all(1.1),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.chatChipBorder, width: 1.1),
+            ),
+            child: currentUser.avatarUrl != null &&
+                    currentUser.avatarUrl!.isNotEmpty
+                ? ClipOval(
+                    child: Image.network(
+                      currentUser.avatarUrl!,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : ClipOval(
+                    child: Container(
+                      color: AppColors.chatChipBorder.withOpacity(0.1),
+                      alignment: Alignment.center,
+                      child: Text(
+                        _initials(currentUser.fullName),
+                        style: TextStyles.cairoBold16DarkBlue(context).copyWith(
+                          color: AppColors.chatChipBorder,
+                          fontSize: 15.sp(context),
+                        ),
+                      ),
+                    ),
+                  ),
+          ),
+          SizedBox(width: 12.w(context)),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'محمد حسام (أنت)',
+                  '${currentUser.fullName} (أنت)',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyles.cairoBold16DarkBlue(context).copyWith(
                     fontSize: 14.sp(context),
                     color: AppColors.chatChipBorder,
                   ),
                 ),
                 Text(
-                  '↑ 5 مراكز هذا الشهر',
+                  subtitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyles.cairoRegular12Gray(context).copyWith(
                     color: const Color(0xFF2ECC71),
                     fontSize: 11.sp(context),
@@ -430,31 +538,14 @@ class _CurrentUserCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 12.w(context)),
-          Container(
-            width: 44.w(context),
-            height: 44.w(context),
-            padding: const EdgeInsets.all(1.1),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: AppColors.chatChipBorder, width: 1.1),
-            ),
-            child: ClipOval(
-              child: Image.network(
-                'https://i.pravatar.cc/42?img=8',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(width: 12.w(context)),
-          SizedBox(
-            width: 36.w(context),
-            child: Text(
-              '980',
-              textAlign: TextAlign.end,
-              style: TextStyles.cairoBold16DarkBlue(
-                context,
-              ).copyWith(color: AppColors.chatChipBorder),
+          SizedBox(width: 8.w(context)),
+          Text(
+            '${currentUser.points}',
+            maxLines: 1,
+            textAlign: TextAlign.end,
+            style: TextStyles.cairoBold16DarkBlue(context).copyWith(
+              color: AppColors.chatChipBorder,
+              fontSize: 14.sp(context),
             ),
           ),
         ],

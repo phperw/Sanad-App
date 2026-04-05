@@ -12,6 +12,7 @@ HomeResponse _$HomeResponseFromJson(Map<String, dynamic> json) => HomeResponse(
   summary: HomeSummary.fromJson(json['summary'] as Map<String, dynamic>),
 );
 
+
 HomeSummary _$HomeSummaryFromJson(Map<String, dynamic> json) => HomeSummary(
   volunteer: Volunteer.fromJson(json['volunteer'] as Map<String, dynamic>),
   stats: Stats.fromJson(json['stats'] as Map<String, dynamic>),
@@ -26,6 +27,8 @@ HomeSummary _$HomeSummaryFromJson(Map<String, dynamic> json) => HomeSummary(
       .toList(),
 );
 
+
+
 Volunteer _$VolunteerFromJson(Map<String, dynamic> json) => Volunteer(
   id: (json['id'] as num).toInt(),
   fullName: json['fullName'] as String,
@@ -38,6 +41,8 @@ Volunteer _$VolunteerFromJson(Map<String, dynamic> json) => Volunteer(
   points: (json['points'] as num).toInt(),
 );
 
+
+
 Stats _$StatsFromJson(Map<String, dynamic> json) => Stats(
   totalHours: (json['totalHours'] as num).toInt(),
   points: (json['points'] as num).toInt(),
@@ -46,6 +51,7 @@ Stats _$StatsFromJson(Map<String, dynamic> json) => Stats(
   reports: (json['reports'] as num).toInt(),
   todayTasks: (json['todayTasks'] as num).toInt(),
 );
+
 
 Announcement _$AnnouncementFromJson(Map<String, dynamic> json) => Announcement(
   id: (json['id'] as num).toInt(),
@@ -56,6 +62,8 @@ Announcement _$AnnouncementFromJson(Map<String, dynamic> json) => Announcement(
   createdAt: json['createdAt'] as String,
 );
 
+
+
 TaskLocation _$TaskLocationFromJson(Map<String, dynamic> json) => TaskLocation(
   id: (json['id'] as num).toInt(),
   name: json['name'] as String,
@@ -65,17 +73,21 @@ TaskLocation _$TaskLocationFromJson(Map<String, dynamic> json) => TaskLocation(
   area: json['area'] as String,
 );
 
+
 TaskCampaign _$TaskCampaignFromJson(Map<String, dynamic> json) => TaskCampaign(
   id: (json['id'] as num).toInt(),
   title: json['title'] as String,
   coverImage: json['coverImage'] as String?,
 );
 
+
+
 TaskAssignment _$TaskAssignmentFromJson(Map<String, dynamic> json) =>
     TaskAssignment(
       status: json['status'] as String,
       checkInTime: json['checkInTime'] as String?,
     );
+
 
 HomeTask _$HomeTaskFromJson(Map<String, dynamic> json) => HomeTask(
   id: (json['id'] as num).toInt(),
@@ -91,3 +103,5 @@ HomeTask _$HomeTaskFromJson(Map<String, dynamic> json) => HomeTask(
     json['assignment'] as Map<String, dynamic>,
   ),
 );
+
+
