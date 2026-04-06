@@ -10,6 +10,7 @@ import '../../logic/home_cubit.dart';
 import '../../logic/home_state.dart';
 import 'header_section.dart';
 import 'news_section.dart';
+import 'sos_alert_dialog.dart';
 import 'sos_button.dart';
 import 'stats_row.dart';
 import 'task_section.dart';
@@ -125,7 +126,14 @@ class HomeBody extends StatelessWidget {
               verticalSpace(context, height: 16),
               HeaderSection(volunteer: volunteer),
               verticalSpace(context, height: 20),
-              SOSButton(onTap: () {}),
+              SOSButton(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => const SosAlertDialog(),
+                  );
+                },
+              ),
               verticalSpace(context, height: 20),
               StatsRow(stats: stats),
               verticalSpace(context, height: 20),

@@ -9,9 +9,13 @@ import '../../features/account/ui/Widgets/leaderboard/full_leader_board_screen.d
 import '../../features/attendance/view/attendance_confirmation_screen.dart';
 import '../../features/auth/login/view/login_screen.dart';
 import '../../features/campaign/view/campaign_details_screen.dart';
+import '../../features/home/view/widget/sos_active_screen.dart';
+import '../../features/home/view/widget/sos_sending_screen.dart';
+import '../../features/home/view/widget/sos_success_screen.dart';
 import '../../features/report/campaign_report_screen.dart';
 import '../../features/report_success_delivery/widgets/report_success_screen.dart';
 import '../../features/success_checkin/success_checkin_screen.dart';
+
 
 class AppRouter {
   static const kstart = '/star';
@@ -30,6 +34,9 @@ class AppRouter {
   static const kCampaignReport = '/campaignReport';
   static const kReportSuccess = '/reportSuccess';
   static const kFullLeaderBoardScreen = '/fullLeaderBoard';
+  static const kSosSending = '/sosSending';
+  static const kSosActive = '/sosActive';
+  static const kSosSuccess = '/sosSuccess';
 
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -78,6 +85,21 @@ class AppRouter {
         path: kFullLeaderBoardScreen,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const FullLeaderBoardScreen(),
+      ),
+      GoRoute(
+        path: kSosSending,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const SosSendingScreen(),
+      ),
+      GoRoute(
+        path: kSosActive,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const SosActiveScreen(),
+      ),
+      GoRoute(
+        path: kSosSuccess,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const SosSuccessScreen(),
       ),
     ],
   );

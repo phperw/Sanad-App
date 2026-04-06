@@ -15,6 +15,7 @@ LeaderboardResponse _$LeaderboardResponseFromJson(Map<String, dynamic> json) =>
       ),
     );
 
+
 LeaderboardData _$LeaderboardDataFromJson(Map<String, dynamic> json) =>
     LeaderboardData(
       period: json['period'] as String,
@@ -31,6 +32,8 @@ LeaderboardData _$LeaderboardDataFromJson(Map<String, dynamic> json) =>
       ),
     );
 
+
+
 LeaderboardUser _$LeaderboardUserFromJson(Map<String, dynamic> json) =>
     LeaderboardUser(
       rank: (json['rank'] as num).toInt(),
@@ -44,3 +47,4 @@ LeaderboardUser _$LeaderboardUserFromJson(Map<String, dynamic> json) =>
       completedCampaigns: (json['completedCampaigns'] as num).toInt(),
       reportsCount: (json['reportsCount'] as num).toInt(),
     );
+
