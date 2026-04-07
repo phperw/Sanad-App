@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
@@ -125,7 +126,11 @@ class HomeBody extends StatelessWidget {
               verticalSpace(context, height: 16),
               HeaderSection(volunteer: volunteer),
               verticalSpace(context, height: 20),
-              SOSButton(onTap: () {}),
+              SOSButton(
+                onTap: () {
+                  context.push('/emergency');
+                },
+              ),
               verticalSpace(context, height: 20),
               StatsRow(stats: stats),
               verticalSpace(context, height: 20),
