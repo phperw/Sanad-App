@@ -36,11 +36,7 @@ Future<void> main() async {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Center(
-          child: ErrorScreen(
-            message: details.exceptionAsString(),
-          ),
-        ),
+        child: Center(child: ErrorScreen(message: details.exceptionAsString())),
       ),
     );
   };

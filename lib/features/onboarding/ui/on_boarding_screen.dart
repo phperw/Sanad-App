@@ -81,6 +81,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   Expanded(
                     child: PageView.builder(
                       controller: _pageController,
+                      // 1. Add this line for a better touch-scroll experience
+                      physics: const BouncingScrollPhysics(),
                       itemCount: _pages.length,
                       onPageChanged: (index) =>
                           setState(() => _currentPage = index),
@@ -88,16 +90,48 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           OnBoardingPage(data: _pages[index]),
                     ),
                   ),
-                  DotsIndicator(count: _pages.length, current: _currentPage),
+                  DotsIndicator(
+                    count: _pages.length,
+                    current: (_pages.length - 1) - _currentPage,
+                  ),
                   verticalSpace(context, height: 32),
                   Padding(
                     padding: context.responsivePadding(horizontal: 24),
-                    child: AppButton(
-                      text: _pages[_currentPage].buttonText,
-                      onPressed: _onNext,
+                    child: Column(
+                      children: [
+                        AppButton(
+                          text: _pages[_currentPage].buttonText,
+                          onPressed: _onNext,
+                        ),
+                        // 2. Add a Back button that only shows after the first page
+                        if (_currentPage > 0) ...[
+                          verticalSpace(context, height: 8),
+                          TextButton(
+                            onPressed: () {
+                              // This programmatically scrolls back to the previous page
+                              _pageController.previousPage(
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                            child: const Text(
+                              'السابق', // "Previous" in Arabic
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors
+                                    .grey, // Feel free to change to AppColors.primaryColor
+                              ),
+                            ),
+                          ),
+                        ] else ...[
+                          // Keeps the layout height from jumping when the button disappears
+                          verticalSpace(context, height: 56),
+                        ],
+                      ],
                     ),
                   ),
-                  verticalSpace(context, height: 32),
+                  verticalSpace(context, height: 16),
                 ],
               ),
             ),

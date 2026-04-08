@@ -26,7 +26,8 @@ class RegisterCubitListener extends StatelessWidget {
             Navigator.of(context, rootNavigator: true).pop();
             _showSuccessCard(context, data.user.fullName);
             Future.delayed(const Duration(milliseconds: 1800), () {
-              if (context.mounted) context.go(AppRouter.khome);
+              // CHANGED: Route to login instead of home
+              if (context.mounted) context.go(AppRouter.klogin);
             });
 
           case RegisterFailure(:final error):
@@ -53,7 +54,8 @@ void _showSuccessCard(BuildContext context, String fullName) {
       backgroundColor: AppColors.lightGreenishWhite,
       borderColor: AppColors.primaryColor,
       title: 'تم إنشاء الحساب بنجاح',
-      subtitle: 'أهلاً بك، $fullName',
+      subtitle:
+          'أهلاً بك، $fullName\nالرجاء تسجيل الدخول للمتابعة', // Optional: Added a prompt to log in
       onDone: () => entry.remove(),
     ),
   );

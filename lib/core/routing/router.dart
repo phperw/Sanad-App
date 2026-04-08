@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sanad/features/auth/forget/forget_view.dart';
 import 'package:sanad/features/auth/register/view/register_screen.dart';
 import 'package:sanad/features/campaign/model/campaign_mode.dart';
+import 'package:sanad/features/emergency/sos_page.dart';
 import 'package:sanad/features/onboarding/ui/on_boarding_screen.dart';
 import 'package:sanad/features/splash/ui/splash_screen.dart';
 import 'package:sanad/features/main/view/main_screen.dart';
@@ -31,6 +32,7 @@ class AppRouter {
   static const kCampaignReport = '/campaignReport';
   static const kReportSuccess = '/reportSuccess';
   static const kFullLeaderBoardScreen = '/fullLeaderBoard';
+  static const kEmergency = '/emergency';
 
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -92,6 +94,11 @@ class AppRouter {
         path: kFullLeaderBoardScreen,
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const FullLeaderBoardScreen(),
+      ),
+      GoRoute(
+        path: kEmergency,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const EmergencyScreen(),
       ),
     ],
   );
