@@ -96,126 +96,131 @@ class _ErrorScreenState extends State<ErrorScreen>
       opacity: _fadeAnim,
       child: Directionality(
         textDirection: TextDirection.rtl,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w(context)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedBuilder(
-                animation: _floatAnim,
-                builder: (context, child) => Transform.translate(
-                  offset: Offset(0, _floatAnim.value),
-                  child: child,
-                ),
-                child: Image.asset(
-                  Assets.errorRobot,
-                  width: 220.w(context),
-                  fit: BoxFit.contain,
-                ),
-              ),
-              verticalSpace(context, height: 28),
-              Text(
-                'حدثت مشكلة ما',
-                style: TextStyles.cairoBold20DarkBlue(context),
-                textAlign: TextAlign.center,
-              ),
-              verticalSpace(context, height: 8),
-              Text(
-                _resolveSubtitle(),
-                style: TextStyles.cairoRegular14Muted(context),
-                textAlign: TextAlign.center,
-              ),
-              verticalSpace(context, height: 36),
-              if (widget.onRetry != null)
-                // GestureDetector(
-                //   // onTapDown: (_) => _buttonController.forward(),
-                //   onTapUp: (_) {
-                //     // _buttonController.reverse();
-                //     context.go(AppRouter.kstart);
-                //   },
-                //   onTapCancel: () => _buttonController.reverse(),
-                //   child: ScaleTransition(
-                //     scale: _buttonScale,
-                //     child: Container(
-                //       width: double.infinity,
-                //       height: 56.h(context),
-                //       decoration: BoxDecoration(
-                //         color: AppColors.primaryColor,
-                //         borderRadius: BorderRadius.circular(16.r(context)),
-                //         boxShadow: [
-                //           BoxShadow(
-                //             color: AppColors.primaryColor.withOpacity(0.3),
-                //             blurRadius: 16,
-                //             offset: const Offset(0, 6),
-                //           ),
-                //         ],
-                //       ),
-                //       child: Row(
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           const Icon(
-                //             Icons.refresh_rounded,
-                //             color: AppColors.white,
-                //             size: 20,
-                //           ),
-                //           horizontalSpace(context, width: 8),
-                //           Text(
-                //             'حاول مرة أخرى',
-                //             style: TextStyles.cairoBold16White(context),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                GestureDetector(
-                  onTapDown: (_) => _buttonController.forward(),
-                  onTapUp: (_) async {
-                    _buttonController.reverse();
-
-                    await SharedPrefHelper.clearTokens();
-
-                    // await SharedPrefHelper.clearAll();
-
-                    // ignore: use_build_context_synchronously
-                    context.go(AppRouter.klogin);
-                  },
-                  onTapCancel: () => _buttonController.reverse(),
-                  child: ScaleTransition(
-                    scale: _buttonScale,
-                    child: Container(
-                      width: double.infinity,
-                      height: 56.h(context),
-                      decoration: BoxDecoration(
-                        color: AppColors.primaryColor,
-                        borderRadius: BorderRadius.circular(16.r(context)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.primaryColor.withOpacity(0.3),
-                            blurRadius: 16,
-                            offset: const Offset(0, 6),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.logout,
-                            color: AppColors.white,
-                            size: 20,
-                          ),
-                          horizontalSpace(context, width: 8),
-                          Text(
-                            'تسجيل خروج',
-                            style: TextStyles.cairoBold16White(context),
-                          ),
-                        ],
-                      ),
+        // Added Center and SingleChildScrollView to fix the RenderFlex Overflow
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 32.w(context)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  AnimatedBuilder(
+                    animation: _floatAnim,
+                    builder: (context, child) => Transform.translate(
+                      offset: Offset(0, _floatAnim.value),
+                      child: child,
+                    ),
+                    child: Image.asset(
+                      Assets.errorRobot,
+                      width: 220.w(context),
+                      fit: BoxFit.contain,
                     ),
                   ),
-                ),
-            ],
+                  verticalSpace(context, height: 28),
+                  Text(
+                    'حدثت مشكلة ما',
+                    style: TextStyles.cairoBold20DarkBlue(context),
+                    textAlign: TextAlign.center,
+                  ),
+                  verticalSpace(context, height: 8),
+                  Text(
+                    _resolveSubtitle(),
+                    style: TextStyles.cairoRegular14Muted(context),
+                    textAlign: TextAlign.center,
+                  ),
+                  verticalSpace(context, height: 36),
+                  if (widget.onRetry != null)
+                    // GestureDetector(
+                    //   // onTapDown: (_) => _buttonController.forward(),
+                    //   onTapUp: (_) {
+                    //     // _buttonController.reverse();
+                    //     context.go(AppRouter.kstart);
+                    //   },
+                    //   onTapCancel: () => _buttonController.reverse(),
+                    //   child: ScaleTransition(
+                    //     scale: _buttonScale,
+                    //     child: Container(
+                    //       width: double.infinity,
+                    //       height: 56.h(context),
+                    //       decoration: BoxDecoration(
+                    //         color: AppColors.primaryColor,
+                    //         borderRadius: BorderRadius.circular(16.r(context)),
+                    //         boxShadow: [
+                    //           BoxShadow(
+                    //             color: AppColors.primaryColor.withOpacity(0.3),
+                    //             blurRadius: 16,
+                    //             offset: const Offset(0, 6),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //       child: Row(
+                    //         mainAxisAlignment: MainAxisAlignment.center,
+                    //         children: [
+                    //           const Icon(
+                    //             Icons.refresh_rounded,
+                    //             color: AppColors.white,
+                    //             size: 20,
+                    //           ),
+                    //           horizontalSpace(context, width: 8),
+                    //           Text(
+                    //             'حاول مرة أخرى',
+                    //             style: TextStyles.cairoBold16White(context),
+                    //           ),
+                    //         ],
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    GestureDetector(
+                      onTapDown: (_) => _buttonController.forward(),
+                      onTapUp: (_) async {
+                        _buttonController.reverse();
+
+                        await SharedPrefHelper.clearTokens();
+
+                        // await SharedPrefHelper.clearAll();
+
+                        // ignore: use_build_context_synchronously
+                        context.go(AppRouter.klogin);
+                      },
+                      onTapCancel: () => _buttonController.reverse(),
+                      child: ScaleTransition(
+                        scale: _buttonScale,
+                        child: Container(
+                          width: double.infinity,
+                          height: 56.h(context),
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryColor,
+                            borderRadius: BorderRadius.circular(16.r(context)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.primaryColor.withOpacity(0.3),
+                                blurRadius: 16,
+                                offset: const Offset(0, 6),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.logout,
+                                color: AppColors.white,
+                                size: 20,
+                              ),
+                              horizontalSpace(context, width: 8),
+                              Text(
+                                'تسجيل خروج',
+                                style: TextStyles.cairoBold16White(context),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
