@@ -22,7 +22,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   final List<OnBoardingModel> _pages = const [
     OnBoardingModel(
-      image: Assets.logoSplash,
+      image: Assets.onboarding1,
       title: 'صوتك بينقذ حياة',
       description:
           'انضم لكتيبة التوعية و كن جزءاً من التغيير في مجتمعك، ساعدنا في نشر الوعي و بناء المستقبل',
