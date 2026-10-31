@@ -18,6 +18,10 @@ class ApiConstants {
 
   static const String endpointAllTimeLeaderboard =
       '$endpointLeaderboard?period=all';
+
+  // SOS
+  static const String endpointSosSend = '/sos/send';
+  static const String endpointSosCancel = '/sos/cancel';
 }
 
 class ApiErrors {

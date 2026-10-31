@@ -22,7 +22,10 @@ import '../../features/chats_and_community/data/api_service/post_api_service.dar
 import '../../features/chats_and_community/data/repo/post_repository.dart';
 import '../../features/chats_and_community/logic/community/community_feed_cubit.dart';
 import '../../features/chats_and_community/logic/create_post_cubit.dart';
+import '../../features/home/data/OSO_api_service/sos_api_service.dart';
+import '../../features/home/data/repo/OSO/sos_repository.dart';
 import '../../features/home/data/repo/home_repository.dart';
+import '../../features/home/logic/OSO_Cubit/sos_cubit.dart';
 import '../../features/home/logic/home_cubit.dart';
 import '../helper/shared_pref_helper.dart';
 
@@ -67,4 +70,9 @@ Future<void> setupDependencies() async {
 
   // Chatbot
   getIt.registerLazySingleton(() => ChatbotService());
+
+  // SOS
+  getIt.registerLazySingleton(() => SosApiService(getIt()));
+  getIt.registerLazySingleton(() => SosRepository(getIt()));
+  getIt.registerFactory(() => SosCubit(getIt()));
 }
