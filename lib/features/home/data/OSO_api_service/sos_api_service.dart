@@ -9,7 +9,7 @@ part 'sos_api_service.g.dart';
 abstract class SosApiService {
   factory SosApiService(Dio dio, {String baseUrl}) = _SosApiService;
 
-   @POST(ApiConstants.endpointSosSend)
+  @POST(ApiConstants.endpointSosSend)
   Future<SosResponse> sendSos(@Body() SosSendRequestBody body);
 
   @POST(ApiConstants.endpointSosCancel)

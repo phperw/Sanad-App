@@ -336,8 +336,7 @@ class _SosSuccessScreenState extends State<SosSuccessScreen>
                           color: AppColors.chatChipBorder,
                           boxShadow: [
                             BoxShadow(
-                              color:
-                                  AppColors.chatChipBorder.withOpacity(0.25),
+                              color: AppColors.chatChipBorder.withOpacity(0.25),
                               blurRadius: 24,
                               offset: const Offset(0, 8),
                             ),
@@ -393,8 +392,9 @@ class _SosSuccessScreenState extends State<SosSuccessScreen>
                           Text(
                             'تم إبلاغ الإدارة بأنك بخير',
                             textAlign: TextAlign.center,
-                            style: TextStyles.cairoBold16DarkBlue(context)
-                                .copyWith(fontSize: 14.sp(context)),
+                            style: TextStyles.cairoBold16DarkBlue(
+                              context,
+                            ).copyWith(fontSize: 14.sp(context)),
                           ),
                           verticalSpace(context, height: 6),
                           Text(
@@ -402,9 +402,9 @@ class _SosSuccessScreenState extends State<SosSuccessScreen>
                             textAlign: TextAlign.center,
                             style: TextStyles.cairoRegular12Gray(context)
                                 .copyWith(
-                              fontSize: 12.sp(context),
-                              color: AppColors.textGray,
-                            ),
+                                  fontSize: 12.sp(context),
+                                  color: AppColors.textGray,
+                                ),
                           ),
                         ],
                       ),

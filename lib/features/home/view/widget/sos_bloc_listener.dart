@@ -20,10 +20,7 @@ class SosBlocListener extends StatelessWidget {
 
         if (state is SosSendError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error),
-              backgroundColor: Colors.red,
-            ),
+            SnackBar(content: Text(state.error), backgroundColor: Colors.red),
           );
         }
 
@@ -33,10 +30,7 @@ class SosBlocListener extends StatelessWidget {
 
         if (state is SosCancelError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.error),
-              backgroundColor: Colors.red,
-            ),
+            SnackBar(content: Text(state.error), backgroundColor: Colors.red),
           );
         }
       },

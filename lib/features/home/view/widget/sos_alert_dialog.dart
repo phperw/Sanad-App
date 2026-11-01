@@ -592,15 +592,15 @@ class _SosAlertDialogState extends State<SosAlertDialog>
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final bgColor = isDark ? const Color(0xFF1E1E1E) : const Color(0xFFFAFAFA);
     final titleColor = isDark ? Colors.white : const Color(0xFF1A1A1A);
-    final subtitleColor =
-        isDark ? const Color(0xFFAAAAAA) : const Color(0xFFA0A0A0);
+    final subtitleColor = isDark
+        ? const Color(0xFFAAAAAA)
+        : const Color(0xFFA0A0A0);
 
     return BlocProvider(
       // ✅ الحل: بنبني SosRepository هنا مباشرة بدل context.read()
       // لأن الـ Dialog بيشتغل في route منفصل عن الـ provider tree
-      create: (_) => SosCubit(
-        SosRepository(SosApiService(DioFactory.getDio())),
-      ),
+      create: (_) =>
+          SosCubit(SosRepository(SosApiService(DioFactory.getDio()))),
       child: SosBlocListener(
         child: Dialog(
           backgroundColor: Colors.transparent,
@@ -655,8 +655,9 @@ class _SosAlertDialogState extends State<SosAlertDialog>
                   Text(
                     'هل أنت في خطر؟',
                     textAlign: TextAlign.center,
-                    style: TextStyles.cairoBold20Dark(context)
-                        .copyWith(color: titleColor),
+                    style: TextStyles.cairoBold20Dark(
+                      context,
+                    ).copyWith(color: titleColor),
                   ),
                   verticalSpace(context, height: 6),
                   Text(
@@ -678,8 +679,9 @@ class _SosAlertDialogState extends State<SosAlertDialog>
                         child: CircularProgressIndicator(
                           value: _seconds / 5,
                           strokeWidth: 5,
-                          backgroundColor:
-                              AppColors.sosRed.withOpacity(isDark ? 0.2 : 0.12),
+                          backgroundColor: AppColors.sosRed.withOpacity(
+                            isDark ? 0.2 : 0.12,
+                          ),
                           valueColor: const AlwaysStoppedAnimation<Color>(
                             AppColors.sosRed,
                           ),
@@ -698,10 +700,9 @@ class _SosAlertDialogState extends State<SosAlertDialog>
                   Text(
                     'سيتم الإرسال تلقائياً بعد',
                     textAlign: TextAlign.center,
-                    style: TextStyles.cairoRegular10Gray(context).copyWith(
-                      color: subtitleColor,
-                      fontSize: 11.sp(context),
-                    ),
+                    style: TextStyles.cairoRegular10Gray(
+                      context,
+                    ).copyWith(color: subtitleColor, fontSize: 11.sp(context)),
                   ),
                   verticalSpace(context, height: 24),
                   GestureDetector(
@@ -733,9 +734,9 @@ class _SosAlertDialogState extends State<SosAlertDialog>
                             'إرسال طلب الطوارئ الآن',
                             style: TextStyles.cairoSemiBold12White(context)
                                 .copyWith(
-                              fontSize: 13.sp(context),
-                              fontWeight: FontWeight.w700,
-                            ),
+                                  fontSize: 13.sp(context),
+                                  fontWeight: FontWeight.w700,
+                                ),
                           ),
                         ],
                       ),
@@ -758,8 +759,9 @@ class _SosAlertDialogState extends State<SosAlertDialog>
                         children: [
                           Text(
                             'إلغاء — أنا بخير',
-                            style: TextStyles.cairoBold14Primary(context)
-                                .copyWith(fontSize: 13.sp(context)),
+                            style: TextStyles.cairoBold14Primary(
+                              context,
+                            ).copyWith(fontSize: 13.sp(context)),
                           ),
                           horizontalSpace(context, width: 8),
                           Icon(

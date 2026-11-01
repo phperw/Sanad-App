@@ -1,6 +1,6 @@
 class ApiConstants {
   static const String baseURL =
-      'https://sanad-app-production.up.railway.app/api';
+      'https://backend-athar1.vercel.app/api';
   static const String endpointLogin = '/auth/login';
   static const String endpointRegister = '/auth/register';
   static const String endpointHome = '/home';

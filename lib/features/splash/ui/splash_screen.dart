@@ -67,8 +67,8 @@ class _SplashScreenState extends State<SplashScreen>
                 children: [
                   Image.asset(
                     Assets.logoSplash,
-                    width: 120.w(context),
-                    height: 120.w(context),
+                    width: 200.w(context),
+                    height: 200.w(context),
                   ),
                   verticalSpace(context, height: 16),
                 ],

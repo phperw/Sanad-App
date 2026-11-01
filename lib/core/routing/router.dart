@@ -16,7 +16,6 @@ import '../../features/report/campaign_report_screen.dart';
 import '../../features/report_success_delivery/widgets/report_success_screen.dart';
 import '../../features/success_checkin/success_checkin_screen.dart';
 
-
 class AppRouter {
   static const kstart = '/star';
   static const klogin = '/login';

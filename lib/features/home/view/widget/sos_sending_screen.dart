@@ -341,10 +341,11 @@ class _SosSendingScreenContent extends StatelessWidget {
                         Text(
                           'يرجى الانتظار بينما يتم مشاركة موقعك',
                           textAlign: TextAlign.center,
-                          style: TextStyles.cairoRegular10Gray(context).copyWith(
-                            fontSize: 14.sp(context),
-                            color: const Color(0xFFA0A0A0),
-                          ),
+                          style: TextStyles.cairoRegular10Gray(context)
+                              .copyWith(
+                                fontSize: 14.sp(context),
+                                color: const Color(0xFFA0A0A0),
+                              ),
                         ),
                       ],
                     );
