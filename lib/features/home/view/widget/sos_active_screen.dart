@@ -7,7 +7,6 @@ import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/networking/dio_factory.dart';
-import '../../data/OSO_api_service/sos_api_service.dart';
 import '../../data/repo/OSO/sos_repository.dart';
 import '../../logic/OSO_Cubit/sos_cubit.dart';
 
@@ -17,8 +16,11 @@ class SosActiveScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          SosCubit(SosRepository(SosApiService(DioFactory.getDio()))),
+      create: (_) {
+        final cubit = SosCubit(SosRepository(DioFactory.getDio()));
+        cubit.startTracking();
+        return cubit;
+      },
       child: const _SosActiveScreenContent(),
     );
   }
@@ -32,6 +34,14 @@ class _SosActiveScreenContent extends StatelessWidget {
   Future<void> _callAdmin() async {
     final uri = Uri(scheme: 'tel', path: _adminPhone);
     if (await canLaunchUrl(uri)) await launchUrl(uri);
+  }
+
+  String _agoLabel(DateTime? createdAt) {
+    if (createdAt == null) return 'منذ لحظات';
+    final minutes = DateTime.now().difference(createdAt).inMinutes;
+    if (minutes < 1) return 'منذ لحظات';
+    if (minutes < 60) return 'منذ $minutes دقيقة';
+    return 'منذ ${minutes ~/ 60} ساعة';
   }
 
   @override
@@ -48,85 +58,112 @@ class _SosActiveScreenContent extends StatelessWidget {
         body: Stack(
           children: [
             _BackgroundPattern(),
-            Column(
-              children: [
-                _Header(),
-                Expanded(
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: SingleChildScrollView(
-                      padding: context.responsivePadding(
-                        horizontal: 16,
-                        bottom: 24,
-                      ),
-                      child: Column(
-                        children: [
-                          verticalSpace(context, height: 20),
-                          _StatusCard(
-                            cardColor: cardColor,
-                            borderColor: const Color(0xFFE74C3C),
-                            icon: Icons.location_on_rounded,
-                            iconBgColor: const Color(
-                              0xFFE74C3C,
-                            ).withOpacity(0.5),
-                            iconColor: Colors.white,
-                            title: 'موقعك يُشارك الآن',
-                            subtitle: 'الإدارة تتابع موقعك في الوقت الفعلي',
-                            badge: _LiveBadge(),
+            BlocBuilder<SosCubit, SosState>(
+              builder: (context, state) {
+                final request = context.read<SosCubit>().lastRequest;
+                final responded = request?.isResponded ?? false;
+
+                return Column(
+                  children: [
+                    _Header(
+                      subtitle: responded
+                          ? 'تمت الاستجابة لطلبك — المساعدة في الطريق'
+                          : 'تم إبلاغ الإدارة — بانتظار استجابة المتطوعين',
+                    ),
+                    Expanded(
+                      child: Directionality(
+                        textDirection: TextDirection.rtl,
+                        child: SingleChildScrollView(
+                          padding: context.responsivePadding(
+                            horizontal: 16,
+                            bottom: 24,
                           ),
-                          verticalSpace(context, height: 12),
-                          _StatusCard(
-                            cardColor: cardColor,
-                            borderColor: AppColors.chatChipBorder,
-                            icon: Icons.notifications_rounded,
-                            iconBgColor: AppColors.chatChipBorder.withOpacity(
-                              0.1,
-                            ),
-                            iconColor: AppColors.chatChipBorder,
-                            title: 'تم إبلاغ الإدارة',
-                            subtitle: 'وتم إشعار المتطوعين القريبين منك',
-                            trailing: Text(
-                              'منذ ثوانٍ',
-                              style: TextStyles.cairoRegular10Gray(context)
-                                  .copyWith(
-                                    color: subtitleColor,
-                                    fontSize: 11.sp(context),
-                                  ),
-                            ),
-                          ),
-                          verticalSpace(context, height: 16),
-                          _CallCard(cardColor: cardColor, onCall: _callAdmin),
-                          verticalSpace(context, height: 24),
-                          BlocBuilder<SosCubit, SosState>(
-                            builder: (context, state) {
-                              final isLoading = state is SosCancelLoading;
-                              return _CancelButton(
+                          child: Column(
+                            children: [
+                              verticalSpace(context, height: 20),
+                              _StatusCard(
                                 cardColor: cardColor,
-                                isLoading: isLoading,
-                                onTap: isLoading
-                                    ? null
-                                    : () =>
-                                          context.read<SosCubit>().cancelSos(),
-                              );
-                            },
-                          ),
-                          verticalSpace(context, height: 8),
-                          Text(
-                            'سيتم إيقاف مشاركة موقعك',
-                            textAlign: TextAlign.center,
-                            style: TextStyles.cairoRegular10Gray(context)
-                                .copyWith(
-                                  color: subtitleColor,
-                                  fontSize: 10.sp(context),
+                                borderColor: const Color(0xFFE74C3C),
+                                icon: Icons.location_on_rounded,
+                                iconBgColor: const Color(
+                                  0xFFE74C3C,
+                                ).withOpacity(0.5),
+                                iconColor: Colors.white,
+                                title: 'موقعك يُشارك الآن',
+                                subtitle: 'الإدارة تتابع موقعك في الوقت الفعلي',
+                                badge: _LiveBadge(),
+                              ),
+                              verticalSpace(context, height: 12),
+                              _StatusCard(
+                                cardColor: cardColor,
+                                borderColor: responded
+                                    ? const Color(0xFF2ECC71)
+                                    : AppColors.chatChipBorder,
+                                icon: responded
+                                    ? Icons.directions_run_rounded
+                                    : Icons.notifications_rounded,
+                                iconBgColor:
+                                    (responded
+                                            ? const Color(0xFF2ECC71)
+                                            : AppColors.chatChipBorder)
+                                        .withOpacity(0.1),
+                                iconColor: responded
+                                    ? const Color(0xFF2ECC71)
+                                    : AppColors.chatChipBorder,
+                                title: responded
+                                    ? 'تمت الاستجابة لطلبك'
+                                    : 'تم إبلاغ الإدارة',
+                                subtitle: responded
+                                    ? 'متطوع في الطريق إليك، ابقَ في مكان آمن'
+                                    : 'وتم إشعار المتطوعين القريبين منك',
+                                trailing: Text(
+                                  _agoLabel(request?.createdAt),
+                                  style: TextStyles.cairoRegular10Gray(context)
+                                      .copyWith(
+                                        color: subtitleColor,
+                                        fontSize: 11.sp(context),
+                                      ),
                                 ),
+                              ),
+                              verticalSpace(context, height: 16),
+                              _CallCard(
+                                cardColor: cardColor,
+                                onCall: _callAdmin,
+                              ),
+                              verticalSpace(context, height: 24),
+                              Builder(
+                                builder: (context) {
+                                  final isLoading = state is SosCancelLoading;
+                                  return _CancelButton(
+                                    cardColor: cardColor,
+                                    isLoading: isLoading,
+                                    onTap: isLoading
+                                        ? null
+                                        : () => context
+                                              .read<SosCubit>()
+                                              .cancelSos(),
+                                  );
+                                },
+                              ),
+                              verticalSpace(context, height: 8),
+                              Text(
+                                'سيتم إيقاف مشاركة موقعك',
+                                textAlign: TextAlign.center,
+                                style: TextStyles.cairoRegular10Gray(context)
+                                    .copyWith(
+                                      color: subtitleColor,
+                                      fontSize: 10.sp(context),
+                                    ),
+                              ),
+                              verticalSpace(context, height: 8),
+                            ],
                           ),
-                          verticalSpace(context, height: 8),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ],
+                  ],
+                );
+              },
             ),
           ],
         ),
@@ -136,6 +173,10 @@ class _SosActiveScreenContent extends StatelessWidget {
 }
 
 class _Header extends StatelessWidget {
+  final String subtitle;
+
+  const _Header({required this.subtitle});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -170,7 +211,7 @@ class _Header extends StatelessWidget {
                 ),
                 verticalSpace(context, height: 4),
                 Text(
-                  'تم إبلاغ الإدارة — المساعدة في الطريق',
+                  subtitle,
                   textAlign: TextAlign.center,
                   style: TextStyles.cairoRegular10Gray(context).copyWith(
                     color: Colors.white.withOpacity(0.9),

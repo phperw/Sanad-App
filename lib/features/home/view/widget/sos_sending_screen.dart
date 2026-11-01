@@ -1,250 +1,12 @@
-// import 'dart:async';
-// import 'package:flutter/material.dart';
-// import 'package:go_router/go_router.dart';
-// import 'package:sanad/core/theme/app_colors.dart';
-// import 'package:sanad/core/theme/text_styles.dart';
-// import 'package:sanad/core/helper/responsive_extensions.dart';
-// import 'package:sanad/core/helper/spacing.dart';
-// import 'package:sanad/core/routing/router.dart';
-
-// class SosSendingScreen extends StatefulWidget {
-//   const SosSendingScreen({super.key});
-
-//   @override
-//   State<SosSendingScreen> createState() => _SosSendingScreenState();
-// }
-
-// class _SosSendingScreenState extends State<SosSendingScreen>
-//     with SingleTickerProviderStateMixin {
-//   late AnimationController _pulseController;
-//   late Animation<double> _pulseAnimation;
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     _pulseController = AnimationController(
-//       vsync: this,
-//       duration: const Duration(milliseconds: 1000),
-//     )..repeat(reverse: true);
-
-//     _pulseAnimation = Tween<double>(begin: 0.85, end: 1.15).animate(
-//       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-//     );
-
-//     Future.delayed(const Duration(seconds: 3), () {
-//       if (mounted) context.go(AppRouter.kSosActive);
-//     });
-//   }
-
-//   @override
-//   void dispose() {
-//     _pulseController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: AppColors.sosRed,
-//       body: SafeArea(
-//         child: Directionality(
-//           textDirection: TextDirection.rtl,
-//           child: Padding(
-//             padding: context.responsivePadding(horizontal: 24),
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               children: [
-//                 const Spacer(flex: 2),
-//                 ScaleTransition(
-//                   scale: _pulseAnimation,
-//                   child: Container(
-//                     width: 100.w(context),
-//                     height: 100.w(context),
-//                     decoration: BoxDecoration(
-//                       shape: BoxShape.circle,
-//                       color: Colors.white.withOpacity(0.15),
-//                     ),
-//                     child: Center(
-//                       child: Container(
-//                         width: 72.w(context),
-//                         height: 72.w(context),
-//                         decoration: BoxDecoration(
-//                           shape: BoxShape.circle,
-//                           color: Colors.white.withOpacity(0.2),
-//                         ),
-//                         child: Icon(
-//                           Icons.location_on_rounded,
-//                           color: Colors.white,
-//                           size: 40.sp(context),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 verticalSpace(context, height: 48),
-//                 Text(
-//                   'جاري إرسال طلب الطوارئ...',
-//                   textAlign: TextAlign.center,
-//                   style: TextStyles.cairoBold20Dark(
-//                     context,
-//                   ).copyWith(color: Colors.white, fontSize: 24.sp(context)),
-//                 ),
-//                 verticalSpace(context, height: 12),
-//                 Text(
-//                   'يتم مشاركة موقعك الآن',
-//                   textAlign: TextAlign.center,
-//                   style: TextStyles.cairoRegular14Muted(context).copyWith(
-//                     color: Colors.white.withOpacity(0.85),
-//                     fontSize: 14.sp(context),
-//                   ),
-//                 ),
-//                 const Spacer(flex: 3),
-//                 Text(
-//                   'لا تغلق التطبيق',
-//                   textAlign: TextAlign.center,
-//                   style: TextStyles.cairoBold20Dark(
-//                     context,
-//                   ).copyWith(color: Colors.white, fontSize: 20.sp(context)),
-//                 ),
-//                 verticalSpace(context, height: 32),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:sanad/core/theme/app_colors.dart';
-// import 'package:sanad/core/theme/text_styles.dart';
-// import 'package:sanad/core/helper/responsive_extensions.dart';
-// import 'package:sanad/core/helper/spacing.dart';
-// import 'package:sanad/features/home/view/widget/sos_bloc_listener.dart';
-// import '../../logic/OSO_Cubit/sos_cubit.dart';
-
-// class SosSendingScreen extends StatefulWidget {
-//   const SosSendingScreen({super.key});
-
-//   @override
-//   State<SosSendingScreen> createState() => _SosSendingScreenState();
-// }
-
-// class _SosSendingScreenState extends State<SosSendingScreen>
-//     with SingleTickerProviderStateMixin {
-//   late AnimationController _pulseController;
-//   late Animation<double> _pulseAnimation;
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     _pulseController = AnimationController(
-//       vsync: this,
-//       duration: const Duration(milliseconds: 1000),
-//     )..repeat(reverse: true);
-
-//     _pulseAnimation = Tween<double>(begin: 0.85, end: 1.15).animate(
-//       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
-//     );
-
-//     context.read<SosCubit>().sendSos();
-//   }
-
-//   @override
-//   void dispose() {
-//     _pulseController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SosBlocListener(
-//       child: Scaffold(
-//         backgroundColor: AppColors.sosRed,
-//         body: SafeArea(
-//           child: Directionality(
-//             textDirection: TextDirection.rtl,
-//             child: Padding(
-//               padding: context.responsivePadding(horizontal: 24),
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 children: [
-//                   const Spacer(flex: 2),
-//                   ScaleTransition(
-//                     scale: _pulseAnimation,
-//                     child: Container(
-//                       width: 100.w(context),
-//                       height: 100.w(context),
-//                       decoration: BoxDecoration(
-//                         shape: BoxShape.circle,
-//                         color: Colors.white.withOpacity(0.15),
-//                       ),
-//                       child: Center(
-//                         child: Container(
-//                           width: 72.w(context),
-//                           height: 72.w(context),
-//                           decoration: BoxDecoration(
-//                             shape: BoxShape.circle,
-//                             color: Colors.white.withOpacity(0.2),
-//                           ),
-//                           child: Icon(
-//                             Icons.location_on_rounded,
-//                             color: Colors.white,
-//                             size: 40.sp(context),
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   verticalSpace(context, height: 48),
-//                   Text(
-//                     'جاري إرسال طلب الطوارئ...',
-//                     textAlign: TextAlign.center,
-//                     style: TextStyles.cairoBold20Dark(
-//                       context,
-//                     ).copyWith(color: Colors.white, fontSize: 24.sp(context)),
-//                   ),
-//                   verticalSpace(context, height: 12),
-//                   Text(
-//                     'يتم مشاركة موقعك الآن',
-//                     textAlign: TextAlign.center,
-//                     style: TextStyles.cairoRegular14Muted(context).copyWith(
-//                       color: Colors.white.withOpacity(0.85),
-//                       fontSize: 14.sp(context),
-//                     ),
-//                   ),
-//                   const Spacer(flex: 3),
-//                   Text(
-//                     'لا تغلق التطبيق',
-//                     textAlign: TextAlign.center,
-//                     style: TextStyles.cairoBold20Dark(
-//                       context,
-//                     ).copyWith(color: Colors.white, fontSize: 20.sp(context)),
-//                   ),
-//                   verticalSpace(context, height: 32),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/networking/dio_factory.dart';
-import '../../data/OSO_api_service/sos_api_service.dart';
+import 'package:sanad/core/routing/router.dart';
 import '../../data/repo/OSO/sos_repository.dart';
 import '../../logic/OSO_Cubit/sos_cubit.dart';
 import 'sos_bloc_listener.dart';
@@ -256,9 +18,7 @@ class SosSendingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        final cubit = SosCubit(
-          SosRepository(SosApiService(DioFactory.getDio())),
-        );
+        final cubit = SosCubit(SosRepository(DioFactory.getDio()));
         cubit.sendSos();
         return cubit;
       },
@@ -294,67 +54,156 @@ class _SosSendingScreenContent extends StatelessWidget {
                 textDirection: TextDirection.rtl,
                 child: BlocBuilder<SosCubit, SosState>(
                   builder: (context, state) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 100.w(context),
-                          height: 100.w(context),
-                          decoration: BoxDecoration(
-                            color: AppColors.sosRed.withOpacity(0.1),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Container(
-                              width: 70.w(context),
-                              height: 70.w(context),
-                              decoration: BoxDecoration(
-                                color: AppColors.sosRed,
-                                shape: BoxShape.circle,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColors.sosRed.withOpacity(0.4),
-                                    blurRadius: 20,
-                                    offset: const Offset(0, 6),
-                                  ),
-                                ],
-                              ),
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 3,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        verticalSpace(context, height: 32),
-                        Text(
-                          'جاري إرسال طلب الطوارئ...',
-                          textAlign: TextAlign.center,
-                          style: TextStyles.cairoBold20Dark(context).copyWith(
-                            fontSize: 22.sp(context),
-                            color: isDark ? Colors.white : AppColors.darkBlue,
-                          ),
-                        ),
-                        verticalSpace(context, height: 8),
-                        Text(
-                          'يرجى الانتظار بينما يتم مشاركة موقعك',
-                          textAlign: TextAlign.center,
-                          style: TextStyles.cairoRegular10Gray(context)
-                              .copyWith(
-                                fontSize: 14.sp(context),
-                                color: const Color(0xFFA0A0A0),
-                              ),
-                        ),
-                      ],
-                    );
+                    if (state is SosSendError) {
+                      return _ErrorView(message: state.error, isDark: isDark);
+                    }
+                    return _LoadingView(isDark: isDark);
                   },
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _LoadingView extends StatelessWidget {
+  final bool isDark;
+
+  const _LoadingView({required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 100.w(context),
+          height: 100.w(context),
+          decoration: BoxDecoration(
+            color: AppColors.sosRed.withOpacity(0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Center(
+            child: Container(
+              width: 70.w(context),
+              height: 70.w(context),
+              decoration: BoxDecoration(
+                color: AppColors.sosRed,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.sosRed.withOpacity(0.4),
+                    blurRadius: 20,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
+              ),
+              child: const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 3,
+                ),
+              ),
+            ),
+          ),
+        ),
+        verticalSpace(context, height: 32),
+        Text(
+          'جاري إرسال طلب الطوارئ...',
+          textAlign: TextAlign.center,
+          style: TextStyles.cairoBold20Dark(context).copyWith(
+            fontSize: 22.sp(context),
+            color: isDark ? Colors.white : AppColors.darkBlue,
+          ),
+        ),
+        verticalSpace(context, height: 8),
+        Text(
+          'يرجى الانتظار بينما يتم مشاركة موقعك',
+          textAlign: TextAlign.center,
+          style: TextStyles.cairoRegular10Gray(
+            context,
+          ).copyWith(fontSize: 14.sp(context), color: const Color(0xFFA0A0A0)),
+        ),
+      ],
+    );
+  }
+}
+
+class _ErrorView extends StatelessWidget {
+  final String message;
+  final bool isDark;
+
+  const _ErrorView({required this.message, required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 32.w(context)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 100.w(context),
+            height: 100.w(context),
+            decoration: BoxDecoration(
+              color: AppColors.sosRed.withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              Icons.location_off_rounded,
+              color: AppColors.sosRed,
+              size: 44.sp(context),
+            ),
+          ),
+          verticalSpace(context, height: 28),
+          Text(
+            'تعذر إرسال طلب الطوارئ',
+            textAlign: TextAlign.center,
+            style: TextStyles.cairoBold20Dark(context).copyWith(
+              fontSize: 20.sp(context),
+              color: isDark ? Colors.white : AppColors.darkBlue,
+            ),
+          ),
+          verticalSpace(context, height: 8),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style: TextStyles.cairoRegular10Gray(context).copyWith(
+              fontSize: 14.sp(context),
+              color: const Color(0xFFA0A0A0),
+              height: 1.6,
+            ),
+          ),
+          verticalSpace(context, height: 28),
+          GestureDetector(
+            onTap: () => context.read<SosCubit>().sendSos(),
+            child: Container(
+              width: double.infinity,
+              height: 52.h(context),
+              decoration: BoxDecoration(
+                color: AppColors.sosRed,
+                borderRadius: BorderRadius.circular(14.r(context)),
+              ),
+              child: Center(
+                child: Text(
+                  'إعادة المحاولة',
+                  style: TextStyles.cairoBold16White(context),
+                ),
+              ),
+            ),
+          ),
+          verticalSpace(context, height: 8),
+          TextButton(
+            onPressed: () => context.go(AppRouter.khome),
+            child: Text(
+              'رجوع',
+              style: TextStyles.cairoBold14Primary(context),
+            ),
+          ),
+        ],
       ),
     );
   }

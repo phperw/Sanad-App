@@ -12,6 +12,6 @@ abstract class SosApiService {
   @POST(ApiConstants.endpointSosSend)
   Future<SosResponse> sendSos(@Body() SosSendRequestBody body);
 
-  @POST(ApiConstants.endpointSosCancel)
+  @PATCH(ApiConstants.endpointSosCancel)
   Future<SosResponse> cancelSos();
 }

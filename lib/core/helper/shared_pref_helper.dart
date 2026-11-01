@@ -4,8 +4,8 @@ import 'shared_pref_keys.dart';
 class SharedPrefHelper {
   static late SharedPreferences sharedPreferences;
 
-  static const String keyAccessToken = 'access_token';
-  static const String keyRefreshToken = 'refresh_token';
+  static const String keyAccessToken = SharedPrefKeys.accessToken;
+  static const String keyRefreshToken = SharedPrefKeys.refreshToken;
 
   static Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
@@ -34,7 +34,6 @@ class SharedPrefHelper {
     return await sharedPreferences.clear();
   }
 
-  // ── Token helpers ──────────────────────────────────────────
   static Future<void> saveTokens({
     required String accessToken,
     required String refreshToken,
@@ -57,7 +56,6 @@ class SharedPrefHelper {
     return token != null && token.isNotEmpty;
   }
 
-  // ── Theme helpers (Dark Mode) ──────────────────────────────
   static Future<void> saveThemeMode(bool isDark) async {
     await setData(key: SharedPrefKeys.isDarkMode, value: isDark);
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/helper/responsive_extensions.dart';
 import '../../../../core/helper/spacing.dart';
 import '../../../../core/theme/text_styles.dart';
@@ -23,7 +22,7 @@ class OnBoardingPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           verticalSpace(context, height: 24),
-          SvgPicture.asset(
+          Image.asset(
             data.image,
             width: 280.w(context),
             height: 280.w(context),

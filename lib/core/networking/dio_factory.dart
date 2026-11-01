@@ -4,6 +4,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:sanad/core/networking/interceptors/auth_interceptor.dart';
 import 'package:sanad/core/networking/interceptors/error_interceptor.dart';
 import 'package:sanad/core/networking/interceptors/file_logger_interceptor.dart';
+import 'package:sanad/core/networking/interceptors/refresh_interceptor.dart';
 import 'api_constants.dart';
 
 class DioFactory {
@@ -28,6 +29,7 @@ class DioFactory {
 
     _dio!.interceptors.addAll([
       AuthInterceptor(),
+      RefreshInterceptor(_dio!),
       ErrorInterceptor(),
       if (kDebugMode) FileLoggerInterceptor(),
       if (kDebugMode)

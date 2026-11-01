@@ -18,14 +18,12 @@ class SosBlocListener extends StatelessWidget {
           context.go(AppRouter.kSosActive);
         }
 
-        if (state is SosSendError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error), backgroundColor: Colors.red),
-          );
+        if (state is SosCancelSuccess || state is SosTrackingEnded) {
+          context.go(AppRouter.kSosSuccess);
         }
 
-        if (state is SosCancelSuccess) {
-          context.go(AppRouter.kSosSuccess);
+        if (state is SosNoActive) {
+          context.go(AppRouter.khome);
         }
 
         if (state is SosCancelError) {

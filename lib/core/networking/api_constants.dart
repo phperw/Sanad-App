@@ -1,8 +1,8 @@
 class ApiConstants {
-  static const String baseURL =
-      'https://backend-athar1.vercel.app/api';
+  static const String baseURL = 'https://backend-athar1.vercel.app/api';
   static const String endpointLogin = '/auth/login';
   static const String endpointRegister = '/auth/register';
+  static const String endpointRefresh = '/auth/refresh';
   static const String endpointHome = '/home';
   static const String endpointProfile = '/auth/me';
   static const String endpointCreateCommunityPost = '/community/posts';
@@ -19,9 +19,8 @@ class ApiConstants {
   static const String endpointAllTimeLeaderboard =
       '$endpointLeaderboard?period=all';
 
-  // SOS
-  static const String endpointSosSend = '/sos/send';
-  static const String endpointSosCancel = '/sos/cancel';
+  static const String endpointSosSend = '/sos-requests';
+  static const String endpointSosCancel = '/sos-requests/active/cancel';
 }
 
 class ApiErrors {

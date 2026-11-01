@@ -9,7 +9,7 @@ class HeaderAuth extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 100),
-        Image.asset(Assets.imageSanad, fit: BoxFit.contain),
+        Image.asset(Assets.imageAthara, width: 150, height: 150),
       ],
     );
   }
