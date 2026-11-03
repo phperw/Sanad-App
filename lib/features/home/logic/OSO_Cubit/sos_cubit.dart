@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sanad/core/networking/api_result.dart';
@@ -49,7 +50,8 @@ class SosCubit extends Cubit<SosState> {
       }
     } on SosLocationException catch (e) {
       if (!isClosed) emit(SosSendError(e.message));
-    } catch (_) {
+    } catch (e, s) {
+      debugPrint('SOS error: $e\n$s');
       if (!isClosed) emit(SosSendError('حدث خطأ غير متوقع، حاول مرة أخرى'));
     }
   }
@@ -171,11 +173,10 @@ class SosCubit extends Cubit<SosState> {
 
     try {
       return await Geolocator.getCurrentPosition(
-        locationSettings: LocationSettings(
+        locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.high,
-          timeLimit: timeLimit,
         ),
-      );
+      ).timeout(timeLimit);
     } on TimeoutException {
       final lastKnown = await Geolocator.getLastKnownPosition();
       if (lastKnown != null) return lastKnown;

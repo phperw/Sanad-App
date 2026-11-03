@@ -16,31 +16,40 @@ class OnBoardingPage extends StatelessWidget {
       TitleStyleType.boldDark => TextStyles.cairoBold32Dark(context),
     };
 
-    return Padding(
-      padding: context.responsivePadding(horizontal: 24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          verticalSpace(context, height: 24),
-          Image.asset(
-            data.image,
-            width: 280.w(context),
-            height: 280.w(context),
-            fit: BoxFit.contain,
-          ),
-          verticalSpace(context, height: 40),
-          Text(data.title, textAlign: data.titleAlign, style: titleStyle),
-          verticalSpace(context, height: 16),
-          SizedBox(
-            width: 291.w(context),
-            child: Text(
-              data.description,
-              textAlign: TextAlign.center,
-              style: TextStyles.cairoRegular14Muted(context),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return SingleChildScrollView(
+          padding: context.responsivePadding(horizontal: 24),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraints.maxHeight),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                verticalSpace(context, height: 24),
+                Image.asset(
+                  data.image,
+                  width: 280.w(context),
+                  height: 280.w(context),
+                  fit: BoxFit.contain,
+                ),
+                verticalSpace(context, height: 40),
+                Text(data.title, textAlign: data.titleAlign, style: titleStyle),
+                verticalSpace(context, height: 16),
+                SizedBox(
+                  width: 291.w(context),
+                  child: Text(
+                    data.description,
+                    textAlign: TextAlign.center,
+                    style: TextStyles.cairoRegular14Muted(context),
+                  ),
+                ),
+                verticalSpace(context, height: 24),
+              ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -1,0 +1,1 @@
+{"label":"تغيير اسم التطبيق","files":{"android/app/src/main/AndroidManifest.xml":true,"ios/Runner/Info.plist":true,"windows/runner/main.cpp":true,"windows/runner/Runner.rc":true,"macos/Runner/Configs/AppInfo.xcconfig":true,"web/index.html":true,"web/manifest.json":true}}

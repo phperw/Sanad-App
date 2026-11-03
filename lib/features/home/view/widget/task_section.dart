@@ -7,21 +7,25 @@ import 'task_header.dart';
 
 class TasksSection extends StatelessWidget {
   final List<HomeTask> tasks;
+  final String title;
+  final String emptyMessage;
 
-  const TasksSection({super.key, required this.tasks});
+  const TasksSection({
+    super.key,
+    required this.tasks,
+    this.title = 'مهام اليوم',
+    this.emptyMessage = 'لا توجد مهام معينة لك اليوم',
+  });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TasksHeader(tasksCount: tasks.length),
+        TasksHeader(tasksCount: tasks.length, title: title),
         verticalSpace(context, height: 16),
         if (tasks.isEmpty)
-          const EmptyStateWidget(
-            message: 'لا توجد مهام معينة لك اليوم',
-            icon: Icons.task_alt,
-          )
+          EmptyStateWidget(message: emptyMessage, icon: Icons.task_alt)
         else
           ListView.separated(
             shrinkWrap: true,

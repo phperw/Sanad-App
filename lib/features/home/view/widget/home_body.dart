@@ -111,6 +111,12 @@ class HomeBody extends StatelessWidget {
         final tasks = state is HomeSuccess
             ? state.data.summary.todayTasks
             : _fakeTasks;
+        final todayIds = tasks.map((task) => task.id).toSet();
+        final upcomingTasks = state is HomeSuccess
+            ? state.data.summary.upcomingTasks
+                  .where((task) => !todayIds.contains(task.id))
+                  .toList()
+            : _fakeTasks;
 
         return Skeletonizer(
           enabled: isLoading,
@@ -140,6 +146,12 @@ class HomeBody extends StatelessWidget {
               NewsSection(announcements: announcements),
               verticalSpace(context, height: 20),
               TasksSection(tasks: tasks),
+              verticalSpace(context, height: 20),
+              TasksSection(
+                tasks: upcomingTasks,
+                title: 'مهامي القادمة',
+                emptyMessage: 'لا توجد مهام قادمة',
+              ),
               verticalSpace(context, height: 30),
             ],
           ),

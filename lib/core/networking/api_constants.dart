@@ -9,6 +9,7 @@ class ApiConstants {
   static const String endpointCommunityFeed = '/community/feed';
   static const String endpointGetallProfiles = '/profile';
   static const String endpointLeaderboard = '/profile/leaderboard';
+  static const String endpointChatbot = '/chatbot';
 
   static const String endpointWeeklyLeaderboard =
       '$endpointLeaderboard?period=weekly';

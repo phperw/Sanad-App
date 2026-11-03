@@ -50,14 +50,18 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   ];
 
   void _onNext() {
-    if (_currentPage < _pages.length - 1) {
+    final page = _pageController.hasClients
+        ? (_pageController.page?.round() ?? _currentPage)
+        : _currentPage;
+
+    if (page < _pages.length - 1) {
       _pageController.animateToPage(
-        _currentPage + 1,
+        page + 1,
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
       );
     } else {
-      GoRouter.of(context).push(AppRouter.klogin);
+      context.go(AppRouter.kregister);
     }
   }
 
@@ -70,37 +74,28 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Stack(
-          fit: StackFit.expand,
+      body: SafeArea(
+        child: Column(
           children: [
-            SafeArea(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: PageView.builder(
-                      controller: _pageController,
-                      itemCount: _pages.length,
-                      onPageChanged: (index) =>
-                          setState(() => _currentPage = index),
-                      itemBuilder: (context, index) =>
-                          OnBoardingPage(data: _pages[index]),
-                    ),
-                  ),
-                  DotsIndicator(count: _pages.length, current: _currentPage),
-                  verticalSpace(context, height: 32),
-                  Padding(
-                    padding: context.responsivePadding(horizontal: 24),
-                    child: AppButton(
-                      text: _pages[_currentPage].buttonText,
-                      onPressed: _onNext,
-                    ),
-                  ),
-                  verticalSpace(context, height: 32),
-                ],
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: _pages.length,
+                onPageChanged: (index) => setState(() => _currentPage = index),
+                itemBuilder: (context, index) =>
+                    OnBoardingPage(data: _pages[index]),
               ),
             ),
+            DotsIndicator(count: _pages.length, current: _currentPage),
+            verticalSpace(context, height: 32),
+            Padding(
+              padding: context.responsivePadding(horizontal: 24),
+              child: AppButton(
+                text: _pages[_currentPage].buttonText,
+                onPressed: _onNext,
+              ),
+            ),
+            verticalSpace(context, height: 32),
           ],
         ),
       ),

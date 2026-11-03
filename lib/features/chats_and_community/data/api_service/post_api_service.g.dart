@@ -12,7 +12,7 @@ part of 'post_api_service.dart';
 
 class _PostApiService implements PostApiService {
   _PostApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'https://sanad-app-production.up.railway.app/api';
+    baseUrl ??= 'https://backend-athar1.vercel.app/api';
   }
 
   final Dio _dio;

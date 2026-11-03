@@ -4,11 +4,13 @@ import 'package:sanad/core/helper/shared_pref_helper.dart';
 import 'package:sanad/core/networking/api_constants.dart';
 import 'package:sanad/core/routing/router.dart';
 
+enum _RefreshResult { success, rejected, unavailable }
+
 class RefreshInterceptor extends Interceptor {
   RefreshInterceptor(this._dio);
 
   final Dio _dio;
-  Future<bool>? _refreshing;
+  Future<_RefreshResult>? _refreshing;
 
   static const String _retriedKey = 'retried_after_refresh';
 
@@ -31,9 +33,10 @@ class RefreshInterceptor extends Interceptor {
       return handler.next(err);
     }
 
-    final sentToken = request.headers['Authorization']
-        ?.toString()
-        .replaceFirst('Bearer ', '');
+    final sentToken = request.headers['Authorization']?.toString().replaceFirst(
+      'Bearer ',
+      '',
+    );
     final currentToken = SharedPrefHelper.getAccessToken();
 
     if (currentToken != null &&
@@ -49,16 +52,24 @@ class RefreshInterceptor extends Interceptor {
       return handler.next(err);
     }
 
-    _refreshing ??= _doRefresh(refreshToken);
-    final refreshed = await _refreshing!;
-    _refreshing = null;
+    _refreshing ??= _doRefresh(refreshToken).whenComplete(() {
+      _refreshing = null;
+    });
 
-    if (!refreshed) {
-      await _forceLogout();
-      return handler.next(err);
+    final result = await _refreshing!;
+
+    switch (result) {
+      case _RefreshResult.success:
+        return _retry(request, handler, err);
+      case _RefreshResult.rejected:
+        if (SharedPrefHelper.getRefreshToken() != refreshToken) {
+          return _retry(request, handler, err);
+        }
+        await _forceLogout();
+        return handler.next(err);
+      case _RefreshResult.unavailable:
+        return handler.next(err);
     }
-
-    return _retry(request, handler, err);
   }
 
   Future<void> _retry(
@@ -79,7 +90,7 @@ class RefreshInterceptor extends Interceptor {
     }
   }
 
-  Future<bool> _doRefresh(String refreshToken) async {
+  Future<_RefreshResult> _doRefresh(String refreshToken) async {
     try {
       final refreshDio = Dio(
         BaseOptions(
@@ -98,19 +109,28 @@ class RefreshInterceptor extends Interceptor {
         data: {'refreshToken': refreshToken},
       );
 
-      final data = response.data as Map<String, dynamic>;
-      final newAccess = data['accessToken'] as String?;
-      final newRefresh = data['refreshToken'] as String?;
+      final data = response.data;
+      if (data is! Map<String, dynamic>) return _RefreshResult.unavailable;
 
-      if (newAccess == null || newRefresh == null) return false;
+      final newAccess = data['accessToken'];
+      final newRefresh = data['refreshToken'];
+      if (newAccess is! String || newRefresh is! String) {
+        return _RefreshResult.unavailable;
+      }
 
       await SharedPrefHelper.saveTokens(
         accessToken: newAccess,
         refreshToken: newRefresh,
       );
-      return true;
+      return _RefreshResult.success;
+    } on DioException catch (e) {
+      final status = e.response?.statusCode;
+      if (status == 400 || status == 401 || status == 403) {
+        return _RefreshResult.rejected;
+      }
+      return _RefreshResult.unavailable;
     } catch (_) {
-      return false;
+      return _RefreshResult.unavailable;
     }
   }
 

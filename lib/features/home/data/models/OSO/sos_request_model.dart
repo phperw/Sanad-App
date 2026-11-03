@@ -29,8 +29,9 @@ class SosRequestModel {
       status: json['status'] as String? ?? 'OPEN',
       statusLabel: json['statusLabel'] as String? ?? '',
       isActive: json['isActive'] as bool? ?? true,
-      createdAt: DateTime.tryParse(json['createdAt']?.toString() ?? '')
-          ?.toLocal(),
+      createdAt: DateTime.tryParse(
+        json['createdAt']?.toString() ?? '',
+      )?.toLocal(),
     );
   }
 }

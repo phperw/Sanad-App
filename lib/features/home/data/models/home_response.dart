@@ -162,8 +162,8 @@ class HomeTask {
   final String title;
   final String? description;
   final String date;
-  final String startTime;
-  final String endTime;
+  final String? startTime;
+  final String? endTime;
   final String status;
   final TaskLocation location;
   final TaskCampaign campaign;
@@ -174,8 +174,8 @@ class HomeTask {
     required this.title,
     this.description,
     required this.date,
-    required this.startTime,
-    required this.endTime,
+    this.startTime,
+    this.endTime,
     required this.status,
     required this.location,
     required this.campaign,
@@ -186,8 +186,10 @@ class HomeTask {
       _$HomeTaskFromJson(json);
 
   String get displayTime {
+    final time = startTime;
+    if (time == null || time.isEmpty) return date;
     try {
-      final parts = startTime.split(':');
+      final parts = time.split(':');
       int hour = int.parse(parts[0]);
       final min = parts[1];
       final suffix = hour >= 12 ? 'م' : 'ص';
@@ -195,25 +197,39 @@ class HomeTask {
       if (hour == 0) hour = 12;
       return '$hour:$min $suffix';
     } catch (_) {
-      return startTime;
+      return time;
     }
   }
 
   String get remainingTimeLabel {
     try {
       final now = DateTime.now();
-      final parts = startTime.split(':');
+      final day = DateTime.parse(date);
+      final time = startTime;
+
+      if (time == null || time.isEmpty) {
+        final days = DateTime(
+          day.year,
+          day.month,
+          day.day,
+        ).difference(DateTime(now.year, now.month, now.day)).inDays;
+        if (days <= 0) return 'اليوم';
+        return 'متبقي $days يوم';
+      }
+
+      final parts = time.split(':');
       final taskStart = DateTime(
-        now.year,
-        now.month,
-        now.day,
+        day.year,
+        day.month,
+        day.day,
         int.parse(parts[0]),
         int.parse(parts[1]),
       );
       final diff = taskStart.difference(now);
       if (diff.isNegative) return 'انتهت';
       if (diff.inMinutes < 60) return 'متبقي ${diff.inMinutes}د';
-      return 'متبقي ${diff.inHours}س';
+      if (diff.inHours < 24) return 'متبقي ${diff.inHours}س';
+      return 'متبقي ${diff.inDays} يوم';
     } catch (_) {
       return '';
     }

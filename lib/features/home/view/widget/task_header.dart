@@ -4,9 +4,14 @@ import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 
 class TasksHeader extends StatelessWidget {
-  const TasksHeader({super.key, required this.tasksCount});
+  const TasksHeader({
+    super.key,
+    required this.tasksCount,
+    this.title = 'مهام اليوم',
+  });
 
   final int tasksCount;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,7 @@ class TasksHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          'مهام اليوم',
+          title,
           style: TextStyles.cairoBold18Black2(
             context,
           ).copyWith(color: onSurface),

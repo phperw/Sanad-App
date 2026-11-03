@@ -12,7 +12,6 @@ class DotsIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      textDirection: TextDirection.ltr,
       children: List.generate(count, (index) {
         final bool isActive = index == current;
         return AnimatedContainer(

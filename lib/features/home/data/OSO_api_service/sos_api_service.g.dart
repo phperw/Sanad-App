@@ -11,7 +11,9 @@ part of 'sos_api_service.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations,unused_element_parameter,avoid_unused_constructor_parameters,unreachable_from_main
 
 class _SosApiService implements SosApiService {
-  _SosApiService(this._dio, {this.baseUrl, this.errorLogger});
+  _SosApiService(this._dio, {this.baseUrl, this.errorLogger}) {
+    baseUrl ??= 'https://backend-athar1.vercel.app/api';
+  }
 
   final Dio _dio;
 
@@ -30,7 +32,7 @@ class _SosApiService implements SosApiService {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/sos/send',
+            '/sos-requests',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -54,10 +56,10 @@ class _SosApiService implements SosApiService {
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<SosResponse>(
-      Options(method: 'POST', headers: _headers, extra: _extra)
+      Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/sos/cancel',
+            '/sos-requests/active/cancel',
             queryParameters: queryParameters,
             data: _data,
           )

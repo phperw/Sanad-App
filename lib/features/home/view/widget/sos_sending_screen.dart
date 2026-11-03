@@ -198,10 +198,7 @@ class _ErrorView extends StatelessWidget {
           verticalSpace(context, height: 8),
           TextButton(
             onPressed: () => context.go(AppRouter.khome),
-            child: Text(
-              'رجوع',
-              style: TextStyles.cairoBold14Primary(context),
-            ),
+            child: Text('رجوع', style: TextStyles.cairoBold14Primary(context)),
           ),
         ],
       ),
