@@ -46,6 +46,20 @@ android {
         versionName = flutter.versionName
     }
 
+    flavorDimensions += "edition"
+
+    productFlavors {
+        create("volunteer") {
+            dimension = "edition"
+            resValue("string", "app_name", "أثر")
+        }
+        create("admin") {
+            dimension = "edition"
+            applicationIdSuffix = ".admin"
+            resValue("string", "app_name", "أثر - إدارة")
+        }
+    }
+
     buildTypes {
         release {
             signingConfig = if (keystorePropertiesFile.exists()) {
