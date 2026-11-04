@@ -7,6 +7,8 @@ import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/widgets/error_screen.dart';
+import 'package:sanad/features/account/ui/Widgets/volunteer_title_badge.dart';
+import 'package:sanad/features/account/data/models/volunteer_title.dart';
 import '../../data/models/leaderboard_response.dart';
 import '../../logic/leaderboard_state.dart';
 import '../../logic/monthly_cubit/monthly_leaderboard_cubit.dart';
@@ -176,6 +178,7 @@ class _PodiumSection extends StatelessWidget {
             borderColor: color,
             pointsColor: rank == 2 ? AppColors.textGray : color,
             avatarUrl: user.avatarUrl,
+            volunteerTitle: user.volunteerTitle,
             showCrown: rank == 1,
           ),
         );
@@ -194,6 +197,7 @@ class _PodiumItem extends StatelessWidget {
   final Color borderColor;
   final Color pointsColor;
   final String? avatarUrl;
+  final VolunteerTitle? volunteerTitle;
   final bool showCrown;
 
   const _PodiumItem({
@@ -206,6 +210,7 @@ class _PodiumItem extends StatelessWidget {
     required this.borderColor,
     required this.pointsColor,
     required this.avatarUrl,
+    required this.volunteerTitle,
     this.showCrown = false,
   });
 
@@ -262,6 +267,7 @@ class _PodiumItem extends StatelessWidget {
             color: onSurface,
           ),
         ),
+        VolunteerTitleBadge(title: volunteerTitle, compact: true),
         verticalSpace(context, height: 2),
         FittedBox(
           fit: BoxFit.scaleDown,
@@ -411,6 +417,7 @@ class _RankRow extends StatelessWidget {
                     context,
                   ).copyWith(fontSize: 14.sp(context), color: onSurface),
                 ),
+                VolunteerTitleBadge(title: user.volunteerTitle, compact: true),
                 Text(
                   '${user.points} نقطة',
                   maxLines: 1,
@@ -525,6 +532,10 @@ class _CurrentUserCard extends StatelessWidget {
                     fontSize: 14.sp(context),
                     color: AppColors.chatChipBorder,
                   ),
+                ),
+                VolunteerTitleBadge(
+                  title: currentUser.volunteerTitle,
+                  compact: true,
                 ),
                 Text(
                   subtitle,

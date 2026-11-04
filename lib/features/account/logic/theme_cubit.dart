@@ -24,6 +24,7 @@ class ThemeCubit extends Cubit<bool> {
 
   // ───────── LIGHT THEME ─────────
   ThemeData get lightTheme => ThemeData(
+    useMaterial3: true,
     brightness: Brightness.light,
     scaffoldBackgroundColor: lightBg,
     colorScheme: const ColorScheme.light(
@@ -34,19 +35,64 @@ class ThemeCubit extends Cubit<bool> {
       onPrimary: Colors.white,
     ),
     cardColor: Colors.white,
+    cardTheme: CardThemeData(
+      color: Colors.white,
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       foregroundColor: Color(0xFF111827),
       elevation: 0,
+      centerTitle: true,
+      scrolledUnderElevation: 0,
     ),
-    bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: Colors.white,
+      showDragHandle: true,
+    ),
     dialogBackgroundColor: Colors.white,
     dividerColor: const Color(0xFFE5E7EB),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: const Color(0xFFF7F9FA),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: Color(0xFFE5E7EB)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: Color(0xFF188A55), width: 1.5),
+      ),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: const Color(0xFF188A55),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        textStyle: const TextStyle(
+          fontFamily: 'Cairo',
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    ),
+    snackBarTheme: SnackBarThemeData(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    ),
     fontFamily: 'Cairo',
   );
 
   // ───────── DARK THEME ─────────
   ThemeData get darkTheme => ThemeData(
+    useMaterial3: true,
     brightness: Brightness.dark,
     scaffoldBackgroundColor: darkBg,
     colorScheme: const ColorScheme.dark(
@@ -57,27 +103,59 @@ class ThemeCubit extends Cubit<bool> {
       onPrimary: Colors.white,
     ),
     cardColor: darkSurface,
+    cardTheme: CardThemeData(
+      color: darkSurface,
+      elevation: 0,
+      margin: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    ),
     appBarTheme: const AppBarTheme(
       backgroundColor: darkBg,
       foregroundColor: darkOnSurface,
       elevation: 0,
+      centerTitle: true,
+      scrolledUnderElevation: 0,
     ),
-    bottomSheetTheme: const BottomSheetThemeData(backgroundColor: darkSurface),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: darkSurface,
+      showDragHandle: true,
+    ),
     dialogBackgroundColor: darkSurface,
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: darkSurface,
       hintStyle: TextStyle(color: Colors.grey.shade600),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         borderSide: const BorderSide(color: Color(0xFF2A2A3E)),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         borderSide: const BorderSide(color: Color(0xFF2A2A3E)),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16),
+        borderSide: const BorderSide(color: Color(0xFF188A55), width: 1.5),
       ),
     ),
     dividerColor: const Color(0xFF2A2A3E),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: const Color(0xFF188A55),
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        textStyle: const TextStyle(
+          fontFamily: 'Cairo',
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    ),
+    snackBarTheme: SnackBarThemeData(
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+    ),
     fontFamily: 'Cairo',
   );
 }

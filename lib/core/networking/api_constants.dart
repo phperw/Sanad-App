@@ -5,6 +5,9 @@ class ApiConstants {
   static const String endpointRefresh = '/auth/refresh';
   static const String endpointHome = '/home';
   static const String endpointProfile = '/auth/me';
+  static const String endpointMissions = '/missions';
+  static const String endpointMissionImageUpload = '/uploads/images';
+  static const String endpointTaskAttendance = '/attendance/tasks';
   static const String endpointCreateCommunityPost = '/community/posts';
   static const String endpointCommunityFeed = '/community/feed';
   static const String endpointGetallProfiles = '/profile';

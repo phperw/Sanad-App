@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class CampaignInfoWidget extends StatelessWidget {
   const CampaignInfoWidget({super.key});
@@ -29,7 +30,7 @@ class CampaignInfoWidget extends StatelessWidget {
           verticalSpace(context, height: 20),
           _buildInfoRow(
             context,
-            Icons.location_on_outlined,
+            SolarIconsOutline.mapPoint,
             'منطقة أكتوبر السكنية، شارع 5',
           ),
           verticalSpace(context, height: 16),
@@ -38,12 +39,12 @@ class CampaignInfoWidget extends StatelessWidget {
             children: [
               _buildInfoRow(
                 context,
-                Icons.calendar_today_outlined,
+                SolarIconsOutline.calendarDate,
                 'الإثنين، 14 مارس 2026',
               ),
               _buildInfoRow(
                 context,
-                Icons.access_time,
+                SolarIconsOutline.clockCircle,
                 '10:00 AM - 12:00 PM',
                 iconColor: AppColors.primaryColor,
               ),
@@ -52,7 +53,7 @@ class CampaignInfoWidget extends StatelessWidget {
           verticalSpace(context, height: 16),
           _buildInfoRow(
             context,
-            Icons.people_outline,
+            SolarIconsOutline.usersGroupRounded,
             '8 متطوعين مسجلين',
             textColor: AppColors.dark,
             isBold: true,
@@ -85,7 +86,7 @@ class CampaignInfoWidget extends StatelessWidget {
           text,
           style: TextStyles.cairoMedium14Black(context).copyWith(
             fontSize: 13.sp(context),
-            color: textColor ?? AppColors.dark,
+            color: textColor ?? Theme.of(context).colorScheme.onSurface,
             fontWeight: isBold ? FontWeight.bold : FontWeight.w500,
           ),
         ),

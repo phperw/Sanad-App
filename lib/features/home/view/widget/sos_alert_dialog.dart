@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
@@ -122,7 +123,7 @@ class _SosAlertDialogState extends State<SosAlertDialog>
                     ],
                   ),
                   child: Icon(
-                    Icons.warning_amber_rounded,
+                    SolarIconsOutline.dangerTriangle,
                     color: Colors.white,
                     size: 28.sp(context),
                   ),
@@ -202,7 +203,7 @@ class _SosAlertDialogState extends State<SosAlertDialog>
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Icon(
-                        Icons.warning_amber_rounded,
+                        SolarIconsOutline.dangerTriangle,
                         color: Colors.white,
                         size: 20.sp(context),
                       ),
@@ -242,7 +243,7 @@ class _SosAlertDialogState extends State<SosAlertDialog>
                       ),
                       horizontalSpace(context, width: 8),
                       Icon(
-                        Icons.sentiment_satisfied_alt,
+                        SolarIconsOutline.smileCircle,
                         color: AppColors.primaryColor,
                         size: 20.sp(context),
                       ),

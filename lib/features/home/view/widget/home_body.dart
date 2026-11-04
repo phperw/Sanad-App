@@ -82,7 +82,9 @@ final _fakeTasks = List.generate(
 );
 
 class HomeBody extends StatelessWidget {
-  const HomeBody({super.key});
+  final VoidCallback? onMissionReportSubmitted;
+
+  const HomeBody({super.key, this.onMissionReportSubmitted});
 
   @override
   Widget build(BuildContext context) {
@@ -108,15 +110,26 @@ class HomeBody extends StatelessWidget {
         final announcements = state is HomeSuccess
             ? state.data.summary.announcements
             : _fakeAnnouncements;
-        final tasks = state is HomeSuccess
+        final allTodayTasks = state is HomeSuccess
             ? state.data.summary.todayTasks
             : _fakeTasks;
-        final todayIds = tasks.map((task) => task.id).toSet();
-        final upcomingTasks = state is HomeSuccess
+        final allUpcomingTasks = state is HomeSuccess
             ? state.data.summary.upcomingTasks
-                  .where((task) => !todayIds.contains(task.id))
+                  .where(
+                    (task) => !allTodayTasks.any(
+                      (todayTask) => todayTask.id == task.id,
+                    ),
+                  )
                   .toList()
             : _fakeTasks;
+        final allTasks = [...allTodayTasks, ...allUpcomingTasks];
+        final completedTasks = allTasks
+            .where((task) => task.isCompleted)
+            .toList();
+        final tasks = allTodayTasks.where((task) => !task.isCompleted).toList();
+        final upcomingTasks = allUpcomingTasks
+            .where((task) => !task.isCompleted)
+            .toList();
 
         return Skeletonizer(
           enabled: isLoading,
@@ -127,7 +140,11 @@ class HomeBody extends StatelessWidget {
             duration: const Duration(milliseconds: 1200),
           ),
           child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 16.w(context)),
+            padding: EdgeInsets.only(
+              left: 16.w(context),
+              right: 16.w(context),
+              bottom: 112.h(context),
+            ),
             children: [
               verticalSpace(context, height: 16),
               HeaderSection(volunteer: volunteer),
@@ -145,13 +162,35 @@ class HomeBody extends StatelessWidget {
               verticalSpace(context, height: 20),
               NewsSection(announcements: announcements),
               verticalSpace(context, height: 20),
-              TasksSection(tasks: tasks),
+              TasksSection(
+                tasks: tasks,
+                onMissionReportSubmitted: () {
+                  context.read<HomeCubit>().getHomeData();
+                  onMissionReportSubmitted?.call();
+                },
+              ),
               verticalSpace(context, height: 20),
               TasksSection(
                 tasks: upcomingTasks,
                 title: 'مهامي القادمة',
                 emptyMessage: 'لا توجد مهام قادمة',
+                onMissionReportSubmitted: () {
+                  context.read<HomeCubit>().getHomeData();
+                  onMissionReportSubmitted?.call();
+                },
               ),
+              if (completedTasks.isNotEmpty) ...[
+                verticalSpace(context, height: 20),
+                TasksSection(
+                  tasks: completedTasks,
+                  title: 'مهام مكتملة',
+                  emptyMessage: 'لا توجد مهام مكتملة',
+                  onMissionReportSubmitted: () {
+                    context.read<HomeCubit>().getHomeData();
+                    onMissionReportSubmitted?.call();
+                  },
+                ),
+              ],
               verticalSpace(context, height: 30),
             ],
           ),

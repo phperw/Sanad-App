@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
@@ -372,7 +373,7 @@ class _AddPostSheetState extends State<_AddPostSheet> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.camera_alt_outlined,
+              SolarIconsOutline.camera,
               color: AppColors.chatChipBorder,
               size: 24.w(context),
             ),
@@ -418,7 +419,7 @@ class _AddPostSheetState extends State<_AddPostSheet> {
                   shape: CircleBorder(),
                 ),
                 child: Icon(
-                  Icons.close,
+                  SolarIconsOutline.closeCircle,
                   color: AppColors.white,
                   size: 12.w(context),
                 ),

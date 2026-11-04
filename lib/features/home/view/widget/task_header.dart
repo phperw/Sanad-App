@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class TasksHeader extends StatelessWidget {
   const TasksHeader({
@@ -15,24 +16,43 @@ class TasksHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final onSurface = Theme.of(context).colorScheme.onSurface;
+    final theme = Theme.of(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isUpcoming = title.contains('قادمة');
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: TextStyles.cairoBold18Black2(
-            context,
-          ).copyWith(color: onSurface),
+        Container(
+          width: 36.r(context),
+          height: 36.r(context),
+          decoration: BoxDecoration(
+            color: AppColors.primaryColor.withValues(alpha: 0.10),
+            borderRadius: BorderRadius.circular(12.r(context)),
+          ),
+          child: Icon(
+            isUpcoming
+                ? SolarIconsOutline.calendarDate
+                : SolarIconsOutline.clockCircle,
+            color: AppColors.primaryColor,
+            size: 19.r(context),
+          ),
+        ),
+        SizedBox(width: 9.w(context)),
+        Expanded(
+          child: Text(
+            title,
+            style: TextStyles.cairoBold18Black2(context).copyWith(
+              color: theme.colorScheme.onSurface,
+              fontSize: 16.sp(context),
+            ),
+          ),
         ),
         Container(
-          height: 30.h(context),
-          padding: EdgeInsets.symmetric(horizontal: 10.w(context)),
+          height: 32.h(context),
+          padding: EdgeInsets.symmetric(horizontal: 11.w(context)),
           decoration: BoxDecoration(
             color: isDark
-                ? AppColors.primaryColor.withOpacity(0.15)
+                ? AppColors.primaryColor.withValues(alpha: 0.16)
                 : AppColors.tasksChipBackground,
             borderRadius: BorderRadius.circular(24.r(context)),
           ),
@@ -40,7 +60,10 @@ class TasksHeader extends StatelessWidget {
             child: Text(
               '$tasksCount مهمة',
               style: TextStyles.cairoBold12BlackHeighted(context).copyWith(
-                color: isDark ? AppColors.primaryColor : AppColors.dark,
+                color: isDark
+                    ? const Color(0xFF61D59A)
+                    : AppColors.primaryColor,
+                fontSize: 11.sp(context),
               ),
             ),
           ),

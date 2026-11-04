@@ -101,16 +101,18 @@ class _ErrorScreenState extends State<ErrorScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AnimatedBuilder(
-                animation: _floatAnim,
-                builder: (context, child) => Transform.translate(
-                  offset: Offset(0, _floatAnim.value),
-                  child: child,
-                ),
-                child: Image.asset(
-                  Assets.errorRobot,
-                  width: 220.w(context),
-                  fit: BoxFit.contain,
+              Flexible(
+                child: AnimatedBuilder(
+                  animation: _floatAnim,
+                  builder: (context, child) => Transform.translate(
+                    offset: Offset(0, _floatAnim.value),
+                    child: child,
+                  ),
+                  child: Image.asset(
+                    Assets.errorRobot,
+                    width: 220.w(context),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               verticalSpace(context, height: 28),

@@ -43,4 +43,5 @@ LeaderboardUser _$LeaderboardUserFromJson(Map<String, dynamic> json) =>
       totalHours: (json['totalHours'] as num).toInt(),
       completedCampaigns: (json['completedCampaigns'] as num).toInt(),
       reportsCount: (json['reportsCount'] as num).toInt(),
+      volunteerTitle: volunteerTitleFromJson(json['volunteerTitle']),
     );

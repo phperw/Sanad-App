@@ -5,6 +5,7 @@ import 'package:sanad/core/theme/text_styles.dart';
 import 'widgets/attendance_details_card_widget.dart';
 import 'widgets/confirmation_actions_widget.dart';
 import 'widgets/current_location_card_widget.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class AttendanceConfirmationScreen extends StatelessWidget {
   const AttendanceConfirmationScreen({super.key});
@@ -28,7 +29,7 @@ class AttendanceConfirmationScreen extends StatelessWidget {
         ),
         leading: IconButton(
           icon: Icon(
-            Icons.arrow_back_ios,
+            SolarIconsOutline.arrowRight,
             color: onSurface,
             size: 20.r(context),
           ),

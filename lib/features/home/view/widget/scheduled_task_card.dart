@@ -2,129 +2,216 @@ import 'package:flutter/material.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import '../../../../core/helper/spacing.dart';
-import '../../../../core/constants/app_images.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class ScheduledTaskCard extends StatelessWidget {
+  final String title;
   final String time;
   final String remainingTime;
   final String locationName;
   final String taskType;
+  final bool isCompleted;
+  final VoidCallback? onTap;
 
   const ScheduledTaskCard({
     super.key,
+    this.title = '',
     required this.time,
     required this.remainingTime,
     required this.locationName,
     required this.taskType,
+    this.isCompleted = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: context.responsivePadding(horizontal: 14, vertical: 16),
-      decoration: ShapeDecoration(
-        color: AppColors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.r(context)),
-        ),
-        shadows: const [
-          BoxShadow(
-            color: Color(0x3F000000),
-            blurRadius: 3,
-            offset: Offset(0, 1),
+    final theme = Theme.of(context);
+    return Material(
+      color: theme.cardColor,
+      borderRadius: BorderRadius.circular(20.r(context)),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          width: double.infinity,
+          padding: context.responsivePadding(horizontal: 14, vertical: 14),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.borderThemed(context)),
+            borderRadius: BorderRadius.circular(20.r(context)),
           ),
-        ],
-      ),
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Right (RTL start): Icon + Location info
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
+          child: Directionality(
+            textDirection: TextDirection.rtl,
+            child: Row(
               children: [
-                // Map pin icon circle
                 Container(
-                  width: 40.w(context),
-                  height: 40.w(context),
-                  decoration: ShapeDecoration(
-                    color: AppColors.iconBackgroundGreen,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    ),
+                  width: 48.r(context),
+                  height: 48.r(context),
+                  decoration: BoxDecoration(
+                    color:
+                        (isCompleted
+                                ? AppColors.chatChipBorder
+                                : AppColors.primaryColor)
+                            .withValues(alpha: 0.11),
+                    borderRadius: BorderRadius.circular(16.r(context)),
                   ),
-                  child: Center(
-                    child: Image.asset(
-                      Assets.imageMapPin,
-                      width: 24.w(context),
-                      height: 24.w(context),
-                    ),
+                  child: Icon(
+                    isCompleted
+                        ? SolarIconsOutline.checkCircle
+                        : SolarIconsOutline.handHeart,
+                    color: isCompleted
+                        ? AppColors.chatChipBorder
+                        : AppColors.primaryColor,
+                    size: 25.r(context),
                   ),
                 ),
-                horizontalSpace(context, width: 8),
-                // Location name + task type
+                SizedBox(width: 12.w(context)),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title.isEmpty ? locationName : title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: theme.colorScheme.onSurface,
+                          fontSize: 14.sp(context),
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      SizedBox(height: 3.h(context)),
+                      Text(
+                        taskType,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.62,
+                          ),
+                          fontSize: 11.sp(context),
+                          fontFamily: 'Cairo',
+                        ),
+                      ),
+                      SizedBox(height: 8.h(context)),
+                      Wrap(
+                        spacing: 10.w(context),
+                        runSpacing: 4.h(context),
+                        children: [
+                          _detail(
+                            context,
+                            SolarIconsOutline.mapPoint,
+                            locationName,
+                          ),
+                          _detail(
+                            context,
+                            SolarIconsOutline.clockCircle,
+                            _formatTime(time),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 8.w(context)),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      locationName,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        color: AppColors.black,
-                        fontSize: 14.sp(context),
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w700,
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 9.w(context),
+                        vertical: 5.h(context),
+                      ),
+                      decoration: BoxDecoration(
+                        color:
+                            (isCompleted
+                                    ? AppColors.chatChipBorder
+                                    : AppColors.primaryColor)
+                                .withValues(alpha: 0.10),
+                        borderRadius: BorderRadius.circular(20.r(context)),
+                      ),
+                      child: Text(
+                        remainingTime,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: isCompleted
+                              ? AppColors.chatChipBorder
+                              : AppColors.primaryColor,
+                          fontSize: 9.sp(context),
+                          fontFamily: 'Cairo',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
-                    Text(
-                      taskType,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        color: AppColors.secondaryGray,
-                        fontSize: 10.sp(context),
-                        fontFamily: 'Cairo',
-                        fontWeight: FontWeight.w400,
-                      ),
+                    SizedBox(height: 7.h(context)),
+                    Icon(
+                      isCompleted
+                          ? SolarIconsOutline.checkCircle
+                          : SolarIconsOutline.arrowLeft,
+                      color: isCompleted
+                          ? AppColors.chatChipBorder
+                          : theme.colorScheme.onSurface.withValues(alpha: 0.4),
+                      size: 17.r(context),
                     ),
                   ],
                 ),
               ],
             ),
-
-            // Left (RTL end): Time info
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  time,
-                  style: TextStyle(
-                    color: AppColors.primaryColor,
-                    fontSize: 12.sp(context),
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Text(
-                  remainingTime,
-                  style: TextStyle(
-                    color: AppColors.secondaryGray,
-                    fontSize: 10.sp(context),
-                    fontFamily: 'Cairo',
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ],
-            ),
-          ],
+          ),
         ),
       ),
     );
+  }
+
+  Widget _detail(BuildContext context, IconData icon, String label) {
+    final theme = Theme.of(context);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(
+          icon,
+          size: 13.r(context),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.48),
+        ),
+        SizedBox(width: 3.w(context)),
+        ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 105.w(context)),
+          child: Text(
+            label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+              fontSize: 9.sp(context),
+              fontFamily: 'Cairo',
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  String _formatTime(String value) {
+    final date = DateTime.tryParse(value);
+    if (date == null) return value;
+    const months = [
+      'يناير',
+      'فبراير',
+      'مارس',
+      'أبريل',
+      'مايو',
+      'يونيو',
+      'يوليو',
+      'أغسطس',
+      'سبتمبر',
+      'أكتوبر',
+      'نوفمبر',
+      'ديسمبر',
+    ];
+    return '${date.day} ${months[date.month - 1]}';
   }
 }
 

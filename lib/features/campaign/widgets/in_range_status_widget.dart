@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class InRangeStatusWidget extends StatelessWidget {
   const InRangeStatusWidget({super.key});
@@ -27,7 +28,7 @@ class InRangeStatusWidget extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                Icons.check,
+                SolarIconsOutline.checkCircle,
                 color: AppColors.white,
                 size: 20.r(context),
               ),

@@ -27,6 +27,8 @@ import '../../features/home/data/repo/OSO/sos_repository.dart';
 import '../../features/home/data/repo/home_repository.dart';
 import '../../features/home/logic/OSO_Cubit/sos_cubit.dart';
 import '../../features/home/logic/home_cubit.dart';
+import '../../features/missions/data/mission_repository.dart';
+import '../../features/missions/logic/mission_cubit.dart';
 import '../helper/shared_pref_helper.dart';
 
 final getIt = GetIt.instance;
@@ -45,6 +47,8 @@ Future<void> setupDependencies() async {
   // Home
   getIt.registerFactory<HomeRepository>(() => HomeRepository(getIt()));
   getIt.registerFactory<HomeCubit>(() => HomeCubit(getIt()));
+  getIt.registerFactory(() => MissionRepository(getIt()));
+  getIt.registerFactory(() => MissionCubit(getIt()));
 
   // Account
   getIt.registerLazySingleton(() => AccountApiService(getIt()));

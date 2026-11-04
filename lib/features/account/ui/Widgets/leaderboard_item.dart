@@ -4,6 +4,7 @@ import '../../../../core/theme/text_styles.dart';
 import '../../../../core/helper/responsive_extensions.dart';
 import '../../../../core/helper/spacing.dart';
 import 'leaderboard_entry.dart';
+import 'volunteer_title_badge.dart';
 
 class LeaderboardItem extends StatelessWidget {
   final LeaderboardEntry entry;
@@ -45,16 +46,25 @@ class LeaderboardItem extends StatelessWidget {
         ),
         horizontalSpace(context, width: 10),
         Expanded(
-          child: Text(
-            entry.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyles.cairoMedium14Black(context).copyWith(
-              color: entry.isCurrentUser ? AppColors.primaryColor : onSurface,
-              fontWeight: entry.isCurrentUser
-                  ? FontWeight.w700
-                  : FontWeight.w600,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                entry.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyles.cairoMedium14Black(context).copyWith(
+                  color: entry.isCurrentUser
+                      ? AppColors.primaryColor
+                      : onSurface,
+                  fontWeight: entry.isCurrentUser
+                      ? FontWeight.w700
+                      : FontWeight.w600,
+                ),
+              ),
+              VolunteerTitleBadge(title: entry.volunteerTitle, compact: true),
+            ],
           ),
         ),
         horizontalSpace(context, width: 8),

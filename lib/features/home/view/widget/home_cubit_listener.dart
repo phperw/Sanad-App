@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
@@ -29,7 +30,7 @@ class HomeCubitListener extends StatelessWidget {
 
     entry = OverlayEntry(
       builder: (_) => _ToastCard(
-        icon: Icons.error_rounded,
+        icon: SolarIconsOutline.dangerTriangle,
         iconColor: AppColors.errorColor,
         backgroundColor: const Color(0xFFFFF0F0),
         borderColor: AppColors.errorColor,

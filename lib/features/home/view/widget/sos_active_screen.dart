@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sanad/features/home/view/widget/sos_bloc_listener.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -84,7 +85,7 @@ class _SosActiveScreenContent extends StatelessWidget {
                               _StatusCard(
                                 cardColor: cardColor,
                                 borderColor: const Color(0xFFE74C3C),
-                                icon: Icons.location_on_rounded,
+                                icon: SolarIconsOutline.mapPoint,
                                 iconBgColor: const Color(
                                   0xFFE74C3C,
                                 ).withOpacity(0.5),
@@ -100,8 +101,8 @@ class _SosActiveScreenContent extends StatelessWidget {
                                     ? const Color(0xFF2ECC71)
                                     : AppColors.chatChipBorder,
                                 icon: responded
-                                    ? Icons.directions_run_rounded
-                                    : Icons.notifications_rounded,
+                                    ? SolarIconsOutline.running
+                                    : SolarIconsOutline.bell,
                                 iconBgColor:
                                     (responded
                                             ? const Color(0xFF2ECC71)
@@ -419,7 +420,7 @@ class _CallCard extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                Icons.phone_rounded,
+                SolarIconsOutline.phoneCalling,
                 color: Colors.white,
                 size: 28.sp(context),
               ),

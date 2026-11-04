@@ -6,15 +6,21 @@ import 'package:sanad/features/home/view/widget/home_body.dart';
 import 'package:sanad/features/home/view/widget/home_cubit_listener.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final VoidCallback? onMissionReportSubmitted;
+
+  const HomeScreen({super.key, this.onMissionReportSubmitted});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<HomeCubit>()..getHomeData(),
-      child: const Scaffold(
+      child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SafeArea(child: HomeCubitListener(child: HomeBody())),
+        body: SafeArea(
+          child: HomeCubitListener(
+            child: HomeBody(onMissionReportSubmitted: onMissionReportSubmitted),
+          ),
+        ),
       ),
     );
   }

@@ -11,6 +11,7 @@ import '../../../../../core/theme/text_styles.dart';
 import '../../logic/login_cubit.dart';
 import '../../logic/login_state.dart';
 import 'text_form_field_custom.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class LoginBody extends StatefulWidget {
   const LoginBody({super.key});
@@ -66,8 +67,8 @@ class _LoginBodyState extends State<LoginBody> {
                           ),
                           icon: Icon(
                             _isPasswordHidden
-                                ? Icons.visibility_off
-                                : Icons.visibility,
+                                ? SolarIconsOutline.eyeClosed
+                                : SolarIconsOutline.eye,
                           ),
                         ),
                         label: 'كلمة المرور',

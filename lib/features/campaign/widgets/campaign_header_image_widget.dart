@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class CampaignHeaderImageWidget extends StatelessWidget {
   const CampaignHeaderImageWidget({super.key});
@@ -52,7 +53,7 @@ class CampaignHeaderImageWidget extends StatelessWidget {
                     ),
                     child: Center(
                       child: Icon(
-                        Icons.arrow_forward_ios,
+                        SolarIconsOutline.arrowRight,
                         size: 18.r(context),
                         color: onSurface,
                       ),
@@ -75,7 +76,7 @@ class CampaignHeaderImageWidget extends StatelessWidget {
             child: Row(
               children: [
                 Icon(
-                  Icons.campaign_outlined,
+                  SolarIconsOutline.speaker,
                   color: AppColors.white,
                   size: 16.r(context),
                 ),

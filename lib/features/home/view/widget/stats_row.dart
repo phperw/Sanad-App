@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/helper/spacing.dart';
+import 'package:solar_icons/solar_icons.dart';
 import '../../data/models/home_response.dart';
 import 'stat_card.dart';
 
@@ -18,6 +20,8 @@ class StatsRow extends StatelessWidget {
             title: 'عدد الساعات',
             value: '${stats.totalHours}',
             valueStyle: TextStyles.cairoBold24Primary(context),
+            icon: SolarIconsOutline.clockCircle,
+            accentColor: AppColors.primaryColor,
           ),
         ),
         horizontalSpace(context, width: 15),
@@ -26,6 +30,8 @@ class StatsRow extends StatelessWidget {
             title: 'إنجازاتي',
             value: '${stats.badges}',
             valueStyle: TextStyles.cairoBold24Orange(context),
+            icon: SolarIconsOutline.medalStar,
+            accentColor: AppColors.orange,
           ),
         ),
       ],

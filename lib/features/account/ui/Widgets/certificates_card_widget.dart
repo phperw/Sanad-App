@@ -3,6 +3,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/text_styles.dart';
 import '../../../../core/helper/responsive_extensions.dart';
 import '../../data/models/get_user_card/profile_response.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class CertificatesCardWidget extends StatelessWidget {
   final List<CertificateItem> certificates;
@@ -68,7 +69,7 @@ class CertificatesCardWidget extends StatelessWidget {
                 ),
                 child: Center(
                   child: Icon(
-                    Icons.workspace_premium_rounded,
+                    SolarIconsOutline.medalStar,
                     color: AppColors.white,
                     size: 18.w(context),
                   ),

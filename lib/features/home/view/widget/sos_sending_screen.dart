@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanad/core/theme/app_colors.dart';
@@ -153,7 +154,7 @@ class _ErrorView extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              Icons.location_off_rounded,
+              SolarIconsOutline.mapPointRemove,
               color: AppColors.sosRed,
               size: 44.sp(context),
             ),

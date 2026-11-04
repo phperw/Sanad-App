@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
+import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'mission_card_widget.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class MissionsBottomSheetWidget extends StatelessWidget {
   const MissionsBottomSheetWidget({super.key});
@@ -12,13 +14,12 @@ class MissionsBottomSheetWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        height: context.screenHeight * 0.45, // Responsive height
+        height: context.screenHeight * 0.48,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24.r(context)),
-            topRight: Radius.circular(24.r(context)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(28.r(context)),
           ),
           boxShadow: [
             BoxShadow(
@@ -30,13 +31,50 @@ class MissionsBottomSheetWidget extends StatelessWidget {
         ),
         child: Column(
           children: [
-            verticalSpace(context, height: 20),
-            // Header Title
-            Text(
-              'المهام الميدانية',
-              style: TextStyles.cairoBold32Dark(
-                context,
-              ).copyWith(fontSize: 18.sp(context)),
+            Container(
+              width: 38.w(context),
+              height: 4.h(context),
+              decoration: BoxDecoration(
+                color: Theme.of(context).dividerColor,
+                borderRadius: BorderRadius.circular(4),
+              ),
+            ),
+            verticalSpace(context, height: 12),
+            Padding(
+              padding: context.responsivePadding(horizontal: 20),
+              child: Row(
+                children: [
+                  Container(
+                    width: 38.r(context),
+                    height: 38.r(context),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(13.r(context)),
+                    ),
+                    child: Icon(
+                      SolarIconsOutline.map,
+                      color: AppColors.primaryColor,
+                      size: 20.r(context),
+                    ),
+                  ),
+                  SizedBox(width: 10.w(context)),
+                  Expanded(
+                    child: Text(
+                      'مهام قريبة منك',
+                      style: TextStyles.cairoBold32Dark(
+                        context,
+                      ).copyWith(fontSize: 17.sp(context)),
+                    ),
+                  ),
+                  Text(
+                    '3 مهام',
+                    style: TextStyles.cairoRegular14Muted(context).copyWith(
+                      color: AppColors.primaryColor,
+                      fontSize: 11.sp(context),
+                    ),
+                  ),
+                ],
+              ),
             ),
             verticalSpace(context, height: 16),
 

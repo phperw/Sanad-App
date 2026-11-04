@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class AttendanceDetailsCardWidget extends StatelessWidget {
   const AttendanceDetailsCardWidget({super.key});
@@ -25,7 +26,7 @@ class AttendanceDetailsCardWidget extends StatelessWidget {
           Row(
             children: [
               Icon(
-                Icons.calendar_today_outlined,
+                SolarIconsOutline.calendarDate,
                 color: AppColors.gray,
                 size: 20.r(context),
               ),
@@ -42,7 +43,7 @@ class AttendanceDetailsCardWidget extends StatelessWidget {
           Row(
             children: [
               Icon(
-                Icons.access_time,
+                SolarIconsOutline.clockCircle,
                 color: AppColors.primaryColor,
                 size: 20.r(context),
               ),
@@ -61,7 +62,7 @@ class AttendanceDetailsCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Icon(
-                Icons.info_outline,
+                SolarIconsOutline.infoCircle,
                 color: AppColors.gray,
                 size: 18.r(context),
               ),

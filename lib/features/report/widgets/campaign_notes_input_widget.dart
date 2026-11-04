@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class CampaignNotesInputWidget extends StatelessWidget {
   const CampaignNotesInputWidget({super.key});
@@ -84,7 +85,7 @@ class CampaignNotesInputWidget extends StatelessWidget {
                         ],
                       ),
                       child: Icon(
-                        Icons.mic,
+                        SolarIconsOutline.microphone,
                         color: AppColors.white,
                         size: 24.r(context),
                       ),

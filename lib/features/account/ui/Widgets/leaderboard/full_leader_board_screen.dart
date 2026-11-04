@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/features/account/ui/Widgets/leaderboard/time_filter_tab_bar.dart';
@@ -37,7 +38,7 @@ class _FullLeaderBoardScreenState extends State<FullLeaderBoardScreen> {
           style: TextStyles.cairoBold16DarkBlue(context),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new, size: 24.sp(context)),
+          icon: Icon(SolarIconsOutline.arrowRight, size: 24.sp(context)),
           onPressed: () => Navigator.pop(context),
         ),
       ),

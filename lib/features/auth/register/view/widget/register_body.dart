@@ -10,6 +10,7 @@ import '../../../../../core/theme/text_styles.dart';
 import '../../../login/view/widget/header_auth.dart';
 import '../../../login/view/widget/text_form_field_custom.dart';
 import '../../logic/register_cubit.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class RegisterBody extends StatefulWidget {
   const RegisterBody({super.key});
@@ -115,7 +116,7 @@ class _RegisterBodyState extends State<RegisterBody> {
                     controller: email,
                     keyboardType: TextInputType.emailAddress,
                     suffixIcon: const Icon(
-                      Icons.email_outlined,
+                      SolarIconsOutline.letter,
                       color: Colors.grey,
                     ),
                     label: 'البريد الإلكتروني',
@@ -125,7 +126,10 @@ class _RegisterBodyState extends State<RegisterBody> {
                     validator: AppValidator.validatePhone,
                     controller: phone,
                     keyboardType: TextInputType.phone,
-                    suffixIcon: const Icon(Icons.phone, color: Colors.grey),
+                    suffixIcon: Icon(
+                      SolarIconsOutline.phone,
+                      color: Colors.grey,
+                    ),
                     label: 'رقم الهاتف',
                   ),
                   verticalSpace(context, height: 10),
@@ -142,8 +146,8 @@ class _RegisterBodyState extends State<RegisterBody> {
                       },
                       icon: Icon(
                         isPasswordHidden
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                            ? SolarIconsOutline.eyeClosed
+                            : SolarIconsOutline.eye,
                       ),
                     ),
                     label: 'كلمة المرور',
@@ -161,8 +165,8 @@ class _RegisterBodyState extends State<RegisterBody> {
                       },
                       icon: Icon(
                         isConfirmPasswordHidden
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                            ? SolarIconsOutline.eyeClosed
+                            : SolarIconsOutline.eye,
                       ),
                     ),
                     label: 'تأكيد كلمة المرور',

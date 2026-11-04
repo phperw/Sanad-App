@@ -7,7 +7,7 @@ import 'package:sanad/features/chats_and_community/ui/Widgets/chat_input_bar.dar
 import 'package:sanad/features/chats_and_community/ui/Widgets/chat_tab_button.dart';
 import 'package:sanad/features/chats_and_community/ui/chat_screen.dart';
 import 'package:sanad/features/chats_and_community/ui/community_screen.dart';
-import '../../../core/constants/app_images.dart';
+import 'package:solar_icons/solar_icons.dart';
 import '../../../core/helper/responsive_extensions.dart';
 import '../../../core/helper/spacing.dart';
 
@@ -52,14 +52,14 @@ class _ChatsAndCommunityView extends StatelessWidget {
                         children: [
                           ChatTabButton(
                             label: 'المساعد الذكي',
-                            iconPath: Assets.aiChat,
+                            icon: SolarIconsOutline.chatRoundLine,
                             isActive: isAssistant,
                             onTap: cubit.selectAssistant,
                           ),
                           horizontalSpace(context, width: 12),
                           ChatTabButton(
                             label: 'مجتمع المتطوعين',
-                            iconPath: Assets.community,
+                            icon: SolarIconsOutline.usersGroupRounded,
                             isActive: !isAssistant,
                             onTap: cubit.selectCommunity,
                           ),

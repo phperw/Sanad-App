@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class PhotoUploadWidget extends StatelessWidget {
   const PhotoUploadWidget({super.key});
@@ -38,7 +39,7 @@ class PhotoUploadWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.camera_alt_outlined,
+                  SolarIconsOutline.camera,
                   color: AppColors.primaryColor,
                   size: 32.r(context),
                 ),

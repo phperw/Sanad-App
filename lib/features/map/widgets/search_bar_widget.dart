@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class SearchBarWidget extends StatefulWidget {
   final Function(String)? onSearchChanged;
@@ -60,13 +61,16 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                     hintText: 'ابحث عن مهام قريبة منك...',
                     hintStyle: TextStyles.cairoRegular14Muted(context),
                     prefixIcon: Icon(
-                      Icons.search,
+                      SolarIconsOutline.magnifier,
                       size: 20.r(context),
                       color: AppColors.gray,
                     ),
                     suffixIcon: _controller.text.isNotEmpty
                         ? IconButton(
-                            icon: const Icon(Icons.clear, size: 18),
+                            icon: Icon(
+                              SolarIconsOutline.closeCircle,
+                              size: 18.r(context),
+                            ),
                             onPressed: () {
                               _controller.clear();
                               widget.onSearchChanged?.call('');
@@ -101,7 +105,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 ),
                 child: Center(
                   child: Icon(
-                    Icons.arrow_forward_ios,
+                    SolarIconsOutline.arrowRight,
                     size: 18.r(context),
                     color: AppColors.dark,
                   ),

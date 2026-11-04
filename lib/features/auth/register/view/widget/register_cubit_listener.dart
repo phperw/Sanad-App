@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanad/core/routing/router.dart';
@@ -48,7 +49,7 @@ void _showSuccessCard(BuildContext context, String fullName) {
 
   entry = OverlayEntry(
     builder: (_) => _ToastCard(
-      icon: Icons.check_circle_rounded,
+      icon: SolarIconsOutline.checkCircle,
       iconColor: AppColors.primaryColor,
       backgroundColor: AppColors.lightGreenishWhite,
       borderColor: AppColors.primaryColor,
@@ -67,7 +68,7 @@ void _showErrorCard(BuildContext context, String message) {
 
   entry = OverlayEntry(
     builder: (_) => _ToastCard(
-      icon: Icons.error_rounded,
+      icon: SolarIconsOutline.dangerTriangle,
       iconColor: AppColors.errorColor,
       backgroundColor: const Color(0xFFFFF0F0),
       borderColor: AppColors.errorColor,

@@ -12,6 +12,7 @@ import '../../features/campaign/view/campaign_details_screen.dart';
 import '../../features/home/view/widget/sos_active_screen.dart';
 import '../../features/home/view/widget/sos_sending_screen.dart';
 import '../../features/home/view/widget/sos_success_screen.dart';
+import '../../features/missions/view/mission_details_screen.dart';
 import '../../features/report/campaign_report_screen.dart';
 import '../../features/report_success_delivery/widgets/report_success_screen.dart';
 import '../../features/success_checkin/success_checkin_screen.dart';
@@ -36,6 +37,7 @@ class AppRouter {
   static const kSosSending = '/sosSending';
   static const kSosActive = '/sosActive';
   static const kSosSuccess = '/sosSuccess';
+  static const kMissionDetails = '/mission/:missionId';
 
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -55,6 +57,16 @@ class AppRouter {
       ),
       GoRoute(path: kforget, builder: (context, state) => const ForgetView()),
       GoRoute(path: kmain, builder: (context, state) => const MainScreen()),
+      GoRoute(
+        path: kMissionDetails,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => MissionDetailsScreen(
+          missionId: int.parse(state.pathParameters['missionId']!),
+          onReportSubmitted: state.extra is VoidCallback
+              ? state.extra as VoidCallback
+              : null,
+        ),
+      ),
       GoRoute(
         path: kAttendanceConfirmation,
         parentNavigatorKey: _rootNavigatorKey,

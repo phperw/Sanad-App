@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class ReportHeaderCardWidget extends StatelessWidget {
   const ReportHeaderCardWidget({super.key});
@@ -49,7 +50,7 @@ class ReportHeaderCardWidget extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          Icons.location_on_outlined,
+                          SolarIconsOutline.mapPoint,
                           size: 14.r(context),
                           color: AppColors.gray,
                         ),
@@ -62,7 +63,7 @@ class ReportHeaderCardWidget extends StatelessWidget {
                         ),
                         horizontalSpace(context, width: 12),
                         Icon(
-                          Icons.access_time,
+                          SolarIconsOutline.clockCircle,
                           size: 14.r(context),
                           color: AppColors.gray,
                         ),

@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class SuccessSummaryCardWidget extends StatelessWidget {
   const SuccessSummaryCardWidget({super.key});
@@ -28,7 +29,7 @@ class SuccessSummaryCardWidget extends StatelessWidget {
               context,
               'وقت التسجيل',
               '10:23 AM',
-              Icons.access_time,
+              SolarIconsOutline.clockCircle,
               isDark,
             ),
             Divider(
@@ -40,7 +41,7 @@ class SuccessSummaryCardWidget extends StatelessWidget {
               context,
               'موقع الحملة',
               'منطقة أكتوبر السكنية',
-              Icons.location_on_outlined,
+              SolarIconsOutline.mapPoint,
               isDark,
             ),
             Divider(
@@ -52,7 +53,7 @@ class SuccessSummaryCardWidget extends StatelessWidget {
               context,
               'نقاط مكتسبة',
               '+50 نقطة',
-              Icons.star,
+              SolarIconsOutline.star,
               isDark,
               valueColor: const Color(0xFFF59E0B),
               iconColor: const Color(0xFFF59E0B),

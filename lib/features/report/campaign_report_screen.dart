@@ -7,6 +7,7 @@ import 'widgets/campaign_rating_widget.dart';
 import 'widgets/photo_upload_widget.dart';
 import 'widgets/report_actions_widget.dart';
 import 'widgets/report_header_card_widget.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class CampaignReportScreen extends StatelessWidget {
   const CampaignReportScreen({super.key});
@@ -29,7 +30,7 @@ class CampaignReportScreen extends StatelessWidget {
         ),
         leading: IconButton(
           icon: Icon(
-            Icons.arrow_back_ios,
+            SolarIconsOutline.arrowRight,
             color: onSurface,
             size: 20.r(context),
           ),

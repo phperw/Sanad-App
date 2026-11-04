@@ -55,6 +55,7 @@ class LeaderboardCardWidget extends StatelessWidget {
           imageUrl: u.avatarUrl,
           isCurrentUser: false,
           pointsColor: _pointsColor(false, u.rank),
+          volunteerTitle: u.volunteerTitle,
         ),
       ),
       LeaderboardEntry(
@@ -64,6 +65,7 @@ class LeaderboardCardWidget extends StatelessWidget {
         imageUrl: currentUser.avatarUrl,
         isCurrentUser: true,
         pointsColor: AppColors.primaryColor,
+        volunteerTitle: currentUser.volunteerTitle,
       ),
     ];
 

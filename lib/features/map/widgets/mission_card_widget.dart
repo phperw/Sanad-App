@@ -6,6 +6,7 @@ import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/widgets/app_button.dart';
 import '../../../core/routing/router.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class MissionCardWidget extends StatelessWidget {
   final String title;
@@ -21,41 +22,61 @@ class MissionCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
-      margin: context.responsivePadding(bottom: 12),
-      padding: context.responsivePadding(all: 16),
+      margin: context.responsivePadding(bottom: 10),
+      padding: context.responsivePadding(horizontal: 14, vertical: 13),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(16.r(context)),
-        border: Border.all(color: Colors.grey.shade100, width: 2),
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(18.r(context)),
+        border: Border.all(color: AppColors.borderThemed(context)),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          Container(
+            width: 42.r(context),
+            height: 42.r(context),
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(13.r(context)),
+            ),
+            child: Icon(
+              SolarIconsOutline.handHeart,
+              color: AppColors.primaryColor,
+              size: 22.r(context),
+            ),
+          ),
+          SizedBox(width: 11.w(context)),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
                   title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyles.cairoBold32Dark(
                     context,
-                  ).copyWith(fontSize: 14.sp(context)),
+                  ).copyWith(fontSize: 13.sp(context)),
                 ),
-                verticalSpace(context, height: 4),
+                SizedBox(height: 3.h(context)),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Icon(
-                      Icons.location_on_outlined,
+                      SolarIconsOutline.mapPoint,
                       size: 14.r(context),
                       color: AppColors.gray,
                     ),
                     horizontalSpace(context, width: 4),
                     Text(
                       distance,
-                      style: TextStyles.cairoRegular14Muted(
-                        context,
-                      ).copyWith(fontSize: 12.sp(context)),
+                      style: TextStyles.cairoRegular14Muted(context).copyWith(
+                        fontSize: 10.sp(context),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.62,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -64,12 +85,12 @@ class MissionCardWidget extends StatelessWidget {
           ),
           AppButton(
             text: 'تسجيل الحضور',
-            width: 110.w(context),
+            width: 90.w(context),
             height: 38.h(context),
-            borderRadius: 8,
+            borderRadius: 14,
             buttonColor: isActive
                 ? AppColors.primaryColor
-                : Colors.grey.shade200,
+                : theme.disabledColor,
             textStyle: TextStyle(
               color: isActive ? AppColors.white : AppColors.gray,
               fontSize: 12.sp(context),

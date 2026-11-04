@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class ReportStatsCardWidget extends StatelessWidget {
   const ReportStatsCardWidget({super.key});
@@ -29,7 +30,7 @@ class ReportStatsCardWidget extends StatelessWidget {
               onSurface,
               'نقاط مكتسبة',
               '+50 نقطة',
-              Icons.star,
+              SolarIconsOutline.star,
               const Color(0xFFF59E0B),
             ),
             Divider(height: 24.h(context), color: dividerColor, thickness: 1),
@@ -38,7 +39,7 @@ class ReportStatsCardWidget extends StatelessWidget {
               onSurface,
               'ساعات مضافة',
               '+2 ساعة',
-              Icons.access_time,
+              SolarIconsOutline.clockCircle,
               AppColors.primaryColor,
             ),
             Divider(height: 24.h(context), color: dividerColor, thickness: 1),
@@ -47,7 +48,7 @@ class ReportStatsCardWidget extends StatelessWidget {
               onSurface,
               'إجمالي نقاطك',
               '470 نقطة',
-              Icons.emoji_events_outlined,
+              SolarIconsOutline.medalStar,
               onSurface,
               isBold: true,
             ),

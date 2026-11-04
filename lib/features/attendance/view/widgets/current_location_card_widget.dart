@@ -4,6 +4,7 @@ import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import '../../../../core/constants/app_images.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class CurrentLocationCardWidget extends StatelessWidget {
   const CurrentLocationCardWidget({super.key});
@@ -51,7 +52,7 @@ class CurrentLocationCardWidget extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          Icons.check_circle_outline,
+                          SolarIconsOutline.checkCircle,
                           color: AppColors.primaryColor,
                           size: 16.r(context),
                         ),
@@ -75,7 +76,7 @@ class CurrentLocationCardWidget extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
-                    Icons.location_on_outlined,
+                    SolarIconsOutline.mapPoint,
                     color: AppColors.primaryColor,
                     size: 20.r(context),
                   ),

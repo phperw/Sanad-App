@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class ReportSuccessHeaderWidget extends StatelessWidget {
   const ReportSuccessHeaderWidget({super.key});
@@ -31,7 +32,7 @@ class ReportSuccessHeaderWidget extends StatelessWidget {
             ),
             child: Center(
               child: Icon(
-                Icons.send_rounded,
+                SolarIconsOutline.plain,
                 color: AppColors.white,
                 size: 45.r(context),
               ),

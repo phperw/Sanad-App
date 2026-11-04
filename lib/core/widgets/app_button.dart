@@ -27,33 +27,32 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final defaultStyle = TextStyles.cairoExtraBold18White(context);
+    final defaultStyle = TextStyles.cairoExtraBold18White(
+      context,
+    ).copyWith(fontSize: 16.sp(context));
+    final radius = borderRadius?.r(context) ?? 18.r(context);
 
     return Container(
       width: width ?? double.infinity,
-      height: height ?? 60.h(context),
+      height: height ?? 56.h(context),
       decoration: BoxDecoration(
         boxShadow:
             boxShadow ??
             const [
               BoxShadow(
-                color: AppColors.buttonShadow,
-                blurRadius: 20,
-                offset: Offset(0, 4),
+                color: Color(0x24188A55),
+                blurRadius: 18,
+                offset: Offset(0, 7),
               ),
             ],
-        borderRadius: BorderRadius.circular(
-          borderRadius?.r(context) ?? 16.r(context),
-        ),
+        borderRadius: BorderRadius.circular(radius),
       ),
       child: TextButton(
         style: TextButton.styleFrom(
           backgroundColor: buttonColor ?? AppColors.primaryColor,
-          padding: EdgeInsets.zero,
+          padding: EdgeInsets.symmetric(horizontal: 18.w(context)),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              borderRadius?.r(context) ?? 16.r(context),
-            ),
+            borderRadius: BorderRadius.circular(radius),
           ),
         ),
         onPressed: onPressed,

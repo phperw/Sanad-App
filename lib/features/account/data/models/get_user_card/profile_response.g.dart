@@ -17,6 +17,7 @@ ProfileData _$ProfileDataFromJson(Map<String, dynamic> json) => ProfileData(
   volunteer: ProfileVolunteer.fromJson(
     json['volunteer'] as Map<String, dynamic>,
   ),
+  volunteerTitle: volunteerTitleFromJson(json['volunteerTitle']),
   stats: ProfileStats.fromJson(json['stats'] as Map<String, dynamic>),
   leaderboard: ProfileLeaderboard.fromJson(
     json['leaderboard'] as Map<String, dynamic>,
@@ -41,6 +42,7 @@ ProfileVolunteer _$ProfileVolunteerFromJson(Map<String, dynamic> json) =>
       statusLabel: json['statusLabel'] as String?,
       memberSinceLabel: json['memberSinceLabel'] as String?,
       joinDate: json['joinDate'] as String,
+      volunteerTitle: volunteerTitleFromJson(json['volunteerTitle']),
     );
 
 ProfileStats _$ProfileStatsFromJson(Map<String, dynamic> json) => ProfileStats(
@@ -79,6 +81,7 @@ LeaderboardUser _$LeaderboardUserFromJson(Map<String, dynamic> json) =>
       totalHours: (json['totalHours'] as num).toInt(),
       completedCampaigns: (json['completedCampaigns'] as num).toInt(),
       reportsCount: (json['reportsCount'] as num).toInt(),
+      volunteerTitle: volunteerTitleFromJson(json['volunteerTitle']),
     );
 
 ProfileAchievements _$ProfileAchievementsFromJson(Map<String, dynamic> json) =>

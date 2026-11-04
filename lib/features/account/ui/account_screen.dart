@@ -20,7 +20,9 @@ import 'Widgets/stats_card_widget.dart';
 import 'Widgets/leaderboard_card_widget.dart';
 import 'Widgets/achievements_card_widget.dart';
 import 'Widgets/certificates_card_widget.dart';
+import 'Widgets/volunteer_title_badge.dart';
 import 'Widgets/theme_toggle.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 // ─── Fake data للـ skeleton ─────────────────────────────────────────────────
 
@@ -90,13 +92,36 @@ final _fakeCertificates = ProfileCertificates(count: 2, items: []);
 
 // ─── Screen ──────────────────────────────────────────────────────────────────
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
 
   @override
+  AccountScreenState createState() => AccountScreenState();
+}
+
+class AccountScreenState extends State<AccountScreen> {
+  late final AccountCubitCard _accountCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    _accountCubit = getIt<AccountCubitCard>()..getProfile();
+  }
+
+  void refreshProfile() {
+    _accountCubit.getProfile();
+  }
+
+  @override
+  void dispose() {
+    _accountCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<AccountCubitCard>()..getProfile(),
+    return BlocProvider.value(
+      value: _accountCubit,
       child: const _AccountView(),
     );
   }
@@ -167,6 +192,14 @@ class _AccountView extends StatelessWidget {
                         Text(
                           volunteer.fullName,
                           style: TextStyles.cairoBold20Dark(context),
+                        ),
+                        verticalSpace(context, height: 4),
+                        VolunteerTitleBadge(
+                          title:
+                              (state is AccountSuccessCard
+                                  ? state.data.profile.volunteerTitle
+                                  : null) ??
+                              volunteer.volunteerTitle,
                         ),
                         verticalSpace(context, height: 8),
                         ActiveVolunteerBadgeWidget(
@@ -265,7 +298,7 @@ class _LogoutButton extends StatelessWidget {
           await SharedPrefHelper.clearAll();
           if (context.mounted) context.go(AppRouter.kstart);
         },
-        icon: const Icon(Icons.logout_rounded, color: Colors.white),
+        icon: const Icon(SolarIconsOutline.logout_2, color: Colors.white),
         label: Text(
           'تسجيل الخروج',
           style: TextStyles.cairoBold14White(context),

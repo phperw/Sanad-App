@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_images.dart';
 import '../../../../core/helper/responsive_extensions.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class ChatHeader extends StatelessWidget {
   final String title;
@@ -13,29 +13,33 @@ class ChatHeader extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Row(
-        spacing: context.responsiveWidth(93),
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            margin: EdgeInsets.only(left: 16.w(context)),
-            width: 44.w(context),
-            height: 44.w(context),
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(12.r(context)),
-            ),
-            child: Center(
-              child: Image.asset(
-                width: 24.w(context),
-                Assets.imageNotifications,
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: Text(
+                title,
+                key: ValueKey(title),
+                textAlign: TextAlign.center,
+                style: TextStyles.cairoBold20DarkBlue(context).copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 19.sp(context),
+                ),
               ),
             ),
           ),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: Text(
-              title,
-              key: ValueKey(title),
-              style: TextStyles.cairoBold20DarkBlue(context),
+          Container(
+            width: 42.r(context),
+            height: 42.r(context),
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor.withValues(alpha: 0.1),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              SolarIconsOutline.bell,
+              color: AppColors.primaryColor,
+              size: 21.r(context),
             ),
           ),
         ],

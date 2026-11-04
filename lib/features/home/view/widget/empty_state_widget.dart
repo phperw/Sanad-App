@@ -16,28 +16,38 @@ class EmptyStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 24.h(context)),
+      padding: context.responsivePadding(horizontal: 16, vertical: 22),
       decoration: BoxDecoration(
-        color: AppColors.lightGreenishWhite,
-        borderRadius: BorderRadius.circular(12.r(context)),
-        border: Border.all(color: AppColors.borderColor, width: 1),
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(18.r(context)),
+        border: Border.all(color: AppColors.borderThemed(context)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: 32.sp(context),
-            color: AppColors.primaryColor.withOpacity(0.5),
+          Container(
+            width: 52.r(context),
+            height: 52.r(context),
+            decoration: BoxDecoration(
+              color: AppColors.primaryColor.withValues(alpha: 0.10),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              size: 26.r(context),
+              color: AppColors.primaryColor,
+            ),
           ),
           verticalSpace(context, height: 8),
           Text(
             message,
-            style: TextStyles.cairoMedium14Black(
-              context,
-            ).copyWith(color: AppColors.primaryColor),
+            textAlign: TextAlign.center,
+            style: TextStyles.cairoMedium14Black(context).copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.75),
+            ),
           ),
         ],
       ),

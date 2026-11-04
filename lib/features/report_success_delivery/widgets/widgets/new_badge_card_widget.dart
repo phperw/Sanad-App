@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class NewBadgeCardWidget extends StatelessWidget {
   const NewBadgeCardWidget({super.key});
@@ -66,7 +67,7 @@ class NewBadgeCardWidget extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                Icons.workspace_premium,
+                SolarIconsOutline.medalStar,
                 color: AppColors.white,
                 size: 32.r(context),
               ),

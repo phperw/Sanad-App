@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sanad/features/account/data/models/volunteer_title.dart';
 
 part 'leaderboard_response.g.dart';
 
@@ -52,6 +53,8 @@ class LeaderboardUser {
   final int totalHours;
   final int completedCampaigns;
   final int reportsCount;
+  @JsonKey(fromJson: volunteerTitleFromJson, toJson: volunteerTitleToJson)
+  final VolunteerTitle? volunteerTitle;
 
   const LeaderboardUser({
     required this.rank,
@@ -64,6 +67,7 @@ class LeaderboardUser {
     required this.totalHours,
     required this.completedCampaigns,
     required this.reportsCount,
+    this.volunteerTitle,
   });
 
   factory LeaderboardUser.fromJson(Map<String, dynamic> json) =>

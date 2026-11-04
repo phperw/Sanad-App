@@ -185,6 +185,20 @@ class HomeTask {
   factory HomeTask.fromJson(Map<String, dynamic> json) =>
       _$HomeTaskFromJson(json);
 
+  bool get isCompleted {
+    const completedStatuses = {
+      'COMPLETED',
+      'CHECKED_OUT',
+      'DONE',
+      'FINISHED',
+      'REPORT_SUBMITTED',
+      'REPORT_SENT',
+      'SUBMITTED',
+    };
+    return completedStatuses.contains(status.trim().toUpperCase()) ||
+        completedStatuses.contains(assignment.status.trim().toUpperCase());
+  }
+
   String get displayTime {
     final time = startTime;
     if (time == null || time.isEmpty) return date;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/text_styles.dart';
@@ -8,9 +7,9 @@ import '../../account/logic/theme_cubit.dart';
 import '../../account/ui/account_screen.dart';
 import '../../chats_and_community/ui/chats_and_community_screen.dart';
 import '../../home/view/home_screen.dart';
-import '../../../core/constants/app_images.dart';
 import '../../../core/helper/responsive_extensions.dart';
 import '../../map/view/map_home_screen.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -22,23 +21,25 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int currentIndex = 0;
   final List<bool> _visited = [true, false, false, false];
+  final GlobalKey<AccountScreenState> _accountScreenKey =
+      GlobalKey<AccountScreenState>();
 
-  final List<Widget> _screens = const [
-    HomeScreen(),
-    MapScreen(),
-    ChatsAndCommunityScreen(),
-    AccountScreen(),
+  late final List<Widget> _screens = [
+    HomeScreen(
+      onMissionReportSubmitted: () {
+        _accountScreenKey.currentState?.refreshProfile();
+      },
+    ),
+    const MapScreen(),
+    const ChatsAndCommunityScreen(),
+    AccountScreen(key: _accountScreenKey),
   ];
 
-  Widget _svgIcon(BuildContext context, String path, bool isActive) {
-    return SvgPicture.asset(
-      path,
-      width: 22.w(context),
-      height: 22.h(context),
-      colorFilter: ColorFilter.mode(
-        isActive ? AppColors.primaryColor : AppColors.gray,
-        BlendMode.srcIn,
-      ),
+  Widget _solarIcon(BuildContext context, IconData icon, bool isActive) {
+    return Icon(
+      icon,
+      size: 22.r(context),
+      color: isActive ? AppColors.primaryColor : AppColors.gray,
     );
   }
 
@@ -84,10 +85,12 @@ class _MainScreenState extends State<MainScreen> {
                   color: AppColors.gray,
                   activeColor: AppColors.primaryColor,
                   iconSize: 22.sp(context),
-                  tabBackgroundColor: AppColors.primaryColor.withOpacity(0.08),
+                  tabBackgroundColor: AppColors.primaryColor.withValues(
+                    alpha: 0.09,
+                  ),
                   tabBorderRadius: 50.r(context),
                   tabActiveBorder: Border.all(
-                    color: AppColors.primaryColor.withOpacity(0.3),
+                    color: AppColors.primaryColor.withValues(alpha: 0.2),
                     width: 1,
                   ),
                   padding: EdgeInsets.symmetric(
@@ -100,39 +103,46 @@ class _MainScreenState extends State<MainScreen> {
                       _visited[index] = true;
                       currentIndex = index;
                     });
+                    if (index == 3) {
+                      _accountScreenKey.currentState?.refreshProfile();
+                    }
                   },
                   tabs: [
                     GButton(
-                      icon: Icons.home_outlined,
-                      leading: _svgIcon(
+                      icon: SolarIconsOutline.home,
+                      leading: _solarIcon(
                         context,
-                        Assets.home,
+                        SolarIconsOutline.home,
                         currentIndex == 0,
                       ),
                       text: 'الرئيسية',
                       textStyle: TextStyles.cairoBold10Primary(context),
                     ),
                     GButton(
-                      icon: Icons.map_outlined,
-                      leading: _svgIcon(context, Assets.map, currentIndex == 1),
+                      icon: SolarIconsOutline.map,
+                      leading: _solarIcon(
+                        context,
+                        SolarIconsOutline.map,
+                        currentIndex == 1,
+                      ),
                       text: 'الخريطة',
                       textStyle: TextStyles.cairoBold10Primary(context),
                     ),
                     GButton(
-                      icon: Icons.chat_bubble_outline,
-                      leading: _svgIcon(
+                      icon: SolarIconsOutline.chatRoundLine,
+                      leading: _solarIcon(
                         context,
-                        Assets.messageCircle,
+                        SolarIconsOutline.chatRoundLine,
                         currentIndex == 2,
                       ),
                       text: 'محادثاتي',
                       textStyle: TextStyles.cairoBold10Primary(context),
                     ),
                     GButton(
-                      icon: Icons.person_outline,
-                      leading: _svgIcon(
+                      icon: SolarIconsOutline.user,
+                      leading: _solarIcon(
                         context,
-                        Assets.account,
+                        SolarIconsOutline.user,
                         currentIndex == 3,
                       ),
                       text: 'حسابي',

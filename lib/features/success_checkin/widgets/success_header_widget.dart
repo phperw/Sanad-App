@@ -3,6 +3,7 @@ import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:sanad/core/helper/spacing.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
+import 'package:solar_icons/solar_icons.dart';
 
 class SuccessHeaderWidget extends StatelessWidget {
   const SuccessHeaderWidget({super.key});
@@ -29,7 +30,7 @@ class SuccessHeaderWidget extends StatelessWidget {
           ),
           child: Center(
             child: Icon(
-              Icons.check,
+              SolarIconsOutline.checkCircle,
               color: AppColors.white,
               size: 50.r(context),
             ),

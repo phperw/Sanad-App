@@ -256,6 +256,7 @@
 // }
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:solar_icons/solar_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
@@ -343,7 +344,7 @@ class _SosSuccessScreenState extends State<SosSuccessScreen>
                           ],
                         ),
                         child: Icon(
-                          Icons.check_rounded,
+                          SolarIconsOutline.checkCircle,
                           color: Colors.white,
                           size: 52.sp(context),
                         ),

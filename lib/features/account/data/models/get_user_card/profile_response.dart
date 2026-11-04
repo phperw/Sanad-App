@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sanad/features/account/data/models/volunteer_title.dart';
 
 part 'profile_response.g.dart';
 
@@ -25,6 +26,8 @@ class ProfileResponse {
 @JsonSerializable()
 class ProfileData {
   final ProfileVolunteer volunteer;
+  @JsonKey(fromJson: volunteerTitleFromJson, toJson: volunteerTitleToJson)
+  final VolunteerTitle? volunteerTitle;
   final ProfileStats stats;
   final ProfileLeaderboard leaderboard;
   final ProfileAchievements achievements;
@@ -32,6 +35,7 @@ class ProfileData {
 
   const ProfileData({
     required this.volunteer,
+    this.volunteerTitle,
     required this.stats,
     required this.leaderboard,
     required this.achievements,
@@ -56,6 +60,8 @@ class ProfileVolunteer {
   final String? statusLabel;
   final String? memberSinceLabel;
   final String joinDate;
+  @JsonKey(fromJson: volunteerTitleFromJson, toJson: volunteerTitleToJson)
+  final VolunteerTitle? volunteerTitle;
 
   const ProfileVolunteer({
     required this.id,
@@ -68,6 +74,7 @@ class ProfileVolunteer {
     this.statusLabel,
     this.memberSinceLabel,
     required this.joinDate,
+    this.volunteerTitle,
   });
 
   factory ProfileVolunteer.fromJson(Map<String, dynamic> json) =>
@@ -132,6 +139,8 @@ class LeaderboardUser {
   final int totalHours;
   final int completedCampaigns;
   final int reportsCount;
+  @JsonKey(fromJson: volunteerTitleFromJson, toJson: volunteerTitleToJson)
+  final VolunteerTitle? volunteerTitle;
 
   const LeaderboardUser({
     required this.rank,
@@ -144,6 +153,7 @@ class LeaderboardUser {
     required this.totalHours,
     required this.completedCampaigns,
     required this.reportsCount,
+    this.volunteerTitle,
   });
 
   factory LeaderboardUser.fromJson(Map<String, dynamic> json) =>
