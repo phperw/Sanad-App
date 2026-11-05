@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sanad/core/constants/app_images.dart';
 import 'package:sanad/core/theme/app_colors.dart';
 import 'package:sanad/core/theme/text_styles.dart';
 import 'package:sanad/core/helper/responsive_extensions.dart';
 import 'package:solar_icons/solar_icons.dart';
+import '../../../../core/routing/router.dart';
 import '../../data/models/home_response.dart';
 
 class HeaderSection extends StatelessWidget {
@@ -89,7 +91,12 @@ class HeaderSection extends StatelessWidget {
               shape: const CircleBorder(),
               child: InkWell(
                 customBorder: const CircleBorder(),
-                onTap: () {},
+                onTap: () {
+          
+                 
+                    context.push(AppRouter.kNotifications);
+          
+                },
                 child: SizedBox(
                   width: 44.r(context),
                   height: 44.r(context),

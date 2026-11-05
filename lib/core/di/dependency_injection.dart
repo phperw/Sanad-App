@@ -29,6 +29,8 @@ import '../../features/home/logic/OSO_Cubit/sos_cubit.dart';
 import '../../features/home/logic/home_cubit.dart';
 import '../../features/missions/data/mission_repository.dart';
 import '../../features/missions/logic/mission_cubit.dart';
+import '../../features/notifications/data/notifications_repository.dart';
+import '../../features/notifications/logic/notifications_cubit.dart';
 import '../helper/shared_pref_helper.dart';
 
 final getIt = GetIt.instance;
@@ -79,4 +81,13 @@ Future<void> setupDependencies() async {
   getIt.registerLazySingleton(() => SosApiService(getIt()));
   getIt.registerLazySingleton(() => SosRepository(getIt()));
   getIt.registerFactory(() => SosCubit(getIt()));
+
+  // Notifications
+getIt.registerLazySingleton<NotificationsRepository>(
+  () => NotificationsRepository(getIt()),
+);
+
+getIt.registerFactory<NotificationsCubit>(
+  () => NotificationsCubit(getIt()),
+);
 }

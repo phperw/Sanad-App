@@ -1,10 +1,15 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:sanad/features/auth/forget/forget_view.dart';
 import 'package:sanad/features/auth/register/view/register_screen.dart';
 import 'package:sanad/features/onboarding/ui/on_boarding_screen.dart';
 import 'package:sanad/features/splash/ui/splash_screen.dart';
 import 'package:sanad/features/main/view/main_screen.dart';
+
+import '../../core/di/dependency_injection.dart';
 import '../../features/account/ui/Widgets/leaderboard/full_leader_board_screen.dart';
 import '../../features/attendance/view/attendance_confirmation_screen.dart';
 import '../../features/auth/login/view/login_screen.dart';
@@ -13,6 +18,8 @@ import '../../features/home/view/widget/sos_active_screen.dart';
 import '../../features/home/view/widget/sos_sending_screen.dart';
 import '../../features/home/view/widget/sos_success_screen.dart';
 import '../../features/missions/view/mission_details_screen.dart';
+import '../../features/notifications/logic/notifications_cubit.dart';
+import '../../features/notifications/view/notifications_screen.dart';
 import '../../features/report/campaign_report_screen.dart';
 import '../../features/report_success_delivery/widgets/report_success_screen.dart';
 import '../../features/success_checkin/success_checkin_screen.dart';
@@ -38,6 +45,7 @@ class AppRouter {
   static const kSosActive = '/sosActive';
   static const kSosSuccess = '/sosSuccess';
   static const kMissionDetails = '/mission/:missionId';
+  static const kNotifications = '/notifications';
 
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -45,18 +53,30 @@ class AppRouter {
     navigatorKey: _rootNavigatorKey,
     initialLocation: kstart,
     routes: [
-      GoRoute(path: kstart, builder: (context, state) => const SplashScreen()),
+      GoRoute(
+        path: kstart,
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: konboarding,
         builder: (context, state) => const OnBoardingScreen(),
       ),
-      GoRoute(path: klogin, builder: (context, state) => const LoginScreen()),
+      GoRoute(
+        path: klogin,
+        builder: (context, state) => const LoginScreen(),
+      ),
       GoRoute(
         path: kregister,
         builder: (context, state) => const RegisterScreen(),
       ),
-      GoRoute(path: kforget, builder: (context, state) => const ForgetView()),
-      GoRoute(path: kmain, builder: (context, state) => const MainScreen()),
+      GoRoute(
+        path: kforget,
+        builder: (context, state) => const ForgetView(),
+      ),
+      GoRoute(
+        path: kmain,
+        builder: (context, state) => const MainScreen(),
+      ),
       GoRoute(
         path: kMissionDetails,
         parentNavigatorKey: _rootNavigatorKey,
@@ -70,47 +90,66 @@ class AppRouter {
       GoRoute(
         path: kAttendanceConfirmation,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const AttendanceConfirmationScreen(),
+        builder: (context, state) =>
+            const AttendanceConfirmationScreen(),
       ),
       GoRoute(
         path: kCampaignDetails,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const CampaignDetailsScreen(),
+        builder: (context, state) =>
+            const CampaignDetailsScreen(),
       ),
       GoRoute(
         path: kSuccessCheckin,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const SuccessCheckinScreen(),
+        builder: (context, state) =>
+            const SuccessCheckinScreen(),
       ),
       GoRoute(
         path: kCampaignReport,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const CampaignReportScreen(),
+        builder: (context, state) =>
+            const CampaignReportScreen(),
       ),
       GoRoute(
         path: kReportSuccess,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const ReportSuccessScreen(),
+        builder: (context, state) =>
+            const ReportSuccessScreen(),
       ),
       GoRoute(
         path: kFullLeaderBoardScreen,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const FullLeaderBoardScreen(),
+        builder: (context, state) =>
+            const FullLeaderBoardScreen(),
       ),
       GoRoute(
         path: kSosSending,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const SosSendingScreen(),
+        builder: (context, state) =>
+            const SosSendingScreen(),
       ),
       GoRoute(
         path: kSosActive,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const SosActiveScreen(),
+        builder: (context, state) =>
+            const SosActiveScreen(),
       ),
       GoRoute(
         path: kSosSuccess,
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const SosSuccessScreen(),
+        builder: (context, state) =>
+            const SosSuccessScreen(),
+      ),
+
+      // Notifications
+      GoRoute(
+        path: kNotifications,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => BlocProvider(
+          create: (_) => getIt<NotificationsCubit>(),
+          child: const NotificationsScreen(),
+        ),
       ),
     ],
   );
